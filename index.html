@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <button id="post-example">Send Request</button>
+    </body>
+
+    <script>
+        var button = document.querySelector('#post-example')
+        button.addEventListener('click', function(e) {
+            e.preventDefault()
+
+            fetch('/sample', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({value1: 'data', value2: 'moredata'})
+            }).then((response) => response.json()).then((data) => {
+                console.log(data)
+            }).catch((error) => {
+                console.error(error)
+            })
+        })
+    </script>
+</html>
