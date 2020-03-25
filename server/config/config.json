@@ -1,0 +1,5 @@
+{
+    "PORT": 3000,
+    "MONGODB_URI": "mongodb://localhost:27017/capstone",
+    "JWT_SECRET": "aw8d7a9wbnd7a9w8d7aw9"
+}

@@ -6,25 +6,71 @@
         <title>Document</title>
     </head>
     <body>
-        <button id="post-example">Send Request</button>
+        <div id="signup">
+            <input type="email" id="new-email" placeholder="New User Email" autocomplete="off">
+            <input type="text" id="new-username" placeholder="New User Username" autocomplete="off">
+            <input type="password" id="new-password" placeholder="New User Password" autocomplete="new-password">
+            <button id="post-user">Create User</button>
+        </div>
+
+        <div id="login" style="margin-top: 50px;">
+            <input type="email" id="login-email" placeholder="Email" autocomplete="off">
+            <input type="password" id="login-password" placeholder="Password" autocomplete="off">
+            <button id="post-login">Login</button>
+        </div>
     </body>
 
     <script>
-        var button = document.querySelector('#post-example')
-        button.addEventListener('click', function(e) {
+        console.log(document.cookie)
+
+        var newUserButton = document.querySelector('#post-user')
+        newUserButton.addEventListener('click', function(e) {
             e.preventDefault()
 
-            fetch('/sample', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({value1: 'data', value2: 'moredata'})
-            }).then((response) => response.json()).then((data) => {
-                console.log(data)
-            }).catch((error) => {
-                console.error(error)
-            })
+            var email = document.querySelector('#new-email').value
+            var username = document.querySelector('#new-username').value
+            var password = document.querySelector('#new-password').value
+
+            if (email && username && password) {
+                fetch('/user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({email, username, password})
+                }).then((response) => response.json()).then((data) => {
+                    console.log(data)
+                }).catch((error) => {
+                    console.error(error)
+                })
+            } else {
+                // Maybe eventually use this section to display a message on screen to fill out all information
+            }
+        })
+
+        var loginButton = document.querySelector('#post-login')
+        loginButton.addEventListener('click', function(e) {
+            e.preventDefault()
+
+            var email = document.querySelector('#login-email').value
+            var password = document.querySelector('#login-password').value
+
+            if (email && password) {
+                fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({email, password})
+                }).then((response) => response.json()).then((data) => {
+                    console.log(data)
+                    document.cookie = `authentication=${data.token}`
+                }).catch((error) => {
+                    console.error(error)
+                })
+            } else {
+                // Maybe eventually use this section to display a message on screen to fill out all information
+            }
         })
     </script>
 </html>
