@@ -1,5 +1,3 @@
-const fs = require('fs')
-
 const {Users} = require('./../../database/users.js')
 
 module.exports = app => {
@@ -19,10 +17,7 @@ module.exports = app => {
             })
         }
 
-        // Read the HTML file to send back
-        const page = fs.readFileSync('index.html', {encoding: 'utf-8'})
-
         // Return a 200 OK status and send the html page
-        return res.status(200).send(page)
+        return res.render('pages/home/home.hbs')
     })
 }
