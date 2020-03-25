@@ -15,7 +15,7 @@ module.exports = app => {
         user.save().then(() => {
             return res.status(200).send({error: false})
         }).catch(e => {
-            return res.status(400).send(e)
+            return res.status(400).send({error: true, message: e})
         })
     })
 
