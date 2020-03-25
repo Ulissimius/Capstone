@@ -1,9 +1,6 @@
 // Load environment variable config
 require('./config/config.js')
 
-// Load native Node modules
-const fs = require('fs')
-
 // Load 3rd party NPM Modules
 const express = require('express')
 const cookieParser = require('cookie-parser')
