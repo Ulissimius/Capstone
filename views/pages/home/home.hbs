@@ -6,7 +6,6 @@
         <title>Document</title>
         <link rel="stylesheet" href="/pages/home/home.css">
     </head>
-
     <script>
     function includeHTML() {
     var z, i, elmnt, file, xhttp;
@@ -36,7 +35,6 @@
     }
     }
     </script> 
-
     <body>
         
         <div id="container">
@@ -52,7 +50,9 @@
                 <input type="password" id="login-password" placeholder="Password" autocomplete="off">
                 <button id="post-login">Login</button>
             </div>
-            <div w3-include-html="/views/pages/list/list.html"></div>
+            <div>
+                <a href="/pages/list/list.html">Take me away</a>
+            </div>
         </div>
 
         <script src="/pages/home/home.js"></script>
