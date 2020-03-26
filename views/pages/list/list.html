@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <link rel="stylesheet" href="/pages/home/home.css">
+        <link rel="stylesheet" href="/pages/list/list.css">
     </head>
     <script>
     function includeHTML() {
@@ -38,20 +39,12 @@
     <body>
         
         <div id="container">
-            <div id="signup">
-                <input type="email" id="new-email" placeholder="New User Email" autocomplete="off">
-                <input type="text" id="new-username" placeholder="New User Username" autocomplete="off">
-                <input type="password" id="new-password" placeholder="New User Password" autocomplete="new-password">
-                <button id="post-user">Create User</button>
-            </div>
-
-            <div id="login">
-                <input type="email" id="login-email" placeholder="Email" autocomplete="off">
-                <input type="password" id="login-password" placeholder="Password" autocomplete="off">
-                <button id="post-login">Login</button>
-            </div>
-            <div>
-                <a href="/pages/list/list.html">Take me away</a>
+            <!-- <div w3-include-html="../../partials/header.hbs"> -->
+            <div id="list-container">
+                <div w3-include-html="../../partials/header.hbs"></div>
+                <div w3-include-html="../../partials/ingredients.hbs"></div>
+                <div w3-include-html="../../partials/recipe.hbs"></div>
+                <div w3-include-html="../../partials/footer.hbs"></div>
             </div>
         </div>
 
