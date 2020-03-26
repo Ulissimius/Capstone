@@ -27,13 +27,6 @@ hbs.localsAsTemplateData(app)
 // Tell the server that it should use Handlebars to render pages
 app.set('view engine', 'hbs')
 
-app.engine( 'hbs', hbs({
-    extname: 'hbs',
-    defaultView: 'default',
-    layoutsDir: __dirname + '/views/pages/',
-    partialsDir: __dirname + '/views/partials/'
-}))
-
 // Tell the server where static files can be found
 app.use(express.static(staticDir))
 
