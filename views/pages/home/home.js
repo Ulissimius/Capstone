@@ -1,5 +1,3 @@
-console.log(document.cookie)
-
 var newUserButton = document.querySelector('#post-user')
 newUserButton.addEventListener('click', function(e) {
     e.preventDefault()
