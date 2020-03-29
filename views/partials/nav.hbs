@@ -1,0 +1,10 @@
+<nav>
+    <div id="nav-inner">
+        {{#if user}}
+            Welcome back, {{user.username}}
+        {{else}}
+            <button data-target="signup" class="nav-btn">Sign Up</button>
+            <button data-target="login" class="nav-btn">Login</button>
+        {{/if}}
+    </div>
+</nav>
