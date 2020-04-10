@@ -60,6 +60,7 @@ if (loginButton) {
             }).then((response) => response.json()).then((data) => {
                 console.log(data)
                 document.cookie = `authentication=${data.token}`
+                location.reload();
             }).catch((error) => {
                 console.error(error)
             })
