@@ -15,8 +15,17 @@ nav {
     opacity: 1;
 }
 
+#title{
+    width: 12%;
+}
+
 #navbtns{
     display: flex;
+    width: 100%;
+}
+
+.navlink{
+    width: 7%;
 }
 
 .navlink:link{
@@ -37,7 +46,7 @@ nav {
 
 .navbtns{
     top: 0px;
-    width: 100px;
+    width: 100%;
     height: 50px;
     background: #E8C563 0% 0% no-repeat padding-box;
     border-left: 1px solid #707070;
