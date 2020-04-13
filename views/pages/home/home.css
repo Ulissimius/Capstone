@@ -1,6 +1,14 @@
+/* Disables scrolling on the home page */
+html, body {
+    margin: 0; 
+    height: 100%; 
+    overflow: hidden
+}
+
 #container {
     display: flex;
     justify-content: center;
+    height: 100vh;
 }
 
 .home-modal div{
@@ -17,8 +25,7 @@
 .home-modal {
     display: flex;
     width: 380px;
-    min-height: 200px;
-    z-index: 2;
+    height: 380px;
     background: rgb(151, 118, 77);
     border-radius: 6px;
     box-shadow: 2px 2px 5px rgb(180, 149, 110);
@@ -51,12 +58,14 @@
     min-width: 75px;
 }
 
+/* Add this to global later */
 footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     background: rgb(151, 118, 77);
-    color: white;
-    text-align: center;
-    }
+    color: bisque;
+    height: 30px;
+    padding: 5px;
+}
