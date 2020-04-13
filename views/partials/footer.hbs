@@ -1,9 +1,10 @@
 <footer>
-
+    <div>
+        <p>Made by: Mathew Pavao &amp; Shawn DeArmitt</p>
+    </div>
 </footer>
 
-{{#if user}}
-    <div id="signup" class="modal">
+    {{!-- <div id="signup" class="modal">
         <input type="email" id="new-email" class="modal-input" placeholder="New User Email" autocomplete="off">
         <input type="text" id="new-username" class="modal-input" placeholder="New User Username" autocomplete="off">
         <input type="password" id="new-password" class="modal-input" placeholder="New User Password" autocomplete="new-password">
@@ -16,23 +17,7 @@
         <input type="password" id="login-password" class="modal-input" placeholder="Password" autocomplete="off">
         <button id="post-login" class="nav-btn">Login</button>
         <button class="nav-btn modal-cancel">Cancel</button>
-    </div> 
-{{else}}
-    <div id="signup" class="modal">
-        <input type="email" id="new-email" class="modal-input" placeholder="New User Email" autocomplete="off">
-        <input type="text" id="new-username" class="modal-input" placeholder="New User Username" autocomplete="off">
-        <input type="password" id="new-password" class="modal-input" placeholder="New User Password" autocomplete="new-password">
-        <button id="post-user" class="nav-btn">Sign Up</button>
-        <button class="nav-btn modal-cancel">Cancel</button>
-    </div>
-
-    <div id="login" class="modal">
-        <input type="email" id="login-email" class="modal-input" placeholder="Email" autocomplete="off">
-        <input type="password" id="login-password" class="modal-input" placeholder="Password" autocomplete="off">
-        <button id="post-login" class="nav-btn">Login</button>
-        <button class="nav-btn modal-cancel">Cancel</button>
-    </div>
-{{/if}}
+    </div> --}}
 
 <script src="/assets/global.js"></script>
 <script src="{{assetUrl}}.js"></script>

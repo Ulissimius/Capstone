@@ -5,11 +5,30 @@
     <body>
         {{> nav}}
 
+        {{#if user}}
+        {{!-- Redirect the user to the list page if they are logged in --}}
+        <script> window.location.replace("/list") </script>
+        {{else}}
         <div id="container">
-            <div>
-                <a href="/list">Take me away</a>
+            <div id="signup-home" class="home-modal">
+                <div>
+                    <h2>Login</h2>
+                    <input type="email" id="login-email" class="home-modal-input" placeholder="Email" autocomplete="off">
+                    <input type="password" id="login-password" class="home-modal-input" placeholder="Password" autocomplete="off">
+                    <button id="post-login" class="home-nav-btn">Login</button>
+                </div>
+
+                <div>
+                    <h3>Or</h3>
+                    <h2>Sign Up</h2>
+                    <input type="email" id="new-email" class="home-modal-input" placeholder="New User Email" autocomplete="off">
+                    <input type="text" id="new-username" class="home-modal-input" placeholder="New User Username" autocomplete="off">
+                    <input type="password" id="new-password" class="home-modal-input" placeholder="New User Password" autocomplete="new-password">
+                    <button id="post-user" class="home-nav-btn">Sign Up</button>
+                </div>
             </div>
         </div>
+        {{/if}}
 
         {{> footer}}
     </body>
