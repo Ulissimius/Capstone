@@ -67,4 +67,37 @@ module.exports = app => {
             })
         }
     })
+
+    app.get('/account', (req, res) => {
+        console.log('GET Request Received at Account Page')
+
+        const authToken = req.cookies.authentication
+
+        if (authToken) {
+            Users.findByToken('login', authToken).then(user => {
+                if (!user) {
+                    console.log('No User Found')
+                    // Return a 200 OK status and send the html page
+                    return res.render('pages/account/account.hbs', {
+                        assetUrl: '/pages/account/account',
+                        user: null
+                    })
+                } else {
+                    console.log(`Visitor is Logged In as ${user.username}`)
+                    // Return a 200 OK status and send the html page
+                    return res.render('pages/account/account.hbs', {
+                        assetUrl: '/pages/account/account',
+                        user: user
+                    })
+                }
+            })
+        } else {
+            console.log('User Not Logged In')
+            // Return a 200 OK status and send the html page
+            return res.render('pages/account/account.hbs', {
+                assetUrl: '/pages/account/account',
+                user: null
+            })
+        }
+    })
 }
