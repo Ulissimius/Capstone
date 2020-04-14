@@ -59,15 +59,51 @@ nav {
     color: #707070;
 }
 
-/* nav {
-    box-shadow: 2px 2px 5px rgb(180, 149, 110);
-    opacity: 0.9;
-    background: rgb(151, 118, 77);
-    height: 60px;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-} */
+.logout{
+    width: 35%;
+}
+
+#logoutinfo{
+    opacity: 1;
+    padding-top: 5%;
+    text-align: center;
+    font: 17px/20px Segoe UI;
+    letter-spacing: 0px;
+    display: flex;
+    color: #707070;
+}
+
+.logout:link{
+    text-decoration: none;
+}
+
+.logout:visited{
+    text-decoration: none;
+}
+
+.logout:hover{
+    text-decoration: none;
+}
+
+.logout:active{
+    text-decoration: none;
+}
+
+.userinfo{
+    opacity: 1;
+    width: 15%;
+    text-align: center;
+    font: 17px/20px Segoe UI;
+    letter-spacing: 0px;
+    display: flex;
+    color: #707070;
+}
+
+#logininfo{
+    width: 65%;
+    margin-top: 3px;
+    margin-right: 3px;
+}
 
 #titletext {
     text-align: center;
@@ -77,27 +113,6 @@ nav {
     color: #707070;
     opacity: 1;
 }
-
-/* #nav-inner {
-    margin: 0 auto;
-    height: 60px;
-    max-width: 85vw;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.nav-btn {
-    height: 30px;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 4px;
-    margin: 0 6px;
-    min-width: 75px;
-} */
 
 .nav-btn:hover {
     cursor: pointer;
