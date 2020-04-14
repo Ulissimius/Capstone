@@ -5,10 +5,23 @@
     <body>
         {{> nav}}
 
-        <div id="container">
-            {{!-- Add a page view for a new user with no saved recipes --}}
-            {{!-- Add a page view for a user with saved recipes --}}
-        </div>
+        {{#unless user}}
+            {{!-- If user is not logged in they get sent back to the home page --}}
+            <script> window.location.replace("/") </script>
+        {{/unless}}
+
+            <div id="container">
+                {{!-- Add a page view for a new user with no saved recipes --}}
+                <div>
+                    <h1>No recipes found.</h1>
+                    <h3>Click here to create your first recipe!</h3>
+                    <div id="add-button">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                    </div>
+                </div>
+                {{!-- Add a page view for a user with saved recipes --}}
+            </div>
 
         {{> footer}}
     </body>
