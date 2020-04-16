@@ -1,3 +1,14 @@
+/* Search Index:
+#R1 - Local Global CSS
+#R2 - New Recipe Button
+#R3 - Select New Recipe Menu
+#R4 - Build New Recipe View
+#R5 - Recipe Thumbnail View
+#R6 - Existing Recipe View
+#R7 - Search/Filter Bar
+*/
+
+/* ********** #R1 - Local Global CSS ********** */
 .new-user {
     display: flex;
     /* justify-content: center; */
@@ -19,19 +30,18 @@
 #arrows {
     width: 300px;
     height: auto;
-    transform: rotate(180deg);
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
 }
 
-/* Create-New Button CSS */
+/* ********** #R2 - New Recipe Button ********** */
 #add-button {
-  display: flex; 
-  flex-direction: column;
-  align-items: center;
-  font-weight: bold;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
 }
 
 .button-text {
@@ -69,3 +79,41 @@
     top: 5px;
     left: 18px;
 }
+
+/* ********** #R3 - Select New Recipe Menu ********** */
+
+/* ********** #R4 - Build New Recipe View ********** */
+#nr-container {
+    display: flex;
+    flex-direction: column;
+    width: 1080px;
+    border: 2px solid black;
+    background: white;
+}
+
+#nr-he {
+    height: 200px;
+    border-bottom: 2px solid black;
+}
+
+#nr-in {
+    min-height: 100px;
+}
+
+#nr-di {
+    min-height: 100px;
+}
+
+#nr-no {
+    min-height: 100px;
+}
+
+#nr-nu {
+    min-height: 100px;
+}
+
+/* ********** #R5 - Recipe Thumbnail View ********** */
+
+/* ********** #R6 - Existing Recipe View ********** */
+
+/* ********** #R7 - Search/Filter Bar ********** */

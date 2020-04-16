@@ -12,22 +12,69 @@
             {{!-- <script> window.location.replace("/") </script> --}}
         {{/unless}}
 
-            <div id="container" class="new-user">
-                {{!-- Add a page view for a new user with no saved recipes --}}
-                <h1>No recipes found.</h1>
-                <span></span>
-                <h2>Click the button to create your first recipe!</h2>
-                <div id="add-button">
-                    <p class="button-text">Add New Recipe</p>
-                    <div class="button-frame">
-                        <span class="line"></span>
-                        <span class="line"></span>
-                    </div>
+        <div id="container" class="new-user">
+        {{#if user}} {{!--This is a temporary if to block out this code --}}
+            {{!-- Add a page view for a new user with no saved recipes --}}
+            <h1>No recipes found.</h1>
+            <span></span>
+            <h2>Click the button to create your first recipe!</h2>
+            <div id="add-button">
+                <p class="button-text">Add New Recipe</p>
+                <div class="button-frame">
+                    <span class="line"></span>
+                    <span class="line"></span>
                 </div>
-                <span></span>
-                <img src="../../assets/images/arrows.png" alt="arrows" id="arrows" draggable="false" >
-                {{!-- Add a page view for a user with saved recipes --}}
             </div>
+            <span></span>
+            <img src="/assets/images/arrows.png" alt="arrows" id="arrows" draggable="false">
+        {{/if}}
+
+            {{!-- Add a page view for a user with saved recipes --}}
+            {{!-- This view should pull from the database and use the info to display recipe cards --}}
+
+
+            {{!-- Add a page view for creating new recipes --}}
+            {{!-- This view should be similar to viewing saved recipes, but requier a URL or user input to fill out the data --}}
+
+            {{!-- Form for selecting URL or Create New Recipe --}}
+            <div></div>
+
+            {{!-- Form for creating new recipes --}}
+            <div id="nr-container">
+                <div id="nr-he">
+                    {{!-- Header area, Title, Picture(?), Maybe some other info --}}
+
+                </div>
+                <div id="nr-in">
+                    {{!-- List of ingredients --}}
+                    <h2>Ingredients</h2>
+                    <hr>
+
+                </div>
+                <div id="nr-di">
+                    {{!-- Recipe directions --}}
+                    <h2>Directions</h2>
+                    <hr>
+                    <hr>
+
+                </div>
+                <div id="nr-no">
+                    {{!-- Writers notes --}}
+                    <h3>Notes</h3>
+                    <hr>
+
+                </div>
+                <div id="nr-nu"> {{!-- Probably move this to the "View saved" page and leave it out of creating --}}
+                    {{!-- Nutrition info, no user input here --}}
+                    <h3>Nutrition Info</h3>
+
+                </div>
+            </div>
+
+            {{!-- Add a page view for viewing saved recipes --}}
+            
+            {{!-- This view should pull from the database to fill out the data --}}
+        </div>
 
         {{> footer}}
     </body>
