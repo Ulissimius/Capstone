@@ -12,7 +12,7 @@
             {{!-- <script> window.location.replace("/") </script> --}}
         {{/unless}}
 
-        <div id="container" class="new-user">
+        <div id="container" class="fl-col new-user">
         {{#if user}} {{!--This is a temporary if to block out this code --}}
             {{!-- Add a page view for a new user with no saved recipes --}}
             <h1>No recipes found.</h1>
@@ -40,30 +40,61 @@
             <div></div>
 
             {{!-- Form for creating new recipes --}}
-            <div id="nr-container">
+            <div id="nr-container" class="fl-col">
                 <div id="nr-he">
                     {{!-- Header area, Title, Picture(?), Maybe some other info --}}
 
                 </div>
-                <div id="nr-in">
-                    {{!-- List of ingredients --}}
-                    <h2>Ingredients</h2>
-                    <hr>
 
+                <div id="nr-in" class="fl-col">
+                    {{!-- List of ingredients --}}
+                    <div class="flex">
+                        <h2>Ingredients</h2>
+                        <span class="nr-in-sp"></span>
+                        <div class="fl-col">
+                            <p>Prep Time</p>
+                            <img src="/assets/images/add_circle-24px.svg" alt="">
+                        </div>
+                        <span class="nr-in-sp"></span>
+                        <div class="fl-col">
+                            <p>Cook Time</p>
+                            <img src="/assets/images/add_circle-24px.svg" alt="">
+                        </div>
+                        <span class="nr-in-sp"></span>
+                    </div>
+                    <hr>
+                    <div id="nr-in-li" class="flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
+                        <img src="/assets/images/add_circle-24px.svg" alt="">
+                    </div>
                 </div>
-                <div id="nr-di">
+
+                <div id="nr-di" class="fl-col">
                     {{!-- Recipe directions --}}
                     <h2>Directions</h2>
                     <hr>
-                    <hr>
+                    <div id="nr-di-li" class="fl-col-fl">
+                        <img src="/assets/images/add_circle-24px.svg" alt="">
+                        {{!-- <hr> --}}
+                    </div>
 
                 </div>
-                <div id="nr-no">
+
+                <div id="nr-no" class="fl-col">
                     {{!-- Writers notes --}}
+                    <hr>
                     <h3>Notes</h3>
+                    {{!-- Reveal this when the user clicks "add notes" --}}
+                    <div id="nr-no-ta" class="fl-col">
+                        <div class="fl-col">
+                            <h3>Add Notes</h3>
+                            <img src="/assets/images/add_circle-24px.svg" alt="">
+                        </div>
+                        <textarea name="notes" cols="20" rows="5" style="display: none;"></textarea>
+                    </div>
                     <hr>
 
                 </div>
+
                 <div id="nr-nu"> {{!-- Probably move this to the "View saved" page and leave it out of creating --}}
                     {{!-- Nutrition info, no user input here --}}
                     <h3>Nutrition Info</h3>
