@@ -93,6 +93,15 @@
 #nr-he {
     height: 200px;
     border-bottom: 2px solid black;
+    align-items: flex-end;
+    background: url("https://picsum.photos/1076/200");
+    color: white;
+}
+
+#nr-he-info {
+    height: 50%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.35);
 }
 
 #nr-in {

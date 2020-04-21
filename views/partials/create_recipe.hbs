@@ -1,0 +1,71 @@
+<div id="nr-container" class="fl-col">
+    <div id="nr-he" class="flex">
+        {{!-- Header area, Title, Picture(?), Maybe some other info --}}
+        <div id="nr-he-info" class="">
+            {{!-- Title: Use input, swap to h1/2/3 after entering a title, swap back upon editing --}}
+            <table>
+                <tr>
+                    <td><h3>Title:</h3></td>
+                    <td><input type="text" name="Title" id="title"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                </tr>
+                <tr>
+                    <td><h3>Author:</h3></td>
+                    <td><input type="text" name="Author" id="author"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                </tr>
+                <tr>
+                    <td><h3>URL:</h3></td>
+                    <td><input type="text" name="URL" id="url"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="nr-in" class="fl-col">
+        {{!-- List of ingredients --}}
+        <div class="flex">
+            <h2>Ingredients</h2>
+            <span class="nr-in-sp"></span>
+            <div class="fl-col">
+                <p>Prep Time</p>
+                <img src="/assets/images/add_circle-24px.svg" alt="">
+            </div>
+            <span class="nr-in-sp"></span>
+            <div class="fl-col">
+                <p>Cook Time</p>
+                <img src="/assets/images/add_circle-24px.svg" alt="">
+            </div>
+            <span class="nr-in-sp"></span>
+        </div>
+        <hr>
+        <div id="nr-in-li" class="flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
+            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Ingredient</p>
+        </div>
+    </div>
+
+    <div id="nr-di" class="fl-col">
+        {{!-- Recipe directions --}}
+        <h2>Directions</h2>
+        <hr>
+        <div id="nr-di-li" class="fl-col">
+            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Step</p>
+            {{!-- <hr> --}}
+        </div>
+
+    </div>
+
+    <div id="nr-no" class="fl-col">
+        {{!-- Writers notes --}}
+        <hr>
+        <h3>Notes</h3>
+        {{!-- Reveal this when the user clicks "add notes" --}}
+        <div id="nr-no-ta" class="flex">
+            {{!-- <div class="fl-col">
+                <h3>Add Notes</h3>
+                <img src="/assets/images/add_circle-24px.svg" alt="">
+            </div> --}}
+            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Note</p>
+            <textarea name="notes" cols="20" rows="5" style="display: none;"></textarea>
+        </div>
+    </div>
+</div>
