@@ -143,6 +143,66 @@
 
 /* ********** #R5 - Recipe Thumbnail View ********** */
 
+.card {
+    width: 504px;
+    height: 127px;
+    border: 1px solid black;
+    box-shadow: 2px 5px 3px #00000040;
+    background: white;
+}
+
+.card-img {
+    width: 126px;
+    height: 125px;
+    border-right: 1px solid black;
+    background-image: url("https://picsum.photos/127/127");
+}
+
+.card-info {
+    width: 378px;
+    height: 125px;
+    flex-wrap: wrap;
+}
+
+.card-title {
+    width: 378px;
+    height: 33PX;
+    padding-left: 5px;
+    border-bottom: 1px solid black;
+}
+
+#ctl {
+    width: 323px;
+    height: 33px;
+    align-items: center;
+}
+
+#ctr {
+    width: 55px;
+    height: 33px;
+    align-items: center;
+}
+
+.card-body {
+    width: 378px;
+    height: 92px;
+
+}
+
+.card-info-left {
+    border-right: 1px solid black;
+}
+
+/* .card-info-right {
+
+} */
+
+.card-info-left, .card-info-right {
+    justify-content: space-evenly;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 /* ********** #R6 - Existing Recipe View ********** */
 
 /* ********** #R7 - Search/Filter Bar ********** */
