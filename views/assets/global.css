@@ -25,7 +25,7 @@ nav {
 }
 
 .navlink{
-    width: 7%;
+    width: 8%;
 }
 
 .navlink:link{
@@ -91,7 +91,7 @@ nav {
 
 .userinfo{
     opacity: 1;
-    width: 15%;
+    width: 18%;
     text-align: center;
     font: 17px/20px Segoe UI;
     letter-spacing: 0px;
