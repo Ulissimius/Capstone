@@ -1,10 +1,32 @@
 <nav>
-    <div id="nav-inner">
+    <div id="title">
+        <p id="titletext">My Cookbook</p>
+    </div>
+    <div id="navbtns">
+        <a class="navlink" href="/">
+            <div id="homebtn" class="navbtns">
+                Home
+            </div>
+        </a>
+        <a class="navlink" href="/list">
+            <div id="listbtn" class="navbtns">
+                My Recipe List
+            </div>
+        </a>
+        <a class="navlink" href="/account">
+            <div id="accountbtn" class="navbtns">
+                Account
+            </div>
+        </a>
+    </div>
+    <div class="userinfo">
         {{#if user}}
-            Welcome back, {{user.username}}
+            <p id="logininfo">Logged in as <br>{{user.username}}</p>
+            <a class="logout" href="/" onclick="logout()">
+                <div id="logoutbtn" class="navbtns">Logout</div>
+            </a>
         {{else}}
-            <button data-target="signup" class="nav-btn">Sign Up</button>
-            <button data-target="login" class="nav-btn">Login</button>
+            <p id="logoutinfo">You are not logged in</p>
         {{/if}}
     </div>
 </nav>
