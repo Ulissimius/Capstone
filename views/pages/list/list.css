@@ -1,14 +1,17 @@
 /* Search Index:
 #R1 - Local Global CSS
-#R2 - New Recipe Button
-#R3 - Select New Recipe Menu
-#R4 - Build New Recipe View
-#R5 - Recipe Thumbnail View
-#R6 - Existing Recipe View
-#R7 - Search/Filter Bar
+#R2 - New User View CSS
+#R3 - New Recipe Button
+#R4 - Select New Recipe Menu
+#R5 - Build New Recipe View
+#R6 - Recipe Thumbnail View
+#R7 - Existing Recipe View
+#R8 - Search/Filter Bar
 */
 
 /* ********** #R1 - Local Global CSS ********** */
+
+/* ********** #R2 - New User View CSS ********** */
 .new-user {
     align-items: center;
     height: 90vh;
@@ -33,8 +36,8 @@
     -webkit-user-select: none;
 }
 
-/* ********** #R2 - New Recipe Button ********** */
-#add-button {
+/* ********** #R3 - New Recipe Button ********** */
+.add-button {
     display: flex; 
     flex-direction: column;
     align-items: center;
@@ -77,9 +80,13 @@
     left: 18px;
 }
 
-/* ********** #R3 - Select New Recipe Menu ********** */
+/* ********** #R4 - Select New Recipe Menu ********** */
+#nr-select {
+    text-align: center;
+    background: white;
+}
 
-/* ********** #R4 - Build New Recipe View ********** */
+/* ********** #R5 - Build New Recipe View ********** */
 #nr-container {
     width: 1080px;
     border: 2px solid black;
@@ -141,8 +148,7 @@
     min-height: 100px;
 }
 
-/* ********** #R5 - Recipe Thumbnail View ********** */
-
+/* ********** #R6 - Recipe Thumbnail View ********** */
 .card {
     width: 504px;
     height: 127px;
@@ -203,6 +209,6 @@
     padding-right: 5px;
 }
 
-/* ********** #R6 - Existing Recipe View ********** */
+/* ********** #R7 - Existing Recipe View ********** */
 
-/* ********** #R7 - Search/Filter Bar ********** */
+/* ********** #R8 - Search/Filter Bar ********** */

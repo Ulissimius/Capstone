@@ -10,21 +10,17 @@
             {{!-- <script> window.location.replace("/") </script> --}}
         {{/unless}}
 
-        <div id="container" class="fl-col new-user">
-            {{!-- Add a page view for a new user with no saved recipes --}}
-            <h1>No recipes found.</h1>
-            <span></span>
-            <h2>Click the button to create your first recipe!</h2>
-            <div id="add-button">
-                <p class="button-text">Add New Recipe</p>
-                <div class="button-frame">
-                    <span class="line"></span>
-                    <span class="line"></span>
-                </div>
+        <div id="container" class="fl-col">
+            <div class="fl-col new-user">
+                {{!-- Add a page view for a new user with no saved recipes --}}
+                <h1>No recipes found.</h1>
+                <span></span>
+                <h2>Click the button to create your first recipe!</h2>
+                {{> add_recipe_button title="Add New Recipe"}}
+                <span></span>
+                <img src="/assets/images/arrows.png" alt="arrows" id="arrows" draggable="false">
+                <button id="test-butt" type="button">Test Button</button>
             </div>
-            <span></span>
-            <img src="/assets/images/arrows.png" alt="arrows" id="arrows" draggable="false">
-            <button id="test-butt" type="button">Test Button</button>
 
             {{!-- Add a page view for a user with saved recipes --}}
             {{!-- This view should pull from the database and use the info to display recipe cards --}}
@@ -34,7 +30,13 @@
 
             {{!-- Form for selecting URL or Create New Recipe --}}
             <div class="click-me" style="display: none;">
-
+                <div id="nr-select">
+                    <h2>Create a new recipe</h2>
+                    <h3>Enter a URL from a recipe you like</h3>
+                    <input type="text" name="" id="" placeholder="https://www">
+                    <h3>or</h3>
+                    {{> add_recipe_button title="Create Your Own Recipe"}}
+                </div>
             </div>
 
             {{!-- Form for creating new recipes --}}
