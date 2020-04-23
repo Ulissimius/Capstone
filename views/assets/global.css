@@ -179,3 +179,24 @@ footer {
     height: 30px;
     padding: 5px;
 }
+
+/* Generic Flex Settings */
+.flex {
+    display: flex;
+}
+
+.fl-fl {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.fl-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.fl-col-fl {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
