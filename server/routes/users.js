@@ -19,6 +19,24 @@ module.exports = app => {
         })
     })
 
+    app.post('/modify', (req, res) => {
+        console.log('POST Request Received to Modify a User')
+        const data = req.body
+
+        Users.findByToken(data.cookieName, data.cookieValue).then(user =>{
+            if(user){
+                const doc = Users.findOne({name : user.username})
+                doc.username = data.username
+                doc.email = data.email
+            }
+        })
+        doc.save().then(() => {
+            return res.status(200).send({error: false})
+        }).catch(e => {
+            return res.status(400).send({error: true, message: e})
+        })
+    })
+
     // Accepts POST requests with information to sign in and receive an authentication token
     app.post('/login', (req, res) => {
         console.log('POST Request Received to Sign In')
