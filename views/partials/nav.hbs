@@ -21,7 +21,10 @@
     </div>
     <div class="userinfo">
         {{#if user}}
-            <p id="logininfo">You are logged in as <br>{{user.username}}</p>  <a class="logout" href="/" onclick="logout()"><div id="logoutbtn" class="navbtns">Logout</div></a>
+            <p id="logininfo">Logged in as <br>{{user.username}}</p>
+            <a class="logout" href="/" onclick="logout()">
+                <div id="logoutbtn" class="navbtns">Logout</div>
+            </a>
         {{else}}
             <p id="logoutinfo">You are not logged in</p>
         {{/if}}
