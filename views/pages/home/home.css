@@ -1,14 +1,7 @@
 /* Disables scrolling on the home page */
-html, body {
-    margin: 0; 
-    height: 100%; 
-    overflow: hidden
-}
-
 #container {
     display: flex;
     justify-content: center;
-    height: 100vh;
 }
 
 .home-modal div{
