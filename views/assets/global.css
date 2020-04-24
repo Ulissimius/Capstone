@@ -6,7 +6,15 @@
     box-sizing: border-box;
 }
 
+#global-wraper {
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: bisque;
     overflow: none;
 }
@@ -18,9 +26,6 @@ body {
 }
 
 footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
     width: 100%;
     background: rgb(151, 118, 77);
     color: bisque;
