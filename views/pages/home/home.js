@@ -16,7 +16,7 @@ if (newUserButton) {
                 body: JSON.stringify({email, username, password})
             }).then((response) => response.json()).then((data) => {
                 console.log(data)
-                if (email && password) {
+                if (email && password && data.error == false) {
                     fetch('/login', {
                         method: 'POST',
                         headers: {
