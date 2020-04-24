@@ -8,26 +8,15 @@ if (newUserButton) {
         const password = document.querySelector('#new-password').value
         const confirmPassword = document.querySelector('#confirm-new-password').value
         const currentPassword = document.querySelector('#current-password').value
-        const cookieName = "authentication=";
-        let ca = document.cookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(cookieName) == 0) {
-                var cookieValue = c.substring(cookieName.length, c.length);
-            }
-        }
 
         if (password) {
-            if (email && username && password === confirmPassword) {
+            if (email && username && password && password === confirmPassword && currentPassword) {
                 fetch('/modifyPassword', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({email, username, password, cookieName, cookieValue})
+                    body: JSON.stringify({email, username, password})
                 }).then((response) => response.json()).then((data) => {
                     console.log(data)
                     if (email && password) {
@@ -54,13 +43,13 @@ if (newUserButton) {
                 // Maybe eventually use this section to display a message on screen to fill out all information
             }
         } else {
-            if (email && username) {
+            if (email && username && currentPassword) {
             fetch('/modify', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({email, username, cookieName, cookieValue})
+                body: JSON.stringify({email, username})
             }).then((response) => response.json()).then((data) => {
                 console.log(data)
                 if (email && password) {

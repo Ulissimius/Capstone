@@ -95,8 +95,11 @@ UserSchema.statics.findByCredentials = function(email, password) {
             bcrypt.compare(password, user.password, (error, response) => {
                 if (error) {
                     reject(error)
-                } else {
+                }
+                if (response) {
                     resolve(user)
+                } else {
+                    reject("Wrong password")
                 }
             })
         })

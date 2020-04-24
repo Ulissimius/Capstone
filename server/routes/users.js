@@ -22,19 +22,65 @@ module.exports = app => {
     app.post('/modify', (req, res) => {
         console.log('POST Request Received to Modify a User')
         const data = req.body
+        const authToken = req.cookies.authentication
+        const cookieName = "login"
+        if (authToken) {
+            Users.findByToken(cookieName, authToken).then(user => {
+                if(user){
+                    user.username = data.username
+                    user.email = data.email
+                    user.save().then(() => {
+                        return res.status(200).send({error: false})
+                    }).catch(e => {
+                        return res.status(400).send({error: true, message: e})
+                    })
+                } else {
+                    return res.status(400).send({error: true, message: 'User Not Found'})
+                }
+            }).catch(e => {
+                return res.status(400).send({error: true, message: e})
+            })
+        } else {
+            console.log('User Not Logged In')
+            // Return a 200 OK status and send the html page
+            return res.render('pages/home/home.hbs', {
+                assetUrl: '/pages/home/home',
+                user: null
+            })
+        }
+    })
 
-        Users.findByToken(data.cookieName, data.cookieValue).then(user =>{
-            if(user){
-                const doc = Users.findOne({name : user.username})
-                doc.username = data.username
-                doc.email = data.email
-            }
-        })
-        doc.save().then(() => {
-            return res.status(200).send({error: false})
-        }).catch(e => {
-            return res.status(400).send({error: true, message: e})
-        })
+    app.post('/modifyPassword', (req, res) => {
+        console.log('POST Request Received to Modify a User')
+        const data = req.body
+        const authToken = req.cookies.authentication
+        const cookieName = "login"
+
+        if (authToken) {
+            Users.findByToken(cookieName, authToken).then(user => {
+                if(user){
+                    user.username = data.username
+                    user.email = data.email
+                    user.password = data.password
+                    user.save().then(() => {
+                        return res.status(200).send({error: false})
+                    }).catch(e => {
+                        return res.status(400).send({error: true, message: e})
+                    })
+                } else {
+                    return res.status(400).send({error: true, message: 'User Not Found'})
+                }
+            }).catch(e => {
+                return res.status(400).send({error: true, message: e})
+            })
+        } else {
+            console.log('User Not Logged In')
+            // Return a 200 OK status and send the html page
+            return res.render('pages/home/home.hbs', {
+                assetUrl: '/pages/home/home',
+                user: null
+            })
+        }
     })
 
     // Accepts POST requests with information to sign in and receive an authentication token
