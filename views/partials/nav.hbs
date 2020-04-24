@@ -1,30 +1,32 @@
-<nav>
-    <div id="title">
+<nav class="flex">
+    <div id="title" class="flex">
         <p id="titletext">My Cookbook</p>
     </div>
-    <div id="navbtns">
-        <a class="navlink" href="/">
-            <div id="homebtn" class="navbtns">
-                Home
-            </div>
+    <div id="navbtns" class="flex">
+        <a class="navlink fl-fl nav-hm" href="/" draggable="false">
+            Home
         </a>
-        <a class="navlink" href="/list">
-            <div id="listbtn" class="navbtns">
-                My Recipe List
-            </div>
+        <a class="navlink fl-fl nav-li" href="/list" draggable="false">
+            My Recipe List
         </a>
-        <a class="navlink" href="/account">
-            <div id="accountbtn" class="navbtns">
-                Account
-            </div>
+        <a class="navlink fl-fl nav-acc nav-last" href="/account" draggable="false">
+            Account
+        </a>
+        <a class="navlink fl-fl nav-spare">
+        </a>
+        <a class="navlink fl-fl nav-spare">
+        </a>
+        <a class="navlink fl-fl nav-spare">
+        </a>
+        <a class="navlink fl-fl nav-spare">
+        </a>
+        <a class="navlink fl-fl nav-spare">
         </a>
     </div>
-    <div class="userinfo">
+    <div class="userinfo flex">
         {{#if user}}
-            <p id="logininfo">Logged in as <br>{{user.username}}</p>
-            <a class="logout" href="/" onclick="logout()">
-                <div id="logoutbtn" class="navbtns">Logout</div>
-            </a>
+            <p id="logininfo">{{user.username}}</p>
+            <input class="logout" type="button" value="Logout" onclick="logout()">
         {{else}}
             <p id="logoutinfo">You are not logged in</p>
         {{/if}}

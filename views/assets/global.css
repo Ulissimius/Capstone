@@ -1,128 +1,142 @@
+
+/* ********** General CSS ********** */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+body {
+    background-color: bisque;
+    overflow: none;
+}
+
+#container {
+    margin: 0 auto;
+    padding: 10px;
+    width: 100%;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgb(151, 118, 77);
+    color: bisque;
+    height: 30px;
+    padding: 5px;
+}
+
+/* ********** Navbar CSS ********** */
 nav {
-    display: flex;
-    top: 0px;
-    left: 0px;
     width: 100%;
-    height: 52px;
-    background: #ECD185 0% 0% no-repeat padding-box;
-    border: 1px solid #707070;
-    opacity: 1;
+    height: 3%;
+    min-height: 51px;
+    background: #ECD185;
+    border-bottom: 1px solid #707070;
 }
 
-#title{
-    width: 12%;
-}
-
-#navbtns{
-    display: flex;
-    width: 100%;
-}
-
-.navlink{
-    width: 8%;
-}
-
-.navlink:link{
-    text-decoration: none;
-}
-
-.navlink:visited{
-    text-decoration: none;
-}
-
-.navlink:hover{
-    text-decoration: none;
-}
-
-.navlink:active{
-    text-decoration: none;
-}
-
-.navbtns{
-    top: 0px;
-    width: 100%;
-    height: 50px;
-    background: #E8C563 0% 0% no-repeat padding-box;
-    border-left: 1px solid #707070;
-    border-right: 1px solid #707070;
-    opacity: 1;
-    text-align: center;
-    font: 17px/20px Segoe UI;
-    letter-spacing: 0px;
-    padding-top: 10%;
-    color: #707070;
-}
-
-.logout{
-    width: 35%;
-}
-
-#logoutinfo{
-    opacity: 1;
-    padding-top: 5%;
-    text-align: center;
-    font: 17px/20px Segoe UI;
-    letter-spacing: 0px;
-    display: flex;
-    color: #707070;
-}
-
-.logout:link{
-    text-decoration: none;
-}
-
-.logout:visited{
-    text-decoration: none;
-}
-
-.logout:hover{
-    text-decoration: none;
-}
-
-.logout:active{
-    text-decoration: none;
-}
-
-.userinfo{
-    opacity: 1;
-    width: 18%;
-    text-align: center;
-    font: 17px/20px Segoe UI;
-    letter-spacing: 0px;
-    display: flex;
-    color: #707070;
-}
-
-#logininfo{
-    width: 65%;
-    margin-top: 3px;
-    margin-right: 3px;
-}
-
-#titletext {
-    text-align: center;
+/* ***** Navbar Title ***** */
+#title {
+    width: 15%;
+    justify-content: center;
+    align-items: center;
     font: 22px/29px Segoe UI;
     letter-spacing: 0px;
-    padding-top: 4%;
     color: #707070;
-    opacity: 1;
 }
 
-.nav-btn:hover {
+/* ***** Navbar Buttons ***** */
+#navbtns {
+    flex: 1 1 auto;
+    width: 70%;
+    background: #E8C563;
+    border-right: 1px solid #707070;
+}
+
+.navlink {
+    width: 12.5%;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #707070;
+    color: #707070;
+    letter-spacing: 0px;
+    font: 17px/20px Segoe UI;
+}
+
+.nav-last {
+    border-right: 1px solid #707070;
+}
+
+.navlink:link, .navlink:visited, .navlink:hover, .navlink:active {
+    text-decoration: none;
+}
+
+.navlink:hover {
     cursor: pointer;
-    position: relative;
-    left: 2px;
-    top: -2px;
-    box-shadow: -2px 2px rgb(117, 89, 55);
+    background: rgb(235, 191, 72);
 }
 
-.modal {
+.nav-spare, .nav-spare:hover {
+    border: none;
+    background: #E8C563;
+    cursor: default;
+}
+
+/* *** Navbar Home *** */
+
+/* *** Navbar Recipe *** */
+
+/* *** Navbar Account *** */
+
+/* ***** Navbar Login ***** */
+.userinfo {
+    width: 15%;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    font: 17px/20px Segoe UI;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+.userinfo p {
+    width: 100%;
+    text-align: center;
+}
+
+.logout {
+    width: 51px;
+    height: 100%;
+    font: Segoe UI;
+    letter-spacing: 0px;
+    color: #707070;
+}
+
+/* ********** Generic Flex Settings ********** */
+.flex {
+    display: flex;
+}
+
+.fl-fl {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.fl-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.fl-col-fl {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+/* ***** Relic code ***** */
+/* .modal {
     display: none;
     position: absolute;
     left: 50%;
@@ -153,50 +167,4 @@ nav {
 
 .modal-cancel {
     margin-top: 6px;
-}
-
-body {
-    background-color: bisque;
-    overflow: none;
-}
-
-#container {
-    margin: 0 auto;
-    margin-top: 60px;
-    padding: 10px;
-    width: 85vw;
-    min-width: 768px;
-    background-color: burlywood;
-}
-
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background: rgb(151, 118, 77);
-    color: bisque;
-    height: 30px;
-    padding: 5px;
-}
-
-/* Generic Flex Settings */
-.flex {
-    display: flex;
-}
-
-.fl-fl {
-    display: flex;
-    flex: 1 1 auto;
-}
-
-.fl-col {
-    display: flex;
-    flex-direction: column;
-}
-
-.fl-col-fl {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-}
+} */
