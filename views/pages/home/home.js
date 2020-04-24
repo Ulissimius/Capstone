@@ -58,9 +58,12 @@ if (loginButton) {
                 },
                 body: JSON.stringify({email, password})
             }).then((response) => response.json()).then((data) => {
-                console.log(data)
-                document.cookie = `authentication=${data.token}`
-                location.reload();
+                if (!data.error) {
+                    document.cookie = `authentication=${data.token}`
+                    location.reload();
+                } else {
+                    console.log(`Error logging in: ${data.message}`)
+                }
             }).catch((error) => {
                 console.error(error)
             })
