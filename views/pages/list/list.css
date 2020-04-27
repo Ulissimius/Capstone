@@ -81,8 +81,18 @@
 
 /* ********** #R4 - Select New Recipe Menu ********** */
 #nr-select {
-    text-align: center;
+    justify-content: space-evenly;
+    align-items: center;
     background: white;
+    width: 500px;
+    height: 300px;
+    border: 1px solid black;
+    box-shadow: 2px 5px 3px #00000040;
+}
+
+#in-url {
+    width: 90%;
+    border-radius: 10px;
 }
 
 /* ********** #R5 - Build New Recipe View ********** */
