@@ -1,3 +1,6 @@
+// Add JS here
+
+// Test Button JS
 var tButt = document.querySelector('#test-butt');
 var reveal = document.querySelectorAll('.click-me');
 var x = 0;
