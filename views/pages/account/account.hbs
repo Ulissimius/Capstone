@@ -5,11 +5,40 @@
     <body>
         {{> nav}}
 
-        <div id="container">
-            <div>
-                <a href="/list">Take me away</a>
+        {{#if user}}
+            <div id="container">
+                <div id="signup-home" class="home-modal">
+                    <div>
+                        <h2>Edit Credentials</h2>
+                        <br>
+                        <div id="username">
+                            <label for="new-username">Username</label>
+                            <input type="text" id="new-username" class="home-modal-input" value="{{user.username}}" autocomplete="off">
+                        </div>
+                        <div id="email">
+                            <label for="new-email">E-Mail</label>
+                            <input type="email" id="new-email" class="home-modal-input" value="{{user.email}}" autocomplete="off">
+                        </div>
+                        <div id="password">
+                            <label for="new-password"> New Password</label>
+                            <input type="password" id="new-password" class="home-modal-input" placeholder="Leave blank if no new password">
+                        </div>
+                        <div id="confirmPassword">
+                            <label for="confirm-new-password">Confirm New Password</label>
+                            <input type="password" id="confirm-new-password" class="home-modal-input" placeholder="Leave blank if no new password">
+                        </div>
+                        <div id="currentPassword">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" class="home-modal-input" placeholder="Please enter current password">
+                        </div>
+                        <br>
+                        <button id="update-user" class="home-nav-btn">Submit</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        {{else}}
+            <script> window.location.replace("/") </script>
+        {{/if}}
 
         {{> footer}}
     </body>
