@@ -16,7 +16,7 @@
                 <h1>No recipes found.</h1>
                 <span></span>
                 <h2>Click the button to create your first recipe!</h2>
-                {{> add_recipe_button title="Add New Recipe"}}
+                {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
                 <span></span>
                 <img src="/assets/images/arrows.png" alt="arrows" id="arrows" draggable="false">
                 <button id="test-butt" type="button">Test Button</button>
@@ -35,7 +35,7 @@
                     <h3>Enter a URL from a recipe you like</h3>
                     <input type="text" name="" id="in-url" placeholder="https://www">
                     <h3>or</h3>
-                    {{> add_recipe_button title="Create Your Own Recipe"}}
+                    {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-select')"}}
                 </div>
             </div>
 

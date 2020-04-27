@@ -96,17 +96,17 @@
 }
 
 /* ********** #R5 - Build New Recipe View ********** */
-#nr-container {
+.nr-container {
     width: 1080px;
     border: 2px solid black;
     background: white;
 }
 
-#nr-container hr {
+.nr-container hr {
     width: 100%;
 }
 
-#nr-he {
+.nr-he {
     height: 200px;
     border-bottom: 2px solid black;
     align-items: flex-end;
@@ -114,13 +114,13 @@
     color: white;
 }
 
-#nr-he-info {
+.nr-he-info {
     height: 50%;
     width: 100%;
     background: rgba(0, 0, 0, 0.35);
 }
 
-#nr-in {
+.nr-in {
     min-height: 100px;
 }
 
@@ -130,30 +130,30 @@
     margin: 0 10px 0 10px;
 }
 
-#nr-di {
+.nr-di {
     min-height: 100px;
 }
 
-#nr-di div {
+.nr-di div {
     position: relative;
     align-items: baseline;
 }
 
-#nr-di div hr {
+.nr-di div hr {
     position: absolute;
     bottom: 0;
 }
 
-#nr-no {
+.nr-no {
     min-height: 100px;
 }
 
-#nr-no-ta div {
+.nr-no-ta div {
     width: 100px;
     align-items: center;
 }
 
-#nr-nu {
+.nr-nu {
     min-height: 100px;
 }
 

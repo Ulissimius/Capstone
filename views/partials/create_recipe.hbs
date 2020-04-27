@@ -1,9 +1,9 @@
 {{!-- Add a drop down for cuisine --}}
 
-<div id="nr-container" class="fl-col">
-    <div id="nr-he" class="flex">
+<div id="nr-container" class="nr-container fl-col">
+    <div id="nr-he" class="nr-he flex">
         {{!-- Header area, Title, Picture(?), Maybe some other info --}}
-        <div id="nr-he-info" class="">
+        <div id="nr-he-info" class="nr-he-info">
             {{!-- Title: Use input, swap to h1/2/3 after entering a title, swap back upon editing --}}
             <table>
                 <tr>
@@ -23,7 +23,7 @@
 
     </div>
 
-    <div id="nr-in" class="fl-col">
+    <div id="nr-in" class="nr-in fl-col">
         {{!-- List of ingredients --}}
         <div class="flex">
             <h2>Ingredients</h2>
@@ -45,28 +45,28 @@
             <span class="nr-in-sp"></span>
         </div>
         <hr>
-        <div id="nr-in-li" class="flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
+        <div id="nr-in-li" class="nr-in-li flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
             <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Ingredient</p>
         </div>
     </div>
 
-    <div id="nr-di" class="fl-col">
+    <div id="nr-di" class="nr-di fl-col">
         {{!-- Recipe directions --}}
         <h2>Directions</h2>
         <hr>
-        <div id="nr-di-li" class="fl-col">
+        <div id="nr-di-li" class="nr-di-li fl-col">
             <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Step</p>
             {{!-- <hr> --}}
         </div>
 
     </div>
 
-    <div id="nr-no" class="fl-col">
+    <div id="nr-no" class="nr-no fl-col">
         {{!-- Writers notes --}}
         <hr>
         <h3>Notes</h3>
         {{!-- Reveal this when the user clicks "add notes" --}}
-        <div id="nr-no-ta" class="flex">
+        <div id="nr-no-ta" class="nr-no-ta flex">
             {{!-- <div class="fl-col">
                 <h3>Add Notes</h3>
                 <img src="/assets/images/add_circle-24px.svg" alt="">
