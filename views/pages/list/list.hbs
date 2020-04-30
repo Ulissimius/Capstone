@@ -10,12 +10,13 @@
             {{!-- <script> window.location.replace("/") </script> --}}
         {{/unless}}
 
-        <div id="rp-wrapper" class="wrapper fl-col" style="display: none;">
+        <div id="wrapper" class="fl-col" style="display: none;">
             <div id="nr-select" class="fl-col rel" style="display: none;">
                 {{> exit_button}}
                 <h2>Create a new recipe</h2>
                 <h3>Enter a URL from a recipe you like</h3>
                 <input type="text" name="" id="in-url" placeholder="https://www">
+                <input type="button" value="Submit">
                 <h3>or</h3>
                 {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-container')"}}
             </div>

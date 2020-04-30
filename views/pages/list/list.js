@@ -7,7 +7,7 @@
 // Gives functionality to the various buttons on the page.
 
 // Declarations
-const wrapper = document.querySelector('#rp-wrapper'); // The wrapper is special div that holds floating windows.
+const wrapper = document.querySelector('#wrapper'); // The wrapper is special div that holds floating windows.
 let prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
 
 function openView(view) { 
@@ -38,6 +38,27 @@ function closeView(view, exit) {
     curView.style.display = "none"; // Closes the current view
 
     if (exit == true) { // Closes the wrapper div if the x button was used.
-        wrapper.style.display = "none"     
+        wrapper.style.display = "none";
     } 
 }
+
+const addBtnArr = document.querySelectorAll('.add-elem');
+const target = document.querySelector('.target')
+const ingredientHTML = document.querySelector('.li-div.flex')
+
+addBtnArr[0].addEventListener('click', e => {
+    cloneIngHTML = ingredientHTML.cloneNode(true)
+    target.insertAdjacentElement('beforebegin', cloneIngHTML);
+});
+
+addBtnArr[1].addEventListener('click', e => {
+    console.log(e)
+});
+
+addBtnArr[2].addEventListener('click', e => {
+    console.log(e)
+});
+// function addButton() {
+
+// }
+

@@ -47,7 +47,10 @@
         </div>
         <hr>
         <div id="nr-in-li" class="nr-in-li flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Ingredient</p>
+            <div class="fl-col target add-elem">
+                <p style="font-size: small;">Add Ingredient</p>
+                <img src="/assets/images/add_circle-24px.svg" alt="">
+            </div>
         </div>
     </div>
 
@@ -56,7 +59,7 @@
         <h2>Directions</h2>
         <hr>
         <div id="nr-di-li" class="nr-di-li fl-col">
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Step</p>
+            <p><img src="/assets/images/add_circle-24px.svg" class="add-elem" alt="">Add Step</p>
             {{!-- <hr> --}}
         </div>
 
@@ -70,9 +73,9 @@
         <div id="nr-no-ta" class="nr-no-ta flex">
             {{!-- <div class="fl-col">
                 <h3>Add Notes</h3>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
+                <img src="/assets/images/add_circle-24px.svg" class="add-elem" alt="">
             </div> --}}
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Note</p>
+            <p><img src="/assets/images/add_circle-24px.svg" class="add-elem" alt="">Add Note</p>
             <textarea name="notes" cols="20" rows="5" style="display: none;"></textarea>
         </div>
     </div>
