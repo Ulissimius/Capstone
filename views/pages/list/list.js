@@ -58,7 +58,5 @@ addBtnArr[1].addEventListener('click', e => {
 addBtnArr[2].addEventListener('click', e => {
     console.log(e)
 });
-// function addButton() {
 
-// }
 
