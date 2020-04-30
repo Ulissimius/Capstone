@@ -135,7 +135,6 @@
     width: 1080px;
     border: 2px solid black;
     background: white;
-    overflow: scroll;
 }
 
 .nr-container hr {
