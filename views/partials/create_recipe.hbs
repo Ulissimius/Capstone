@@ -1,78 +1,84 @@
 {{!-- Add a drop down for cuisine --}}
 
-<div id="nr-container" class="fl-col">
-    <div id="nr-he" class="flex">
+<div id="nr-container" class="nr-container fl-col rel" style="display: none;">
+    {{> exit_button}}
+    <div id="nr-he" class="nr-he fl-col">
+        <div class="filler"></div>
         {{!-- Header area, Title, Picture(?), Maybe some other info --}}
-        <div id="nr-he-info" class="">
+        <div id="nr-he-info" class="nr-he-info">
             {{!-- Title: Use input, swap to h1/2/3 after entering a title, swap back upon editing --}}
             <table>
                 <tr>
                     <td><h3>Title:</h3></td>
-                    <td><input type="text" name="Title" id="name"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                    <td><input type="text" name="Title" id="name"></td>
                 </tr>
                 <tr>
                     <td><h3>Author:</h3></td>
-                    <td><input type="text" name="Author" id="author"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                    <td><input type="text" name="Author" id="author"></td>
                 </tr>
                 <tr>
                     <td><h3>URL:</h3></td>
-                    <td><input type="text" name="URL" id="url"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                    <td><input type="text" name="URL" id="url"></td>
                 </tr>
             </table>
         </div>
 
     </div>
 
-    <div id="nr-in" class="fl-col">
+    <div id="nr-in" class="nr-in fl-col">
         {{!-- List of ingredients --}}
         <div class="flex">
             <h2>Ingredients</h2>
             <span class="nr-in-sp"></span>
-            <div class="fl-col">
+            <div class="fl-col ai-cen sub-info">
                 <p>Prep Time</p>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
+                <input type="text" name="prep_time">
             </div>
             <span class="nr-in-sp"></span>
-            <div class="fl-col">
+            <div class="fl-col ai-cen sub-info">
                 <p>Cook Time</p>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
+                <input type="text" name="cook_time">
             </div>
             <span class="nr-in-sp"></span>
-            <div class="fl-col">
+            <div class="fl-col ai-cen sub-info">
                 <p>Servings</p>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
+                <input type="number" name="servings">
+            </div>
+            <span class="nr-in-sp"></span>
+            <div class="fl-col ai-cen sub-info">
+                <p>Cuisine</p>
+                <select name="cuisine">
+                    {{!-- Fill with options from JS --}}
+                    <option value="american">American</option>
+                </select>
             </div>
             <span class="nr-in-sp"></span>
         </div>
         <hr>
-        <div id="nr-in-li" class="flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Ingredient</p>
+        <div id="nr-in-li" class="nr-in-li flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
+            <div class="fl-col target add-elem">
+                <p style="font-size: small;">Add Ingredient</p>
+                <img src="/assets/images/add_circle-24px.svg" alt="">
+            </div>
         </div>
     </div>
 
-    <div id="nr-di" class="fl-col">
+    <div id="nr-di" class="nr-di">
         {{!-- Recipe directions --}}
         <h2>Directions</h2>
         <hr>
-        <div id="nr-di-li" class="fl-col">
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Step</p>
-            {{!-- <hr> --}}
+        <div class="nr-di-li">
+            <textarea name="directions" cols="20" rows="5" placeholder="Enter cooking directions here. Separate new steps with line breaks."></textarea>
         </div>
-
     </div>
 
-    <div id="nr-no" class="fl-col">
+    <div id="nr-no" class="nr-no fl-col">
         {{!-- Writers notes --}}
         <hr>
         <h3>Notes</h3>
-        {{!-- Reveal this when the user clicks "add notes" --}}
-        <div id="nr-no-ta" class="flex">
-            {{!-- <div class="fl-col">
-                <h3>Add Notes</h3>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
-            </div> --}}
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Note</p>
-            <textarea name="notes" cols="20" rows="5" style="display: none;"></textarea>
+        <div id="nr-no-ta" class="nr-no-ta">
+            <textarea name="notes" cols="20" rows="5" placeholder="Enter notes here."></textarea>
         </div>
     </div>
+    <input type="submit" value="Create Recipe">
 </div>
