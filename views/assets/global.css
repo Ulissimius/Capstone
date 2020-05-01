@@ -35,11 +35,10 @@ footer {
 
 #wrapper {
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     position: fixed;
     z-index: 1;
     background: rgba(0, 0, 0, 0.3);
-    padding: 56px 0 0 0;
 }
 
 .exit {
@@ -158,6 +157,19 @@ nav {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+}
+
+.jc-cen {
+    justify-content: center;
+}
+
+.ai-cen {
+    align-items: center;
+}
+
+.jcai-cen {
+    justify-content: center;
+    align-items: center;
 }
 
 /* ***** Relic code ***** */

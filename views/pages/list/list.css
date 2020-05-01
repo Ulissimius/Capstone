@@ -17,32 +17,17 @@
 
 .add-elem {
     align-items: center;
+    margin-top: 10px;
 }
 
-/* Tooltip container */
-.tooltip {
-    position: relative;
-    display: inline-block;
+.filler {
+    height: 100px;
 }
 
-/* Tooltip text */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-        
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    z-index: 1;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:focus .tooltiptext {
-    visibility: visible;
+textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 90px;
 }
 
 /* ********** #R2 - New User View CSS ********** */
@@ -133,8 +118,12 @@
 /* ********** #R5 - Build New Recipe View ********** */
 .nr-container {
     width: 1080px;
+    margin: 56px 0 45px 0;
+    min-height: 570px;
+    max-height: 100vh;
     border: 2px solid black;
     background: white;
+    overflow: auto;
 }
 
 .nr-container hr {
@@ -144,19 +133,27 @@
 .nr-he {
     height: 200px;
     border-bottom: 2px solid black;
-    align-items: flex-end;
+    justify-content: end;
     background: url("https://picsum.photos/1076/200");
     color: white;
 }
 
 .nr-he-info {
-    height: 50%;
+    height: 100px;
     width: 100%;
     background: rgba(0, 0, 0, 0.35);
 }
 
 .nr-in {
-    min-height: 100px;
+    height: auto;
+}
+
+.sub-info {
+    width: 85px;
+}
+
+.sub-info input {
+    width: 80px;
 }
 
 .nr-in-sp {
@@ -185,33 +182,29 @@
 }
 
 .li-name {
+    width: 50%;
 }
 
 .nr-di {
-    min-height: 100px;
+    height: auto;
 }
 
-.nr-di div {
-    position: relative;
-    align-items: baseline;
+.nr-di-li {
+    padding: 10px;
 }
 
-.nr-di div hr {
-    position: absolute;
-    bottom: 0;
-}
+
 
 .nr-no {
-    min-height: 100px;
+
 }
 
-.nr-no-ta div {
-    width: 100px;
-    align-items: center;
+.nr-no-ta {
+    padding: 10px;
 }
 
 .nr-nu {
-    min-height: 100px;
+
 }
 
 /* ********** #R6 - Recipe Thumbnail View ********** */

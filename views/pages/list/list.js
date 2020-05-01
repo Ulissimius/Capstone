@@ -42,21 +42,15 @@ function closeView(view, exit) {
     } 
 }
 
-const addBtnArr = document.querySelectorAll('.add-elem');
-const target = document.querySelector('.target')
-const ingredientHTML = document.querySelector('.li-div.flex')
+// Declarations
+const addBtn = document.querySelector('.add-elem'); // The click listener target
+const target = document.querySelectorAll('.target'); // The position to prepend cloned elements to
+const ingredientHTML = document.querySelector('.li-div.flex'); // The HTML to be cloned.
 
-addBtnArr[0].addEventListener('click', e => {
-    cloneIngHTML = ingredientHTML.cloneNode(true)
-    target.insertAdjacentElement('beforebegin', cloneIngHTML);
+addBtn.addEventListener('click', e => {
+    /* addBtn click listener clones and existing element (in the footer) that allows
+    the user to input ingredients. */
+
+    cloneIngHTML = ingredientHTML.cloneNode(true);
+    target[0].insertAdjacentElement('beforebegin', cloneIngHTML);
 });
-
-addBtnArr[1].addEventListener('click', e => {
-    console.log(e)
-});
-
-addBtnArr[2].addEventListener('click', e => {
-    console.log(e)
-});
-
-
