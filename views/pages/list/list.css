@@ -118,9 +118,8 @@ textarea {
 /* ********** #R5 - Build New Recipe View ********** */
 .nr-container {
     width: 1080px;
-    margin: 56px 0 45px 0;
     min-height: 570px;
-    max-height: 100vh;
+    max-height: 90vh;
     border: 2px solid black;
     background: white;
     overflow: auto;

@@ -48,7 +48,7 @@ const target = document.querySelectorAll('.target'); // The position to prepend 
 const ingredientHTML = document.querySelector('.li-div.flex'); // The HTML to be cloned.
 
 addBtn.addEventListener('click', e => {
-    /* addBtn click listener clones and existing element (in the footer) that allows
+    /* addBtn click listener clones an existing element (in the footer) that allows
     the user to input ingredients. */
 
     cloneIngHTML = ingredientHTML.cloneNode(true);

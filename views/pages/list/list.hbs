@@ -10,21 +10,21 @@
             {{!-- <script> window.location.replace("/") </script> --}}
         {{/unless}}
 
-        <div id="wrapper" class="fl-col" style="display: none;">
-            <div id="nr-select" class="fl-col rel" style="display: none;">
-                {{> exit_button}}
-                <h2>Create a new recipe</h2>
-                <h3>Enter a URL from a recipe you like</h3>
-                <input type="text" name="" id="in-url" placeholder="https://www">
-                <input type="button" value="Submit">
-                <h3>or</h3>
-                {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-container')"}}
+        <div id="container" class="fl-col">
+            <div id="wrapper" class="fl-col" style="display: none;">
+                <div id="nr-select" class="fl-col rel" style="display: none;">
+                    {{> exit_button}}
+                    <h2>Create a new recipe</h2>
+                    <h3>Enter a URL from a recipe you like</h3>
+                    <input type="text" name="" id="in-url" placeholder="https://www">
+                    <input type="button" value="Submit">
+                    <h3>or</h3>
+                    {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-container')"}}
+                </div>
+
+                {{> create_recipe}}
             </div>
 
-            {{> create_recipe}}
-        </div>
-
-        <div id="container" class="fl-col">
             <div class="fl-col new-user">
                 {{!-- Add a page view for a new user with no saved recipes --}}
                 <h1>No recipes found.</h1>
@@ -37,18 +37,12 @@
 
             {{!-- Add a page view for a user with saved recipes --}}
             {{!-- This view should pull from the database and use the info to display recipe cards --}}
-            <div class="click-me" style="display: none;">
-                {{> recipe_card}}
-            </div>
 
             {{!-- Form for selecting URL or Create New Recipe --}}
 
             {{!-- Form for creating new recipes --}}
 
             {{!-- Add a page view for viewing saved recipes --}}
-            <div class="click-me" style="display: none;">
-                {{> view_recipe}}
-            </div>
             
             {{!-- This view should pull from the database to fill out the data --}}
         </div>

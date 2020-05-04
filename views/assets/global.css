@@ -6,11 +6,6 @@
     box-sizing: border-box;
 }
 
-#global-wraper {
-    justify-content: space-between;
-    min-height: 100vh;
-}
-
 body {
     display: flex;
     flex-direction: column;
@@ -21,7 +16,7 @@ body {
 
 #container {
     margin: 0 auto;
-    padding: 10px;
+    padding-top: 10px;
     width: 100%;
 }
 
@@ -34,11 +29,10 @@ footer {
 }
 
 #wrapper {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
+    width: 100%;
+    height: auto;
+    position: absolute;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.3);
 }
 
 .exit {
