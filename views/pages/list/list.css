@@ -169,19 +169,19 @@ textarea {
 .li-div {
     width: 25%;
     height: 20px;
-    margin-top: 10px
+    margin-top: 10px;
 }
 
 .li-amt {
-    width: 45px;
+    width: 40px;
 }
 
 .li-unit {
-    width: 45px;
+    width: 60px;
 }
 
 .li-name {
-    width: 50%;
+    width: auto;
 }
 
 .nr-di {

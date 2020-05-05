@@ -3,6 +3,39 @@
 // ******************** Recipe Card JS ********************
 // This JS handles filling out the data for the recipe cards.
 
+// ******************** General JS ********************
+// General or Misc JS running on the page
+
+// Declarations
+const cuisineSel = document.querySelector('.cuisine');
+const cusineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
+const unitSel = document.querySelector('.units');
+const unitArr = ['tsp','Tbsp','fl oz','cup','pt','qt','gal','Gill','ml','l','oz','lb','pk','bu','g','drops','dash','grains','pinch']
+
+cusineArr.sort()
+
+function fillOptions(arr, local) {
+    arr.forEach(elem => {
+        let newOp = document.createElement('option');
+        newOp.value = elem;
+        newOp.innerHTML = elem;
+
+        local.append(newOp);
+    });
+
+    if (arr == cusineArr) {
+        let newOp = document.createElement('option');
+        newOp.value = 'other';
+        newOp.innerHTML = 'Other';
+        newOp.selected = true;
+
+        local.append(newOp);
+    }
+}
+
+fillOptions(cusineArr, cuisineSel);
+fillOptions(unitArr, unitSel);
+
 // ******************** Button JS ********************
 // Gives functionality to the various buttons on the page.
 
