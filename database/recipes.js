@@ -87,6 +87,21 @@ const RecipeSchema = new mongoose.Schema({
     }
 })
 
+// Finds Recipe by object ID
+UserSchema.statics.findByID = function(objectID) {
+    return new Promise((resolve, reject) => {
+        const Recipe = this
+
+        Recipe.findOne({objectID}).then(recipe => {
+            if (!recipe) {
+                reject('No Recipe with ID found')
+            } else {
+                resolve(recipe)
+            }
+        })
+    })
+}
+
 // // Function to generate new JSONWebTokens
 // UserSchema.methods.generateToken = function(tokenName) {
 //     return new Promise(async (resolve, reject) => {
