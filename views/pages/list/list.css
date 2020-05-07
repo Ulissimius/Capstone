@@ -114,6 +114,7 @@ textarea {
     width: 90%;
     border-radius: 10px;
     padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* ********** #R5 - Build New Recipe View ********** */
