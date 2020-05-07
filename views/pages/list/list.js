@@ -95,11 +95,30 @@ addBtn.addEventListener('click', e => {
 // Don't forget to save the URL
 const subURL = document.querySelector('#sub_URL')
 const inputURL = document.querySelector('#in-url')
+const tempTA = document.querySelector('#temp-ta')
 
 subURL.addEventListener('click', e => {
 /*  Submits a URL for the webscraper code 
 */
+    let objArr = [];
+    let pointer = 0;
     let recipeURL = inputURL.value
+    let timer = setInterval(placeReplace, 750)
+
+    tempTA.classList.remove("hide")
+    closeView('#nr-select', true)
+
+    function placeReplace() {
+        if (pointer == 0) {
+            tempTA.placeholder = "Fetching data."
+        } else if (pointer == 1) {
+            tempTA.placeholder = "Fetching data.."
+        } else {
+            tempTA.placeholder = "Fetching data..."
+            pointer = -1
+        }
+        pointer++
+    };
 
     fetch('/scraper', {
         method: 'POST',
@@ -108,5 +127,65 @@ subURL.addEventListener('click', e => {
         },
         body: JSON.stringify({recipeURL})
     })
-    .catch((err) => {console.log(err)})
+    .then((response) => response.json())
+    .then((data) => {
+        let output = ''
+        objArr = Object.keys(data.results)
+        Object.values(data.results).forEach((e, i) => {
+            if (e == null) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `${objArr[i]}: Not Found\n`
+            } else if (i == 0 || i == 1) {
+            } else if (i == 2) {
+                output = '*************************************************************\nThis placeholder until we get database insertion in place!\n*************************************************************\n'
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Title: ${e}\n`
+            } else if (i == 3) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Author: ${e}\n`
+            } else if (i == 4) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Prep Time: ${e}\n`
+            } else if (i == 5) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Cook Time: ${e}\n`
+            } else if (i == 6) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Servings Time: ${e}\n`
+            } else if (i == 7) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Cuisine: ${e}\n`
+            } else if (i == 8) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Ingredients:\n`
+                e.forEach(ing => {
+                    output += `- ${ing}\n`
+                });
+            } else if (i == 9) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Directions:\n`
+                e.forEach((dir, i) => {
+                    output += `${i+1}. ${dir}\n`
+                });
+            } else if (i == 10) {
+                output += '----------------------------------------------------------------------------------------------------\n'
+                output += `Notes:\n`
+                if (!Array.isArray(e)) {
+                    output += `${e}\n`
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                } else {
+                    e.forEach(note => {
+                        output += `${note}\n`
+                    });
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                }
+            } else {
+                console.log(`Something went wrong. e: ${e} | i: ${i}`)
+            }
+        });
+        clearInterval(timer)
+        tempTA.innerHTML = output
+        tempTA.style.height = tempTA.scrollHeight + 'px'
+    })
+    .catch((error) => {console.error(error)})
 })

@@ -18,6 +18,8 @@ function doItAgain(data, url) {
     let sws = { // Object collection of supported websites this function can parse. 
         allrecipes: {
             layout_1: {
+                parent: "allrecipes",
+                self: "layout_1",
                 title: ($('h1.headline.heading-content').text()).trim(),
                 author: ($('.author-name:not(.author-name-title)').text()).trim(),
                 prep_time: ($('div.recipe-meta-item-header:contains(prep:)').next().text()).trim(),
@@ -29,6 +31,8 @@ function doItAgain(data, url) {
                 notes: ($('span.icon.icon-chef.default-icon.section-icon').next().text()).trim()
             },
             layout_2: {
+                parent: "allrecipes",
+                self: "layout_2",
                 title: ($('#recipe-main-content').text()).trim(),
                 author: ($('.submitter__name').text()).trim(),
                 prep_time: $('time[itemprop|="prepTime"]').text(),
@@ -42,6 +46,8 @@ function doItAgain(data, url) {
         },
         fifteenspatulas: {
             layout_1: {
+                parent: "fifteenspatulas",
+                self: "layout_1",
                 title: ($('h2.wprm-recipe-name.wprm-block-text-bold').text()).trim(),
                 author: 'FifteenSpatulas',
                 prep_time: $('div.wprm-recipe-block-container.wprm-recipe-block-container-columns.wprm-block-text-normal.wprm-recipe-time-container.wprm-recipe-prep-time-container').children('.wprm-recipe-time.wprm-block-text-normal').text(),

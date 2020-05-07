@@ -16,6 +16,7 @@
                     {{> exit_button}}
                     <h2>Create a new recipe</h2>
                     <h3>Enter a URL from a recipe you like</h3>
+                    <p style="font-size: xx-small;">Supported Website: allrecipes.com, fifteenspatulas.com</p>
                     <input type="text" name="" id="in-url" placeholder="https://www">
                     <input id="sub_URL" type="button" value="Submit">
                     <h3>or</h3>
@@ -33,6 +34,7 @@
                 {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
                 <span></span>
                 <img src="/assets/images/arrows.png" alt="arrows" id="arrows" draggable="false">
+                <textarea id="temp-ta" class="hide" name="result-ta" cols="30" rows="10" placeholder="Fetching data..."></textarea>
             </div>
 
             {{!-- Add a page view for a user with saved recipes --}}

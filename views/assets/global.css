@@ -47,6 +47,9 @@ footer {
     position: relative;
 }
 
+.hide {
+    display: none;
+}
 /* ********** Navbar CSS ********** */
 nav {
     width: 100%;
