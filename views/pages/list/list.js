@@ -5,7 +5,7 @@
 
 // ******************** Test JS ********************
 // For testing purposes
-recipeURL = 'https://www.allrecipes.com/recipe/216784/danish-cinnamon-snails/'
+recipeURL = 'https://www.fifteenspatulas.com/crispy-baked-chicken-wings-yup-no-deep-fryer-in-sight/'
 recipeURL2 = 'https://www.allrecipes.com/recipe/245362/chef-johns-shakshuka/?internalSource=user%20pref&referringContentType=Homepage'
 fetch('/scraper', {
     method: 'POST',
