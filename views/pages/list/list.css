@@ -48,7 +48,8 @@ textarea {
 #arrows {
     width: 300px;
     height: auto;
-    user-select: none;
+    -ms-user-select: none;
+        user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -113,14 +114,14 @@ textarea {
     width: 90%;
     border-radius: 10px;
     padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* ********** #R5 - Build New Recipe View ********** */
 .nr-container {
     width: 1080px;
-    margin: 56px 0 45px 0;
     min-height: 570px;
-    max-height: 100vh;
+    max-height: 90vh;
     border: 2px solid black;
     background: white;
     overflow: auto;
@@ -170,15 +171,15 @@ textarea {
 .li-div {
     width: 25%;
     height: 20px;
-    margin-top: 10px
+    margin-top: 10px;
 }
 
 .li-amt {
-    width: 45px;
+    width: 40px;
 }
 
 .li-unit {
-    width: 45px;
+    width: 60px;
 }
 
 .li-name {
@@ -193,19 +194,17 @@ textarea {
     padding: 10px;
 }
 
+/* .nr-no {
 
-
-.nr-no {
-
-}
+} */
 
 .nr-no-ta {
     padding: 10px;
 }
 
-.nr-nu {
+/* .nr-nu {
 
-}
+} */
 
 /* ********** #R6 - Recipe Thumbnail View ********** */
 .card {

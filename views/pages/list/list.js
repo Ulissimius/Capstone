@@ -3,6 +3,42 @@
 // ******************** Recipe Card JS ********************
 // This JS handles filling out the data for the recipe cards.
 
+// ******************** Test JS ********************
+// For testing purposes
+
+// ******************** General JS ********************
+// General or Misc JS running on the page
+
+// Declarations
+const cuisineSel = document.querySelector('.cuisine');
+const cusineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
+const unitSel = document.querySelector('.units');
+const unitArr = ['tsp','Tbsp','fl oz','cup','pt','qt','gal','Gill','ml','l','oz','lb','pk','bu','g','drops','dash','grains','pinch']
+
+cusineArr.sort()
+
+function fillOptions(arr, local) {
+    arr.forEach(elem => {
+        let newOp = document.createElement('option');
+        newOp.value = elem;
+        newOp.innerHTML = elem;
+
+        local.append(newOp);
+    });
+
+    if (arr == cusineArr) {
+        let newOp = document.createElement('option');
+        newOp.value = 'other';
+        newOp.innerHTML = 'Other';
+        newOp.selected = true;
+
+        local.append(newOp);
+    }
+}
+
+fillOptions(cusineArr, cuisineSel);
+fillOptions(unitArr, unitSel);
+
 // ******************** Button JS ********************
 // Gives functionality to the various buttons on the page.
 
@@ -11,9 +47,9 @@ const wrapper = document.querySelector('#wrapper'); // The wrapper is special di
 let prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
 
 function openView(view) { 
-    /* openView opens the passed view by setting display back to default.
-    openView also closes the previous view by saving the last view passed to it. */
-
+/*  openView opens the passed view by setting display back to default.
+    openView also closes the previous view by saving the last view passed to it. 
+*/
     let curView = document.querySelector(view); // Finds the current view element to open
 
     if (wrapper.style.display == "none") { // Opens the wrapper div if it is closed.
@@ -30,9 +66,9 @@ function openView(view) {
 }
 
 function closeView(view, exit) {
-    /* closeView closes the passed view by setting display to none.
-    closeView will also close the wrapper if exit is passed in as true */
-
+/*  closeView closes the passed view by setting display to none.
+    closeView will also close the wrapper if exit is passed in as true 
+*/
     let curView = document.querySelector(view); // Finds the current view element to close
 
     curView.style.display = "none"; // Closes the current view
@@ -48,9 +84,29 @@ const target = document.querySelectorAll('.target'); // The position to prepend 
 const ingredientHTML = document.querySelector('.li-div.flex'); // The HTML to be cloned.
 
 addBtn.addEventListener('click', e => {
-    /* addBtn click listener clones and existing element (in the footer) that allows
-    the user to input ingredients. */
-
+/*  addBtn click listener clones an existing element (in the footer) that allows
+    the user to input ingredients. 
+*/
     cloneIngHTML = ingredientHTML.cloneNode(true);
     target[0].insertAdjacentElement('beforebegin', cloneIngHTML);
 });
+
+// Declarations
+// Don't forget to save the URL
+const subURL = document.querySelector('#sub_URL')
+const inputURL = document.querySelector('#in-url')
+
+subURL.addEventListener('click', e => {
+/*  Submits a URL for the webscraper code 
+*/
+    let recipeURL = inputURL.value
+
+    fetch('/scraper', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({recipeURL})
+    })
+    .catch((err) => {console.log(err)})
+})
