@@ -8,20 +8,31 @@ module.exports = app => {
         const data = req.body
         const authToken = req.cookies.authentication
         const cookieName = "login"
+        const directions = data.directions.split(/\r?\n/)
+        const time = {
+            prep: data.prep,
+            cooking: data.cooking
+        }
+        console.log(time)
+        const ingredients = [{}]
+        for (let i = 0; i < data.name.length; i++) {
+            ingredients.push({name: data.name[i], amount: data.amount[i], unit: data.unit[i]})
+        }
 
         if (authToken) {
             Users.findByToken(cookieName, authToken).then(user => {
                 if(user){
                     const recipe = new Recipes({
-                        name: data.name,
+                        name: data.title,
                         user: user.username,
                         author: data.author,
+                        url: data.url,
                         description: data.description,
                         cuisine: data.cuisine,
                         type: data.type,
-                        ingredients: data.ingredients,
-                        steps: data.steps,
-                        time: data.time,
+                        ingredients: ingredients,
+                        directions: directions,
+                        time: time,
                         servings: data.servings,
                         calorie: data.calories,
                         image: data.image
@@ -64,7 +75,7 @@ module.exports = app => {
                         recipe.cuisine = data.cuisine,
                         recipe.type = data.type,
                         recipe.ingredients = data.ingredients,
-                        recipe.steps = data.steps,
+                        recipe.directions = data.directions,
                         recipe.time = data.time,
                         recipe.servings = data.servings,
                         recipe.calorie = data.calories,

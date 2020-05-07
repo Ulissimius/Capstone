@@ -18,18 +18,22 @@ const RecipeSchema = new mongoose.Schema({
         default: 'username',
         trim: true
     },
+    url: {
+        type: String,
+        trim: true
+    },
     description: {
-        type: Text,
+        type: String,
         trim: true
     },
     cuisine: {
-        type: Text,
+        type: String,
         required: true,
         trim: true
     },
     type: [{
-        type: Text,
-        required: true,
+        type: String,
+        // required: true,
         trim: true
     }],
     ingredients: [{
@@ -49,7 +53,7 @@ const RecipeSchema = new mongoose.Schema({
             trim: true
         }
     }],
-    steps: [{
+    directions: [{
         type: String,
         required: true,
         trim: true
@@ -76,10 +80,15 @@ const RecipeSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    notes: [{
+        type: String,
+        // required: true,
+        trim: true
+    }],
     image: {
-        file: {
-            type: binData
-        },
+        // file: {
+        //     type: binData
+        // },
         link: {
             type: String,
             trim: true
@@ -88,7 +97,7 @@ const RecipeSchema = new mongoose.Schema({
 })
 
 // Finds Recipe by object ID
-UserSchema.statics.findByID = function(objectID) {
+RecipeSchema.statics.findByID = function(objectID) {
     return new Promise((resolve, reject) => {
         const Recipe = this
 

@@ -79,6 +79,7 @@ function closeView(view, exit) {
 const addBtn = document.querySelector('.add-elem'); // The click listener target
 const target = document.querySelectorAll('.target'); // The position to prepend cloned elements to
 const ingredientHTML = document.querySelector('.li-div.flex'); // The HTML to be cloned.
+const newRecipeButton = document.querySelector('#post-recipe')
 
 addBtn.addEventListener('click', e => {
     /* addBtn click listener clones an existing element (in the footer) that allows
@@ -87,3 +88,55 @@ addBtn.addEventListener('click', e => {
     cloneIngHTML = ingredientHTML.cloneNode(true);
     target[0].insertAdjacentElement('beforebegin', cloneIngHTML);
 });
+
+if (newRecipeButton) {
+    newRecipeButton.addEventListener('click', e => {
+        e.preventDefault()
+    
+        const title = document.querySelector('#name').value
+        const author = document.querySelector('#author').value
+        const url = document.querySelector('#url').value
+        const prep = document.querySelector("input[name='prep_time']").value
+        const cooking = document.querySelector("input[name='cook_time']").value
+        const servings = document.querySelector("input[name='servings']").value
+        const cuisine = document.querySelector("select[name='cuisine']").value
+        const directions = document.querySelector("textarea[name='directions']").value
+        const notes = document.querySelector("textarea[name='notes']").value
+        const amountObj = document.querySelectorAll("input[name='amount']")
+        const unitObj = document.querySelectorAll("select[name='unit']")
+        const nameObj = document.querySelectorAll("input[name='name']")
+        
+        const amount = []
+        const unit = []
+        const name = []
+        for (let i = 0; i < nameObj.length - 1; i++) {
+            amount.push(amountObj[i].value)
+            unit.push(unitObj[i].value)
+            name.push(nameObj[i].value)
+        }
+
+        console.log(amount)
+        console.log(unit)
+        console.log(name)
+    
+        if (title && author && directions) {
+            fetch('/recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({title, author, url, prep, cooking, servings, cuisine, amount, unit, name, directions, notes})
+            }).then((response) => response.json()).then((data) => {
+                if (!data.error) {
+                    console.log("Recipe created successfully")
+                } else {
+                    console.log(`Error creating Recipe: ${data.message}`)
+                }
+            }).catch((error) => {
+                console.error(error)
+            })
+        } else {
+            // Maybe eventually use this section to display a message on screen to fill out required information
+        }
+    })
+}
