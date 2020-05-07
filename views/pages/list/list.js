@@ -5,14 +5,20 @@
 
 // ******************** Test JS ********************
 // For testing purposes
-recipeURL = 'https://www.fifteenspatulas.com/crispy-baked-chicken-wings-yup-no-deep-fryer-in-sight/'
-recipeURL2 = 'https://www.allrecipes.com/recipe/245362/chef-johns-shakshuka/?internalSource=user%20pref&referringContentType=Homepage'
-fetch('/scraper', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({recipeURL})
+const subURL = document.querySelector('#sub_URL')
+
+subURL.addEventListener('click', e => {
+    const inputURL = document.querySelector('#in-url')
+    let recipeURL = inputURL.value
+
+    fetch('/scraper', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({recipeURL})
+    })
+    .catch((err) => {console.log(err)})
 })
 
 //Don't forget to save the URL
@@ -32,74 +38,6 @@ fetch('/scraper', {
 } 
 Then put an if that tries to find ingredients with each layout.
 If ingredients are found, then it stops and continues the rest of the function.*/
-// fetch('https://cors-anywhere.herokuapp.com/https://www.allrecipes.com/recipe/16822/cake-mix-cinnamon-rolls/')
-// .then(response => response.text())
-// .then(data => {
-//     // console.log(data)
-//     scrapeData(data) //Search Ingredients
-// });
-// const testextarea = document.getElementById('testtextarea')
-// function scrapeData(info) {
-//     const allRecipesObj = {
-//         "layout_1": {
-//             "regExTitle": /<h1 class="headline heading-content">([\s\S]*?)<\/h1>/g,
-//             "regExAuth": /<a class="author-name link"[\s\S]*?>([\s\S]*?)<\/a>/g,
-//             "regExPrep": /prep:[\s\S]*?<div class="recipe-meta-item-body" >([\s\S]*?)<\/div>/g,
-//             "regExCook": /cook:[\s\S]*?<div class="recipe-meta-item-body" >([\s\S]*?)<\/div>/g,
-//             "regExServ": /Servings:[\s\S]*?<div class="recipe-meta-item-body" >([\s\S]*?)<\/div>/g,
-//             "regExCuis": null,
-//             "regExIng": /<span class="ingredients-item-name">([\s\S]*?)<\/span>/g,
-//             "regExDir": /<div class="section-body">[\s\S]*?<p>([\s\S]*?)<\/p>/g,
-//             "regExNote": /<div class="recipe-note container">[\s\S]*?<p>([\s\S]*?)<\/p>/g
-//         },
-//         "layout_2": {
-//             "regExTitle": /<h1 id="recipe-main-content" class="recipe-summary__h1" itemprop="name">([\s\S]*?)<\/h1>/g,
-//             "regExAuth": /<span class="submitter__name" itemprop="author">([\s\S]*?)<\/span>/g,
-//             "regExPrep": /p/g,
-//             "regExCook": /c/g,
-//             "regExServ": /S/g,
-//             "regExCuis": /S/g,
-//             "regExIng": /</g,
-//             "regExDir": /</g,
-//             "regExNote": /</g
-//         }
-//     }
-//     regExIng = /<span class="ingredients-item-name">([\s\S]*?)<\/span>/g
-//     regExDir = /<div class="section-body">[\s\S]*?<p>([\s\S]*?)<\/p>/g
-//     regExNote = /<div class="recipe-note container">[\s\S]*?<p>([\s\S]*?)<\/p>/g
-//     regExPrep = /prep:[\s\S]*?<div class="recipe-meta-item-body" >([\s\S]*?)<\/div>/g
-//     regExCook = /cook:[\s\S]*?<div class="recipe-meta-item-body" >([\s\S]*?)<\/div>/g
-//     regExServ = /Servings:[\s\S]*?<div class="recipe-meta-item-body" >([\s\S]*?)<\/div>/g
-//     regExCuis = null
-//     regExTitle = /<h1 class="headline heading-content">([\s\S]*?)<\/h1>/g
-//     regExAuth = /<a class="author-name link"[\s\S]*?>([\s\S]*?)<\/a>/g
-//     regExArr = [[regExTitle, '- Title:\n'], [regExAuth, '- Author:\n'], [regExPrep, '- Prep Time:\n'], [regExCook, '- Cook Time:\n'], [regExServ, '- # of Servings:\n'], 
-//     [regExCuis, '- Cuisine:\n'], [regExIng, '- Ingredients:\n'], [regExDir, '- Directions:\n'], [regExNote, '- Notes:\n']]
-
-//     regExArr.forEach(regEx => {
-//         if (regEx[0] != null) {
-//             let dataArr = info.matchAll(regEx[0])
-//             dataArr = Array.from(dataArr)
-//             console.log(regEx[1])
-//             // console.log(dataArr)
-//             // console.log(regEx[0])
-
-//             if (dataArr.length > 0) {
-//                 dataArr.forEach(elem => {
-//                     elem[1] = elem[1].replace(/\n/, '')
-//                     elem[1] = elem[1].trim()
-
-//                     console.log(elem[1]) // This is where dataArr would be saved to the DB or stored for later
-//                     testextarea.append(elem[1]+'\n') 
-//                 });
-//             } else {
-//                 console.log('**********\nEmpty array found: skipping.\n**********')
-//             }
-//         } else {
-//             console.log(regEx[1] + "\n**********\nNull found: skipping.\n**********")
-//         }
-//     });
-// }
 
 // ******************** General JS ********************
 // General or Misc JS running on the page

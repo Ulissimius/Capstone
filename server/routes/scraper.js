@@ -1,5 +1,5 @@
 // Add comments.
-vws = require('./cheerio')
+const vws = require('./cheerio')
 
 module.exports = app => {
     app.post('/scraper', (req, res) => {
@@ -8,14 +8,13 @@ module.exports = app => {
         console.log('POST Request Received')
         res.status(200).send()
         const fetch = require('node-fetch');
-        const data = req.body
+        const rURL = req.body
 
 
         
-        fetch(data.recipeURL)
+        fetch(rURL.recipeURL)
         .then((response) => response.text())
-        .then((data) => {
-            console.log(vws.doItAgain(data))
-        });
+        .then((data) => { console.log(vws.doItAgain(data, rURL.recipeURL)) })
+        .catch((err) => { console.log(err) });
     })
 }

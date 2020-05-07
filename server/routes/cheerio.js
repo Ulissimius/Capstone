@@ -1,14 +1,23 @@
 // Add comments.
 const cheerio = require('cheerio');
+const psl = require('psl');
 
 function doItAgain(data, url) {
     const $ = cheerio.load(data);
+    const hostname = (new URL(url)).hostname;
+    const parse = psl.parse(hostname);
+    const parsed_URL = parse.sld;
+    // console.log(parsed_URL)
+    // console.log(parsed.tld); // 'com'
+    // console.log(parsed.sld); // 'google'
+    // console.log(parsed.domain); // 'google.com'
+    // console.log(parsed.subdomain); // 'www' */
 
-    vws = {
+    let sws = { //supported websites
         allrecipes: {
             layout_1: {
                 title: ($('h1.headline.heading-content').text()).trim(),
-                author: ($('a.author-name.link').text()).trim(),
+                author: ($('.author-name:not(.author-name-title)').text()).trim(),
                 prep_time: ($('div.recipe-meta-item-header:contains(prep:)').next().text()).trim(),
                 cook_time: ($('div.recipe-meta-item-header:contains(cook:)').next().text()).trim(),
                 servings: ($('div.recipe-meta-item-header:contains(Servings:)').next().text()).trim(),
@@ -45,16 +54,13 @@ function doItAgain(data, url) {
     };
 
     function getArray(route) {
-        let arr = [];
         let newArr = [];
 
-        if (Array.isArray(route)) {
-            arr = route;
-        } else {
-            arr = $(route).toArray();
+        if (!Array.isArray(route)) {
+            route = $(route).toArray();
         }
 
-        arr.forEach(elem => {
+        route.forEach(elem => {
             if (($(elem).text()).length > 0) {
                 newArr.push(($(elem).text()).trim());
             }
@@ -64,7 +70,6 @@ function doItAgain(data, url) {
     }
 
     function fifteenspatulaGetIng() {
-
         let h4Arr = getArray('h4.wprm-recipe-group-name.wprm-recipe-ingredient-group-name.wprm-block-text-bold')
         let cloneArr = []
         cloneArr = cloneArr.concat(h4Arr)
@@ -90,7 +95,15 @@ function doItAgain(data, url) {
         }
     }
 
-    return vws.fifteenspatulas.layout_1;
+    // if (parsed_URL in sws) {
+    //     if (sws[parsed_URL].layout_1.ingredients.length > 0) {
+    //         return console.log(sws[parsed_URL].layout_1);
+    //     } else {
+    //         return console.log(sws[parsed_URL].layout_2);
+    //     }
+    // } else {
+    //     return console.log("URL Rejected.")
+    // }
 }
 
 module.exports = {doItAgain}
