@@ -5,39 +5,6 @@
 
 // ******************** Test JS ********************
 // For testing purposes
-const subURL = document.querySelector('#sub_URL')
-
-subURL.addEventListener('click', e => {
-    const inputURL = document.querySelector('#in-url')
-    let recipeURL = inputURL.value
-
-    fetch('/scraper', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({recipeURL})
-    })
-    .catch((err) => {console.log(err)})
-})
-
-//Don't forget to save the URL
-//Match URL to regEx
-//Some websites have multiple layouts. Make objects that hold site/layout data.
-/* const allrecipesObj = {
-    layout_1: {
-        regExIng: /.../g,
-        regExDir: /.../g,
-        ...
-    },
-    layout_2: {
-        regExIng: /.../g,
-        regExDir: /.../g,
-        ...
-    }
-} 
-Then put an if that tries to find ingredients with each layout.
-If ingredients are found, then it stops and continues the rest of the function.*/
 
 // ******************** General JS ********************
 // General or Misc JS running on the page
@@ -80,9 +47,9 @@ const wrapper = document.querySelector('#wrapper'); // The wrapper is special di
 let prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
 
 function openView(view) { 
-    /* openView opens the passed view by setting display back to default.
-    openView also closes the previous view by saving the last view passed to it. */
-
+/*  openView opens the passed view by setting display back to default.
+    openView also closes the previous view by saving the last view passed to it. 
+*/
     let curView = document.querySelector(view); // Finds the current view element to open
 
     if (wrapper.style.display == "none") { // Opens the wrapper div if it is closed.
@@ -99,9 +66,9 @@ function openView(view) {
 }
 
 function closeView(view, exit) {
-    /* closeView closes the passed view by setting display to none.
-    closeView will also close the wrapper if exit is passed in as true */
-
+/*  closeView closes the passed view by setting display to none.
+    closeView will also close the wrapper if exit is passed in as true 
+*/
     let curView = document.querySelector(view); // Finds the current view element to close
 
     curView.style.display = "none"; // Closes the current view
@@ -117,9 +84,29 @@ const target = document.querySelectorAll('.target'); // The position to prepend 
 const ingredientHTML = document.querySelector('.li-div.flex'); // The HTML to be cloned.
 
 addBtn.addEventListener('click', e => {
-    /* addBtn click listener clones an existing element (in the footer) that allows
-    the user to input ingredients. */
-
+/*  addBtn click listener clones an existing element (in the footer) that allows
+    the user to input ingredients. 
+*/
     cloneIngHTML = ingredientHTML.cloneNode(true);
     target[0].insertAdjacentElement('beforebegin', cloneIngHTML);
 });
+
+// Declarations
+// Don't forget to save the URL
+const subURL = document.querySelector('#sub_URL')
+const inputURL = document.querySelector('#in-url')
+
+subURL.addEventListener('click', e => {
+/*  Submits a URL for the webscraper code 
+*/
+    let recipeURL = inputURL.value
+
+    fetch('/scraper', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({recipeURL})
+    })
+    .catch((err) => {console.log(err)})
+})

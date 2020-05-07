@@ -1,19 +1,21 @@
-// Add comments.
-const cheerio = require('cheerio');
-const psl = require('psl');
+const cheerio = require('cheerio'); // Stages data in a DOM structure, allows jQuery parsing of data.
+const psl = require('psl'); // Takes in a domain name and parses it.
 
 function doItAgain(data, url) {
-    const $ = cheerio.load(data);
-    const hostname = (new URL(url)).hostname;
-    const parse = psl.parse(hostname);
+/*  doItAgain(data[Text HTML], url[URL])
+    Takes in the HTML data from the URL and parses key data using the Supported Website(sws) object.
+*/
+    const $ = cheerio.load(data); // Cheerio stages the data for parsing
+    const hostname = (new URL(url)).hostname; // Shortens the URL to just the hostname (https://www.website.com/page1/content -> www.website.com)
+    const parse = psl.parse(hostname); // Parses the hostname and returns an object of all pieces of the hostname.
     const parsed_URL = parse.sld;
-    // console.log(parsed_URL)
-    // console.log(parsed.tld); // 'com'
-    // console.log(parsed.sld); // 'google'
-    // console.log(parsed.domain); // 'google.com'
-    // console.log(parsed.subdomain); // 'www' */
+    
+    // console.log(parse.tld); // 'com'
+    // console.log(parse.sld); // 'google'
+    // console.log(parse.domain); // 'google.com'
+    // console.log(parse.subdomain); // 'www' */
 
-    let sws = { //supported websites
+    let sws = { // Object collection of supported websites this function can parse. 
         allrecipes: {
             layout_1: {
                 title: ($('h1.headline.heading-content').text()).trim(),
@@ -54,6 +56,7 @@ function doItAgain(data, url) {
     };
 
     function getArray(route) {
+        //Takes in a jquery selector or an array and returns a new trimed array.
         let newArr = [];
 
         if (!Array.isArray(route)) {
@@ -95,15 +98,15 @@ function doItAgain(data, url) {
         }
     }
 
-    // if (parsed_URL in sws) {
-    //     if (sws[parsed_URL].layout_1.ingredients.length > 0) {
-    //         return console.log(sws[parsed_URL].layout_1);
-    //     } else {
-    //         return console.log(sws[parsed_URL].layout_2);
-    //     }
-    // } else {
-    //     return console.log("URL Rejected.")
-    // }
+    if (parsed_URL in sws) {
+        if (sws[parsed_URL].layout_1.ingredients.length > 0) {
+            return sws[parsed_URL].layout_1;
+        } else {
+            return sws[parsed_URL].layout_2;
+        }
+    } else {
+        return "URL Rejected."
+    }
 }
 
 module.exports = {doItAgain}
