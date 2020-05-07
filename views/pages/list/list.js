@@ -137,7 +137,7 @@ subURL.addEventListener('click', e => {
                 output += `${objArr[i]}: Not Found\n`
             } else if (i == 0 || i == 1) {
             } else if (i == 2) {
-                output = '*************************************************************\nThis placeholder until we get database insertion in place!\n*************************************************************\n'
+                output = '*************************************************************\nThis is placeholder until we get database insertion in place!\n*************************************************************\n'
                 output += '----------------------------------------------------------------------------------------------------\n'
                 output += `Title: ${e}\n`
             } else if (i == 3) {
