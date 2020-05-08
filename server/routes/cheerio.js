@@ -25,7 +25,7 @@ function doItAgain(data, url) {
                 prep_time: ($('div.recipe-meta-item-header:contains(prep:)').next().text()).trim(),
                 cook_time: ($('div.recipe-meta-item-header:contains(cook:)').next().text()).trim(),
                 servings: ($('div.recipe-meta-item-header:contains(Servings:)').next().text()).trim(),
-                cuisine: null,
+                cuisine: '', // Not present on page
                 ingredients: getArray('span.ingredients-item-name'),
                 directions: getArray('div.section-body > p'),
                 notes: ($('span.icon.icon-chef.default-icon.section-icon').next().text()).trim()
@@ -38,7 +38,7 @@ function doItAgain(data, url) {
                 prep_time: $('time[itemprop|="prepTime"]').text(),
                 cook_time: $('time[itemprop|="cookTime"]').text(),
                 servings: $('#servings').val(),
-                cuisine: null, // Not present on page
+                cuisine: '', // Not present on page
                 ingredients: getArray('span.recipe-ingred_txt.added:not(.white)'),
                 directions: getArray('span.recipe-directions__list--item'),
                 notes: getArray($('h4.recipe-footnotes__h4:contains(Footnotes)').next().children().toArray())
@@ -52,7 +52,7 @@ function doItAgain(data, url) {
                 author: 'FifteenSpatulas',
                 prep_time: $('div.wprm-recipe-block-container.wprm-recipe-block-container-columns.wprm-block-text-normal.wprm-recipe-time-container.wprm-recipe-prep-time-container').children('.wprm-recipe-time.wprm-block-text-normal').text(),
                 cook_time: $('div.wprm-recipe-block-container.wprm-recipe-block-container-columns.wprm-block-text-normal.wprm-recipe-time-container.wprm-recipe-cook-time-container').children('.wprm-recipe-time.wprm-block-text-normal').text(),
-                servings: null, // Can't grab dynamic data
+                servings: '', // Can't grab dynamic data
                 cuisine: ($('span.wprm-recipe-cuisine.wprm-block-text-normal').text()).trim(),
                 ingredients: fifteenspatulaGetIng(),
                 directions: getArray('div.wprm-recipe-instruction-text'),
@@ -104,11 +104,32 @@ function doItAgain(data, url) {
         }
     }
 
+    function nullEmpty(obj) {
+        let keys = Object.keys(obj)
+        Object.values(obj).forEach((val, i) => {
+            if (val == '' || val == []) {
+                obj[keys[i]] = null
+            }
+        }); 
+        return obj
+    }
+
     if (parsed_URL in sws) {
-        if (sws[parsed_URL].layout_1.ingredients.length > 0) {
-            return sws[parsed_URL].layout_1;
-        } else {
-            return sws[parsed_URL].layout_2;
+        try {
+            if (sws[parsed_URL].layout_1.ingredients.length > 0) {
+                return nullEmpty(sws[parsed_URL].layout_1);
+            } else if (typeof sws[parsed_URL].layout_2 !== 'undefined') {
+                if (sws[parsed_URL].layout_2.ingredients.length > 0) {
+                    return nullEmpty(sws[parsed_URL].layout_2);
+                }
+            } else {
+                console.log("Website is valid, but no recipe was found.")
+                return "Website is valid, but no recipe was found."
+            }
+        } catch (error) {
+            console.log("Try/Catch Error Report")
+            console.error(error)
+            return "Website is valid, but no recipe was found."
         }
     } else {
         return "URL Rejected."

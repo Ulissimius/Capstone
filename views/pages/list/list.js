@@ -14,6 +14,7 @@ const cuisineSel = document.querySelector('.cuisine');
 const cusineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
 const unitSel = document.querySelector('.units');
 const unitArr = ['tsp','Tbsp','fl oz','cup','pt','qt','gal','Gill','ml','l','oz','lb','pk','bu','g','drops','dash','grains','pinch']
+const ERROR = "Something went wrong! You could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch. (Saving recipes not implemented yet.)"
 
 cusineArr.sort()
 
@@ -106,6 +107,7 @@ subURL.addEventListener('click', e => {
     let timer = setInterval(placeReplace, 750)
 
     tempTA.classList.remove("hide")
+    tempTA.innerHTML = ''
     closeView('#nr-select', true)
 
     function placeReplace() {
@@ -127,65 +129,73 @@ subURL.addEventListener('click', e => {
         },
         body: JSON.stringify({recipeURL})
     })
-    .then((response) => response.json())
+    .then((response) => response.json() )
     .then((data) => {
-        let output = ''
-        objArr = Object.keys(data.results)
-        Object.values(data.results).forEach((e, i) => {
-            if (e == null) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `${objArr[i]}: Not Found\n`
-            } else if (i == 0 || i == 1) {
-            } else if (i == 2) {
-                output = '*************************************************************\nThis is placeholder until we get database insertion in place!\n*************************************************************\n'
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Title: ${e}\n`
-            } else if (i == 3) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Author: ${e}\n`
-            } else if (i == 4) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Prep Time: ${e}\n`
-            } else if (i == 5) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Cook Time: ${e}\n`
-            } else if (i == 6) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Servings Time: ${e}\n`
-            } else if (i == 7) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Cuisine: ${e}\n`
-            } else if (i == 8) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Ingredients:\n`
-                e.forEach(ing => {
-                    output += `- ${ing}\n`
-                });
-            } else if (i == 9) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Directions:\n`
-                e.forEach((dir, i) => {
-                    output += `${i+1}. ${dir}\n`
-                });
-            } else if (i == 10) {
-                output += '----------------------------------------------------------------------------------------------------\n'
-                output += `Notes:\n`
-                if (!Array.isArray(e)) {
-                    output += `${e}\n`
+        console.log(data)
+        if (data.error != true) {
+            let output = ''
+            objArr = Object.keys(data.results)
+            Object.values(data.results).forEach((e, i) => {
+                if (e == null) {
                     output += '----------------------------------------------------------------------------------------------------\n'
-                } else {
-                    e.forEach(note => {
-                        output += `${note}\n`
+                    output += `${objArr[i]}: Not Found\n`
+                } else if (i == 0 || i == 1) {
+                } else if (i == 2) {
+                    output = '*************************************************************\nThis is placeholder until we get database insertion in place!\n*************************************************************\n'
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Title: ${e}\n`
+                } else if (i == 3) {
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Author: ${e}\n`
+                } else if (i == 4) {
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Prep Time: ${e}\n`
+                } else if (i == 5) {
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Cook Time: ${e}\n`
+                } else if (i == 6) {
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Servings Time: ${e}\n`
+                } else if (i == 7) {
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Cuisine: ${e}\n`
+                } else if (i == 8) {
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Ingredients:\n`
+                    e.forEach(ing => {
+                        output += `- ${ing}\n`
                     });
+                } else if (i == 9) {
                     output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Directions:\n`
+                    e.forEach((dir, i) => {
+                        output += `${i+1}. ${dir}\n`
+                    });
+                } else if (i == 10) {
+                    output += '----------------------------------------------------------------------------------------------------\n'
+                    output += `Notes:\n`
+                    if (!Array.isArray(e)) {
+                        output += `${e}\n`
+                        output += '----------------------------------------------------------------------------------------------------\n'
+                    } else {
+                        e.forEach(note => {
+                            output += `${note}\n`
+                        });
+                        output += '----------------------------------------------------------------------------------------------------\n'
+                    }
+                } else {
+                    console.log(`Something went wrong. e: ${e} | i: ${i}`)
                 }
-            } else {
-                console.log(`Something went wrong. e: ${e} | i: ${i}`)
-            }
-        });
+            });
+            tempTA.innerHTML = output
+            tempTA.style.height = tempTA.scrollHeight + 'px'
+        } else {
+            tempTA.innerHTML = ERROR
+        }
         clearInterval(timer)
-        tempTA.innerHTML = output
-        tempTA.style.height = tempTA.scrollHeight + 'px'
     })
-    .catch((error) => {console.error(error)})
+    .catch((error) => {
+        console.error(error)
+        tempTA.innerHTML = ERROR
+    })
 })
