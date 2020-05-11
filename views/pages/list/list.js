@@ -3,9 +3,9 @@
 // ******************** Recipe Card JS ********************
 // This JS handles filling out the data for the recipe cards.
 
-
 // ******************** Test JS ********************
 // For testing purposes
+
 // ******************** General JS ********************
 // General or Misc JS running on the page
 
@@ -102,9 +102,9 @@ const ingredientHTML = document.querySelector('.li-div.flex'); // The HTML to be
 const newRecipeButton = document.querySelector('#post-recipe')
 
 addBtn.addEventListener('click', e => {
-    /* addBtn click listener clones an existing element (in the footer) that allows
-    the user to input ingredients. */
-  
+/*  addBtn click listener clones an existing element (in the footer) that allows
+    the user to input ingredients. 
+*/
     cloneIngHTML = ingredientHTML.cloneNode(true);
     target[0].insertAdjacentElement('beforebegin', cloneIngHTML);
 });
@@ -217,7 +217,6 @@ subURL.addEventListener('click', e => {
         tempTA.innerHTML = ERROR
     })
 })
-
 if (newRecipeButton) {
     newRecipeButton.addEventListener('click', e => {
         e.preventDefault()
@@ -269,4 +268,3 @@ if (newRecipeButton) {
         }
     })
 }
-

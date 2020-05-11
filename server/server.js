@@ -38,8 +38,8 @@ app.use(cookieParser())
 
 require('./routes/pages.js')(app)
 require('./routes/users.js')(app)
-require('./routes/scraper.js')(app)
 require('./routes/recipes.js')(app)
+require('./routes/scraper.js')(app)
 
 // Start listening on a port for incoming requests
 app.listen(process.env.PORT, () => {
