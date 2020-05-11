@@ -254,8 +254,9 @@ if (newRecipeButton) {
     })
 }
 
-function editRecipe(parent) {
-    console.log(parent)
+function editRecipe(id) {
+    // Edit the existing recipe
+    console.log(id)
 }
 
 function deleteRecipe(id) {
