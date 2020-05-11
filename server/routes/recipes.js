@@ -8,13 +8,13 @@ module.exports = app => {
         const data = req.body
         const authToken = req.cookies.authentication
         const cookieName = "login"
-        const directions = data.directions.split(/\r?\n/)
+        const directions = data.directions.split("\n")
         const time = {
             prep: data.prep,
             cooking: data.cooking
         }
-        console.log(time)
-        const ingredients = [{}]
+        
+        const ingredients = []
         for (let i = 0; i < data.name.length; i++) {
             ingredients.push({name: data.name[i], amount: data.amount[i], unit: data.unit[i]})
         }
@@ -142,14 +142,13 @@ module.exports = app => {
     // Accepts POST requests to fill out users List page
     app.post('/list', (req, res) => {
         console.log('POST Request Received to query recipes')
-        const data = req.body
         const authToken = req.cookies.authentication
         const cookieName = "login"
 
         if(authToken) {
             Users.findByToken(cookieName, authToken).then(user => {
                 if(user) {
-                    Recipes.find({ name: user.username}, function(err, docs) {
+                    Recipes.find({ user: user.username}, function(err, docs) {
                         if(err) {
                             return res.status(400).send({error: true, message: err})
                         } else {

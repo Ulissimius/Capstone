@@ -6,6 +6,22 @@
 // ******************** General JS ********************
 // General or Misc JS running on the page
 
+fetch('/list', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}).then((response) => response.json()).then((data) => {
+    if (!data.error) {
+        console.log(data.data)
+        console.log("Recipes loaded succesfully")
+    } else {
+        console.log(`Error loading Recipes: ${data.message}`)
+    }
+}).catch((error) => {
+    console.error(error)
+})
+
 // Declarations
 const cuisineSel = document.querySelector('.cuisine');
 const cusineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
