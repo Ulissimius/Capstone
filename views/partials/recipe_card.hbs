@@ -1,28 +1,28 @@
-<div class="card flex">
+<div class="card flex" data-id='{{id}}'>
     <div class="card-img">
     </div>
     <div class="card-info flex">
         <div class="card-title flex">
             <div id="ctl" class="flex">
-                <h3>Title</h3>
+                <h3>{{title}}</h3>
             </div>
             <div id="ctr" class="flex">
-                <img src="/assets/images/edit-24px.svg" alt="">
-                <img src="/assets/images/delete_forever-24px.svg" alt="">
+                <img src="/assets/images/edit-24px.svg" alt="E" onclick="editRecipe(this)">
+                <img src="/assets/images/delete_forever-24px.svg" alt="D" onclick="deleteRecipe('{{id}}')">
             </div>
         </div>
         <div class="card-body fl-fl">
             <div class="card-info-left fl-col-fl">
-                <p>Author:</p>
-                <p>Cuisine:</p>
-                <p>Type:</p>
-                <p>Link:</p>
+                <p>Author: {{auth}}</p>
+                <p>Cuisine: {{cuis}}</p>
+                <p>Type: {{ty}}</p>
+                <p>Link: {{link}}</p>
             </div>
             <div class="card-info-right fl-col-fl">
-                <p>Prep Time:</p>
-                <p>Cook Time:</p>
-                <p>Servings:</p>
-                <p>Calories P/S:</p>
+                <p>Prep Time: {{prep}}</p>
+                <p>Cook Time: {{cook}}</p>
+                <p>Servings: {{serving}}</p>
+                <p>Calories P/S: {{calories}}</p>
             </div>
         </div>
     </div>

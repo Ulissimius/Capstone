@@ -1,4 +1,5 @@
 const {Users} = require('./../../database/users.js')
+const {Recipes} = require('./../../database/recipes.js')
 
 module.exports = app => {
     // Listen for GET requests at the base URL
@@ -51,10 +52,22 @@ module.exports = app => {
                     })
                 } else {
                     console.log(`Visitor is Logged In as ${user.username}`)
-                    // Return a 200 OK status and send the html page
-                    return res.render('pages/list/list.hbs', {
-                        assetUrl: '/pages/list/list',
-                        user: user
+                    Recipes.find({user: user.username}).then(recipe => {
+                        if (!recipe) {
+                            // Return a 200 OK status and send the html page
+                            return res.render('pages/list/list.hbs', {
+                                assetUrl: '/pages/list/list',
+                                user: user
+                            })
+                        } else {
+                            // Return a 200 OK status and send the html page
+                            console.log(recipe)
+                            return res.render('pages/list/list.hbs', {
+                                assetUrl: '/pages/list/list',
+                                user: user,
+                                recipes: recipe
+                            })
+                        }
                     })
                 }
             })
