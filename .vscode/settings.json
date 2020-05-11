@@ -1,3 +1,4 @@
 {
-    "autoprefixer.formatOnSave": true
+    "autoprefixer.formatOnSave": true,
+    "cSpell.allowCompoundWords": true
 }

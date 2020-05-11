@@ -3,36 +3,20 @@
 // ******************** Recipe Card JS ********************
 // This JS handles filling out the data for the recipe cards.
 
-
 // ******************** Test JS ********************
 // For testing purposes
+
 // ******************** General JS ********************
 // General or Misc JS running on the page
 
-fetch('/list', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-}).then((response) => response.json()).then((data) => {
-    if (!data.error) {
-        console.log(data.data)
-        console.log("Recipes loaded succesfully")
-    } else {
-        console.log(`Error loading Recipes: ${data.message}`)
-    }
-}).catch((error) => {
-    console.error(error)
-})
-
 // Declarations
 const cuisineSel = document.querySelector('.cuisine');
-const cusineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
+const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
 const unitSel = document.querySelector('.units');
 const unitArr = ['tsp','Tbsp','fl oz','cup','pt','qt','gal','Gill','ml','l','oz','lb','pk','bu','g','drops','dash','grains','pinch']
 const ERROR = "Something went wrong! You could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch. (Saving recipes not implemented yet.)"
 
-cusineArr.sort()
+cuisineArr.sort()
 
 function fillOptions(arr, local) {
     arr.forEach(elem => {
@@ -43,7 +27,7 @@ function fillOptions(arr, local) {
         local.append(newOp);
     });
 
-    if (arr == cusineArr) {
+    if (arr == cuisineArr) {
         let newOp = document.createElement('option');
         newOp.value = 'other';
         newOp.innerHTML = 'Other';
@@ -53,7 +37,7 @@ function fillOptions(arr, local) {
     }
 }
 
-fillOptions(cusineArr, cuisineSel);
+fillOptions(cuisineArr, cuisineSel);
 fillOptions(unitArr, unitSel);
 
 // ******************** Button JS ********************
@@ -102,9 +86,9 @@ const ingredientHTML = document.querySelector('.li-div.flex'); // The HTML to be
 const newRecipeButton = document.querySelector('#post-recipe')
 
 addBtn.addEventListener('click', e => {
-    /* addBtn click listener clones an existing element (in the footer) that allows
-    the user to input ingredients. */
-  
+/*  addBtn click listener clones an existing element (in the footer) that allows
+    the user to input ingredients. 
+*/
     cloneIngHTML = ingredientHTML.cloneNode(true);
     target[0].insertAdjacentElement('beforebegin', cloneIngHTML);
 });
@@ -270,3 +254,21 @@ if (newRecipeButton) {
     })
 }
 
+function editRecipe(id) {
+    // Edit the existing recipe
+    console.log(id)
+}
+
+function deleteRecipe(id) {
+    /* id is equal to the unique id of the relevant recipe.
+       This function should make it easy to delete both the card and the recipe when called.
+    */
+
+    // Cancles the function if the user does not confirm.
+    if(!confirm('Are you sure you want to delete this recipe?')) return;
+    
+    let parent = document.querySelector(`[data-id*="${id}"]`)
+    parent.remove()
+
+    // Request data be delete here
+}
