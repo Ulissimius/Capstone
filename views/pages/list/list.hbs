@@ -30,6 +30,7 @@
 
             {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
 
+            {{!-- add short and full url --}}
             {{#each recipes}}
                 {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url prep=time.prep cook=time.cooking serving=servings calories=''}}
             {{/each}}
@@ -47,7 +48,6 @@
                 {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
                 <span></span>
                 <img src="/assets/images/arrows.png" alt="arrows" id="arrows" draggable="false">
-                <textarea id="temp-ta" class="hide" name="result-ta" cols="30" rows="10" placeholder="Fetching data..."></textarea>
             </div>
             {{/if}}
 

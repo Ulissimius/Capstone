@@ -61,7 +61,6 @@ module.exports = app => {
                             })
                         } else {
                             // Return a 200 OK status and send the html page
-                            console.log(recipe)
                             return res.render('pages/list/list.hbs', {
                                 assetUrl: '/pages/list/list',
                                 user: user,

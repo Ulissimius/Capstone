@@ -16,7 +16,7 @@ const cuisineSel = document.querySelector('.cuisine');
 const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
 const unitSel = document.querySelector('.units');
 const unitArr = ['tsp','Tbsp','fl oz','cup','pt','qt','gal','Gill','ml','l','oz','lb','pk','bu','g','drops','dash','grains','pinch']
-const ERROR = "Something went wrong! You could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch. (Saving recipes not implemented yet.)"
+const ERROR = "Something went wrong! You could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 
 cuisineArr.sort()
 
@@ -100,108 +100,33 @@ addBtn.addEventListener('click', e => {
 // Don't forget to save the URL
 const subURL = document.querySelector('#sub_URL')
 const inputURL = document.querySelector('#in-url')
-const tempTA = document.querySelector('#temp-ta')
+// const tempTA = document.querySelector('#temp-ta')
 
 subURL.addEventListener('click', e => {
 /*  Submits a URL for the webscraper code 
 */
-    let objArr = [];
-    let pointer = 0;
+    // let objArr = [];
+    // let pointer = 0;
     let recipeURL = inputURL.value
-    let timer = setInterval(placeReplace, 750)
+    // let timer = setInterval(placeReplace, 750)
 
-    tempTA.classList.remove("hide")
-    tempTA.innerHTML = ''
-    closeView('#nr-select', true)
+    // tempTA.classList.remove("hide")
+    // tempTA.innerHTML = ''
+    // closeView('#nr-select', true)
 
-    function placeReplace() {
-        if (pointer == 0) {
-            tempTA.placeholder = "Fetching data."
-        } else if (pointer == 1) {
-            tempTA.placeholder = "Fetching data.."
-        } else {
-            tempTA.placeholder = "Fetching data..."
-            pointer = -1
-        }
-        pointer++
-    };
+    // function placeReplace() {
+    //     if (pointer == 0) {
+    //         tempTA.placeholder = "Fetching data."
+    //     } else if (pointer == 1) {
+    //         tempTA.placeholder = "Fetching data.."
+    //     } else {
+    //         tempTA.placeholder = "Fetching data..."
+    //         pointer = -1
+    //     }
+    //     pointer++
+    // };
+    fetchScraper(recipeURL)
 
-    fetch('/scraper', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({recipeURL})
-    })
-    .then((response) => response.json() )
-    .then((data) => {
-        console.log(data)
-        if (data.error != true) {
-            let output = ''
-            objArr = Object.keys(data.results)
-            Object.values(data.results).forEach((e, i) => {
-                if (e == null) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `${objArr[i]}: Not Found\n`
-                } else if (i == 0 || i == 1) {
-                } else if (i == 2) {
-                    output = '*************************************************************\nThis is placeholder until we get database insertion in place!\n*************************************************************\n'
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Title: ${e}\n`
-                } else if (i == 3) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Author: ${e}\n`
-                } else if (i == 4) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Prep Time: ${e}\n`
-                } else if (i == 5) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Cook Time: ${e}\n`
-                } else if (i == 6) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Servings: ${e}\n`
-                } else if (i == 7) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Cuisine: ${e}\n`
-                } else if (i == 8) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Ingredients:\n`
-                    e.forEach(ing => {
-                        output += `- ${ing}\n`
-                    });
-                } else if (i == 9) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Directions:\n`
-                    e.forEach((dir, i) => {
-                        output += `${i+1}. ${dir}\n`
-                    });
-                } else if (i == 10) {
-                    output += '----------------------------------------------------------------------------------------------------\n'
-                    output += `Notes:\n`
-                    if (!Array.isArray(e)) {
-                        output += `${e}\n`
-                        output += '----------------------------------------------------------------------------------------------------\n'
-                    } else {
-                        e.forEach(note => {
-                            output += `${note}\n`
-                        });
-                        output += '----------------------------------------------------------------------------------------------------\n'
-                    }
-                } else {
-                    console.log(`Something went wrong. e: ${e} | i: ${i}`)
-                }
-            });
-            tempTA.innerHTML = output
-            tempTA.style.height = tempTA.scrollHeight + 'px'
-        } else {
-            tempTA.innerHTML = ERROR
-        }
-        clearInterval(timer)
-    })
-    .catch((error) => {
-        console.error(error)
-        tempTA.innerHTML = ERROR
-    })
 })
 
 if (newRecipeButton) {
@@ -211,8 +136,8 @@ if (newRecipeButton) {
         const title = document.querySelector('#name').value
         const author = document.querySelector('#author').value
         const url = document.querySelector('#url').value
-        const prep = document.querySelector("input[name='prep_time']").value
-        const cooking = document.querySelector("input[name='cook_time']").value
+        const prep_time = document.querySelector("input[name='prep_time']").value
+        const cook_time = document.querySelector("input[name='cook_time']").value
         const servings = document.querySelector("input[name='servings']").value
         const cuisine = document.querySelector("select[name='cuisine']").value
         const directions = document.querySelector("textarea[name='directions']").value
@@ -220,39 +145,17 @@ if (newRecipeButton) {
         const amountObj = document.querySelectorAll("input[name='amount']")
         const unitObj = document.querySelectorAll("select[name='unit']")
         const nameObj = document.querySelectorAll("input[name='name']")
-        
-        const amount = []
-        const unit = []
-        const name = []
+        const ingredientArr = []
+
         for (let i = 0; i < nameObj.length - 1; i++) {
-            amount.push(amountObj[i].value)
-            unit.push(unitObj[i].value)
-            name.push(nameObj[i].value)
+            ingredientArr.push((`${amountObj[i]} ${unitObj[i]} ${nameObj[i]}`).toString())
         }
 
-        const cleanObj = cleanUpText({title, author, url, prep, cooking, servings, cuisine, amount, unit, name, directions, notes})
-    
-        if (title && author && directions) {
-            fetch('/recipe', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(cleanObj)
-            }).then((response) => response.json()).then((data) => {
-                if (!data.error) {
-                    console.log("Recipe created successfully")
-                    window.location.replace("/list")
-                } else {
-                    console.log(`Error creating Recipe: ${data.message}`)
-                    alert("Recipe creation failed!")
-                }
-            }).catch((error) => {
-                console.error(error)
-                alert("Recipe creation failed!")
-            })
+        const cleanObj = cleanUpText({title, author, url, prep_time, cook_time, servings, cuisine, ingredientArr, directions, notes})
+        if (title && author && directions && ingredientArr) {
+            fetchCreateRecipe(cleanObj)
         } else {
-            // Maybe eventually use this section to display a message on screen to fill out required information
+            alert('Recipes must have:\n- A Title\n- An Author\n- At Least 1 Ingredient\n- Directions')
         }
     })
 }
@@ -269,7 +172,39 @@ function deleteRecipe(id) {
 
     // Cancles the function if the user does not confirm.
     if(!confirm('Are you sure you want to delete this recipe?')) return;
+    
+    let parent = document.querySelector(`[data-id*="${id}"]`)
+    parent.remove()
 
+    // Request data be delete here
+    fetchRemoveRecipe(id)
+}
+
+// ******************** Fetch Request JS ********************
+// Contains all Fetch() requests performed on list.hbs
+
+function fetchCreateRecipe(recipeObj) {
+    fetch('/recipe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(recipeObj)
+    }).then((response) => response.json()).then((data) => {
+        if (!data.error) {
+            console.log("Recipe created successfully")
+            window.location.replace("/list")
+        } else {
+            console.log(data.message)
+            alert("Recipe creation failed!")
+        }
+    }).catch((error) => {
+        console.error(error)
+        alert("Recipe creation failed!")
+    })
+}
+
+function fetchRemoveRecipe(id) {
     fetch('/removeRecipe', {
         method: 'DELETE',
         headers: {
@@ -279,16 +214,38 @@ function deleteRecipe(id) {
     }).then((response) => response.json()).then((data) => {
         if (!data.error) {
             console.log("Recipe removed successfully")
+            // If all cards are deleted, refresh the page.
+            if (!document.querySelector('.card.flex')) {
+                window.location.replace("/list")
+            }
         } else {
-            console.log(`Error removing Recipe: ${data.message}`)
+            console.log(data.message)
             alert("Recipe removal failed!")
         }
     }).catch((error) => {
         console.error(error)
     })
-    
-    let parent = document.querySelector(`[data-id*="${id}"]`)
-    parent.remove()
+}
 
-    // Request data be delete here
+function fetchScraper(newURL) {
+    fetch('/scraper', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({newURL})
+    })
+    .then((response) => response.json() )
+    .then((data) => {
+        if (!data.error) {
+            fetchCreateRecipe(data.results)
+        } else {
+            console.log(data.message)
+            alert(ERROR)
+        }
+    })
+    .catch((error) => {
+        console.error(error)
+        alert(ERROR)
+    })
 }

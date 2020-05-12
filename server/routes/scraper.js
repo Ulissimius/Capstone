@@ -10,12 +10,12 @@ module.exports = app => {
         let results = null;
         let cusErr = null;
 
-        fetch(rURL.recipeURL)
+        fetch(rURL.newURL)
         .then((response) => response.text())
         .then((data) => { 
-            results = vws.doItAgain(data, rURL.recipeURL);
+            results = vws.doItAgain(data, rURL.newURL);
 
-            console.log(results)
+            // console.log(results)
 
             if (typeof results != 'object' ) {
                 //It worked, but filled out no data. Try again.

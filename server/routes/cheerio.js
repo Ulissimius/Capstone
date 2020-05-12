@@ -20,6 +20,10 @@ function doItAgain(data, url) {
             layout_1: {
                 parent: "allrecipes",
                 self: "layout_1",
+                url: {
+                    short_url: hostname,
+                    full_url: url
+                },
                 title: ($('h1.headline.heading-content').text()).trim(),
                 author: ($('.author-name:not(.author-name-title)').text()).trim(),
                 prep_time: ($('div.recipe-meta-item-header:contains(prep:)').next().text()).trim(),
@@ -33,6 +37,10 @@ function doItAgain(data, url) {
             layout_2: {
                 parent: "allrecipes",
                 self: "layout_2",
+                url: {
+                    short_url: hostname,
+                    full_url: url
+                },
                 title: ($('#recipe-main-content').text()).trim(),
                 author: ($('.submitter__name').text()).trim(),
                 prep_time: $('time[itemprop|="prepTime"]').text(),
@@ -48,6 +56,10 @@ function doItAgain(data, url) {
             layout_1: {
                 parent: "fifteenspatulas",
                 self: "layout_1",
+                url: {
+                    short_url: hostname,
+                    full_url: url
+                },
                 title: ($('h2.wprm-recipe-name.wprm-block-text-bold').text()).trim(),
                 author: 'FifteenSpatulas',
                 prep_time: $('div.wprm-recipe-block-container.wprm-recipe-block-container-columns.wprm-block-text-normal.wprm-recipe-time-container.wprm-recipe-prep-time-container').children('.wprm-recipe-time.wprm-block-text-normal').text(),
@@ -107,8 +119,8 @@ function doItAgain(data, url) {
     function nullEmpty(obj) {
         let keys = Object.keys(obj)
         Object.values(obj).forEach((val, i) => {
-            if (val == '' || val == [] || val == "") {
-                obj[keys[i]] = null
+            if (val == '' || val == [] || val == {} || val == null) {
+                obj[keys[i]] = 'N/A'
             }
         }); 
         return obj

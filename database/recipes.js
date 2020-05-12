@@ -19,8 +19,14 @@ const RecipeSchema = new mongoose.Schema({
         trim: true
     },
     url: {
-        type: String,
-        trim: true
+        short_url: {
+            type: String,
+            trim: true
+        },
+        long_url: {
+            type: String,
+            trim: true
+        }
     },
     description: {
         type: String,
@@ -37,22 +43,27 @@ const RecipeSchema = new mongoose.Schema({
         trim: true
     }],
     ingredients: [{
-        name: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        amount: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        unit: {
-            type: String,
-            required: true,
-            trim: true
-        }
+        type: String,
+        required: true,
+        trim: true
     }],
+    // ingredients: [{
+    //     name: {
+    //         type: String,
+    //         required: true,
+    //         trim: true
+    //     },
+    //     amount: {
+    //         type: String,
+    //         required: true,
+    //         trim: true
+    //     },
+    //     unit: {
+    //         type: String,
+    //         required: true,
+    //         trim: true
+    //     }
+    // }],
     directions: [{
         type: String,
         required: true,
