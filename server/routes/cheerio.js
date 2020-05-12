@@ -62,7 +62,7 @@ function doItAgain(data, url) {
     };
 
     function getArray(route) {
-        //Takes in a jquery selector or an array and returns a new trimed array.
+        //Takes in a jquery selector or an array and returns a new trimmed array.
         let newArr = [];
 
         if (!Array.isArray(route)) {
@@ -107,7 +107,7 @@ function doItAgain(data, url) {
     function nullEmpty(obj) {
         let keys = Object.keys(obj)
         Object.values(obj).forEach((val, i) => {
-            if (val == '' || val == []) {
+            if (val == '' || val == [] || val == "") {
                 obj[keys[i]] = null
             }
         }); 
