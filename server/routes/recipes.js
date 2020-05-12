@@ -107,18 +107,18 @@ module.exports = app => {
     // Accepts POST requests with information to revome a Recipe
     app.post('/removeRecipe', (req, res) => {
         console.log('POST Request Received to remove a Recipe')
-        const data = req.data
+        const data = req.body
         const authToken = req.cookies.authentication
         const cookieName = "login"
 
         if(authToken) {
             Users.findByToken(cookieName, authToken).then(user => {
                 if(user) {
-                    Recipes.remove({ _id: data.objectID, user: user.username }).then( res => {
-                        if(res > 0) {
-                            return res.status(200).send({error: false})
-                        } else {
+                    Recipes.deleteOne({ _id: data.id}, function(err) {
+                        if(err) {
                             return res.status(400).send({error: true})
+                        }else {
+                            return res.status(200).send({error: false})
                         }
                     }).catch(e => {
                         return res.status(400).send({error: true, message: e})
