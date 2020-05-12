@@ -7,7 +7,7 @@
 
         {{#unless user}}
             {{!-- If user is not logged in they get sent back to the home page --}}
-            {{!-- <script> window.location.replace("/") </script> --}}
+            <script> window.location.replace("/") </script>
         {{/unless}}
 
         <div id="container" class="fl-col">
@@ -26,6 +26,19 @@
                 {{> create_recipe}}
             </div>
 
+            {{#if recipes}}
+
+            {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
+
+            {{#each recipes}}
+                {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url prep=time.prep cook=time.cooking serving=servings calories=''}}
+            {{/each}}
+            
+            <textarea name="" id="" cols="30" rows="10">
+                {{recipes}}
+            </textarea>
+
+            {{else}}
             <div class="fl-col new-user">
                 {{!-- Add a page view for a new user with no saved recipes --}}
                 <h1>No recipes found.</h1>
@@ -35,10 +48,8 @@
                 <span></span>
                 <img src="/assets/images/arrows.png" alt="arrows" id="arrows" draggable="false">
                 <textarea id="temp-ta" class="hide" name="result-ta" cols="30" rows="10" placeholder="Fetching data..."></textarea>
-                {{#each recipes}}
-                    {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url prep=time.prep cook=time.cooking serving=servings calories=''}}
-                {{/each}}
             </div>
+            {{/if}}
 
             {{!-- Add a page view for a user with saved recipes --}}
             {{!-- This view should pull from the database and use the info to display recipe cards --}}

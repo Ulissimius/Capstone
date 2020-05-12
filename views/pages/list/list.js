@@ -1,3 +1,5 @@
+
+
 // ******************** Title Sections with this template comments ********************
 // Example:
 // ******************** Recipe Card JS ********************
@@ -228,9 +230,7 @@ if (newRecipeButton) {
             name.push(nameObj[i].value)
         }
 
-        console.log(amount)
-        console.log(unit)
-        console.log(name)
+        const cleanObj = cleanUpText({title, author, url, prep, cooking, servings, cuisine, amount, unit, name, directions, notes})
     
         if (title && author && directions) {
             fetch('/recipe', {
@@ -238,15 +238,18 @@ if (newRecipeButton) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({title, author, url, prep, cooking, servings, cuisine, amount, unit, name, directions, notes})
+                body: JSON.stringify(cleanObj)
             }).then((response) => response.json()).then((data) => {
                 if (!data.error) {
                     console.log("Recipe created successfully")
+                    window.location.replace("/list")
                 } else {
                     console.log(`Error creating Recipe: ${data.message}`)
+                    alert("Recipe creation failed!")
                 }
             }).catch((error) => {
                 console.error(error)
+                alert("Recipe creation failed!")
             })
         } else {
             // Maybe eventually use this section to display a message on screen to fill out required information
