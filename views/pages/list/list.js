@@ -271,21 +271,18 @@ function deleteRecipe(id) {
     if(!confirm('Are you sure you want to delete this recipe?')) return;
 
     fetch('/removeRecipe', {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({id})
     }).then((response) => response.json()).then((data) => {
-        console.log(data)
-
         if (!data.error) {
             console.log("Recipe removed successfully")
         } else {
             console.log(`Error removing Recipe: ${data.message}`)
             alert("Recipe removal failed!")
         }
-
     }).catch((error) => {
         console.error(error)
     })

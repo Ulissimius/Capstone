@@ -59,8 +59,8 @@ module.exports = app => {
         }
     })
 
-    app.post('/modifyRecipe', (req, res) => {
-        console.log('POST Request Received to Modify a Recipe')
+    app.put('/modifyRecipe', (req, res) => {
+        console.log('PUT Request Received to Modify a Recipe')
         const data = req.body
         const authToken = req.cookies.authentication
         const cookieName = "login"
@@ -105,8 +105,8 @@ module.exports = app => {
     })
 
     // Accepts POST requests with information to revome a Recipe
-    app.post('/removeRecipe', (req, res) => {
-        console.log('POST Request Received to remove a Recipe')
+    app.delete('/removeRecipe', (req, res) => {
+        console.log('DELETE Request Received to remove a Recipe')
         const data = req.body
         const authToken = req.cookies.authentication
         const cookieName = "login"
@@ -140,7 +140,7 @@ module.exports = app => {
     })
 
     // Accepts POST requests to fill out users List page
-    app.post('/list', (req, res) => {
+    app.get('/list', (req, res) => {
         console.log('POST Request Received to query recipes')
         const authToken = req.cookies.authentication
         const cookieName = "login"
