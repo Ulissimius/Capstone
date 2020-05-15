@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{> pagehead}}
+{{> pagehead}}
 
-    <body>
-        {{> nav}}
+<body>
+    {{> nav}}
 
-        {{#unless user}}
-            {{!-- If user is not logged in they get sent back to the home page --}}
-            <script> window.location.replace("/") </script>
-        {{/unless}}
+    {{#unless user}}
+        {{!-- If user is not logged in they get sent back to the home page --}}
+        <script> window.location.replace("/") </script>
+    {{/unless}}
 
-        <div id="container" class="fl-col">
-            <div id="wrapper" class="fl-col" style="display: none;">
-                <div id="nr-select" class="fl-col rel" style="display: none;">
-                    {{> exit_button}}
-                    <h2>Create a new recipe</h2>
-                    <h3>Enter a URL from a recipe you like</h3>
-                    <p style="font-size: small;">Supported Website: allrecipes.com, fifteenspatulas.com</p>
-                    <input type="text" name="" id="in-url" placeholder="https://www">
+    <div id="container" class="fl-col">
+        <div id="wrapper" class="fl-col rel hide">
+            <div id="nr-select" class="fl-col ai-cen rel hide">
+                {{> exit_button}}
+                <h2>Create a new recipe</h2>
+                <h3>Enter a URL from a recipe you like</h3>
+                <p style="font-size: small;">Supported Website: allrecipes.com, fifteenspatulas.com</p>
+                <form class="fl-col ai-cen rel">
+                    <input id="in-url" type="text" name="" placeholder="https://www">
                     <input id="sub_URL" type="button" value="Submit">
-                    <h3>or</h3>
-                    {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-container')"}}
-                </div>
-
-                {{> create_recipe}}
+                </form>
+                <h3>or</h3>
+                {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-container')" zClass="wrapper-child"}}
             </div>
 
+            {{> create_recipe}}
+            
             {{#if recipes}}
+                {{#each recipes}}
+                    {{> view_recipe id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
+                {{/each}}
+            {{/if}}
+        </div>
+
+        {{#if recipes}}
 
             {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
 
-            {{!-- add short and full url --}}
             {{#each recipes}}
-                {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url prep=time.prep cook=time.cooking serving=servings calories=''}}
+                {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
             {{/each}}
-            
-            <textarea name="" id="" cols="30" rows="10" style="height: 500px;">
-                {{recipes}}
-            </textarea>
 
-            {{else}}
+        {{else}}
+
             <div class="fl-col new-user">
                 {{!-- Add a page view for a new user with no saved recipes --}}
                 <h1>No recipes found.</h1>
@@ -49,20 +53,11 @@
                 <span></span>
                 <img src="/assets/images/arrows.png" alt="arrows" id="arrows" draggable="false">
             </div>
-            {{/if}}
 
-            {{!-- Add a page view for a user with saved recipes --}}
-            {{!-- This view should pull from the database and use the info to display recipe cards --}}
+        {{/if}}
+    </div>
 
-            {{!-- Form for selecting URL or Create New Recipe --}}
+    {{> footer}}
+</body>
 
-            {{!-- Form for creating new recipes --}}
-
-            {{!-- Add a page view for viewing saved recipes --}}
-            
-            {{!-- This view should pull from the database to fill out the data --}}
-        </div>
-
-        {{> footer}}
-    </body>
 </html>

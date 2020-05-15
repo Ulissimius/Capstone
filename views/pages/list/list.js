@@ -7,6 +7,26 @@
 
 // ******************** Test JS ********************
 // For testing purposes
+const cardArr = document.querySelectorAll('.card.flex')
+const mainContainer = document.querySelector('#container')
+
+// if (cardArr) {
+//     .forEach(element => {
+        
+//     });
+//     cardArr.addEventListener('click', e => { 
+//         console.log('This clicks boss.')
+//     }) 
+// }
+document.querySelectorAll('.card.flex').forEach(card => {
+    card.addEventListener('click', e => {
+        if (e.target.nodeName != 'IMG') {
+            // console.log(document.querySelector(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`))
+            openView(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`)
+        }
+    })
+});
+
 
 // ******************** General JS ********************
 // General or Misc JS running on the page
@@ -16,7 +36,7 @@ const cuisineSel = document.querySelector('.cuisine');
 const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
 const unitSel = document.querySelector('.units');
 const unitArr = ['tsp','Tbsp','fl oz','cup','pt','qt','gal','Gill','ml','l','oz','lb','pk','bu','g','drops','dash','grains','pinch']
-const ERROR = "Something went wrong! You could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
+const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 
 cuisineArr.sort()
 
@@ -31,7 +51,7 @@ function fillOptions(arr, local) {
 
     if (arr == cuisineArr) {
         let newOp = document.createElement('option');
-        newOp.value = 'other';
+        newOp.value = 'Other';
         newOp.innerHTML = 'Other';
         newOp.selected = true;
 
@@ -48,86 +68,144 @@ fillOptions(unitArr, unitSel);
 // Declarations
 const wrapper = document.querySelector('#wrapper'); // The wrapper is special div that holds floating windows.
 let prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
+const recCont = document.querySelector('#nr-container') // Container for new/edit recipe
 
 function openView(view) { 
 /*  openView opens the passed view by setting display back to default.
     openView also closes the previous view by saving the last view passed to it. 
 */
     let curView = document.querySelector(view); // Finds the current view element to open
-
-    if (wrapper.style.display == "none") { // Opens the wrapper div if it is closed.
-        wrapper.style.display = "";
-    }
+    resetFields(view)
 
     if (prevView) { // Looks for a previous view and closes it if one is found.
         closeView(prevView);
+        prevView = null
+    }
+
+    if (wrapper.classList.contains('hide')) { // Opens the wrapper div if it is closed.
+        wrapper.classList.remove("hide");
     }
 
     prevView = view; // sets the new previous view for the next call of openView
 
-    curView.style.display = ""; // Opens the current view
+    curView.classList.remove("hide"); // Opens the current view
 }
 
 function closeView(view, exit) {
 /*  closeView closes the passed view by setting display to none.
     closeView will also close the wrapper if exit is passed in as true 
 */
-    let curView = document.querySelector(view); // Finds the current view element to close
+    if (typeof view == 'string') {
+        view = document.querySelector(view)
+    }
 
-    curView.style.display = "none"; // Closes the current view
+    view.classList.add("hide"); // Closes the current view
 
     if (exit == true) { // Closes the wrapper div if the x button was used.
-        wrapper.style.display = "none";
+        wrapper.classList.add("hide");
     } 
 }
 
+if (wrapper) {
+    wrapper.addEventListener('click', e => {
+        if (e.target.id == 'wrapper') {
+            wrapper.classList.add("hide");
+            // document.querySelector('#wrapper > div:not(.hide)').classList.add("hide")
+        }
+    })
+}
+
+function resetFields(view) {
+    const formReset = document.querySelector(`${view} form`)
+    if (formReset) {
+        formReset.reset()
+    }
+}
+
 // Declarations
-const addBtn = document.querySelector('.add-elem'); // The click listener target
-const target = document.querySelectorAll('.target'); // The position to prepend cloned elements to
-const ingredientHTML = document.querySelector('.li-div.flex'); // The HTML to be cloned.
-const newRecipeButton = document.querySelector('#post-recipe')
-
-addBtn.addEventListener('click', e => {
-/*  addBtn click listener clones an existing element (in the footer) that allows
-    the user to input ingredients. 
-*/
-    cloneIngHTML = ingredientHTML.cloneNode(true);
-    target[0].insertAdjacentElement('beforebegin', cloneIngHTML);
-});
-
-
-// Declarations
-// Don't forget to save the URL
-const subURL = document.querySelector('#sub_URL')
+const submitURL = document.querySelector('#sub_URL')
 const inputURL = document.querySelector('#in-url')
 // const tempTA = document.querySelector('#temp-ta')
 
-subURL.addEventListener('click', e => {
-/*  Submits a URL for the webscraper code 
-*/
-    // let objArr = [];
-    // let pointer = 0;
-    let recipeURL = inputURL.value
-    // let timer = setInterval(placeReplace, 750)
+if (submitURL) {
+    submitURL.addEventListener('click', e => {
+    /*  Submits a URL to the webscraper
+    */
+        // let objArr = [];
+        // let pointer = 0;
+        let recipeURL = inputURL.value
+        // let timer = setInterval(placeReplace, 750)
 
-    // tempTA.classList.remove("hide")
-    // tempTA.innerHTML = ''
-    // closeView('#nr-select', true)
+        // tempTA.classList.remove("hide")
+        // tempTA.innerHTML = ''
+        // closeView('#nr-select', true)
 
-    // function placeReplace() {
-    //     if (pointer == 0) {
-    //         tempTA.placeholder = "Fetching data."
-    //     } else if (pointer == 1) {
-    //         tempTA.placeholder = "Fetching data.."
-    //     } else {
-    //         tempTA.placeholder = "Fetching data..."
-    //         pointer = -1
-    //     }
-    //     pointer++
-    // };
-    fetchScraper(recipeURL)
+        // function placeReplace() {
+        //     if (pointer == 0) {
+        //         tempTA.placeholder = "Fetching data."
+        //     } else if (pointer == 1) {
+        //         tempTA.placeholder = "Fetching data.."
+        //     } else {
+        //         tempTA.placeholder = "Fetching data..."
+        //         pointer = -1
+        //     }
+        //     pointer++
+        // };
+        fetchScraper(recipeURL)
+    })
+}
 
-})
+function editRecipe(id) {
+    /* Pulls data from a unique view_recipe to the create_recipe view
+       The create_recipe view can then be submitted to the /editRecipe function
+    */
+
+    // recipe* variables reference recipe data from the targeted view_recipe
+    const recipeInfo = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-info`)
+    const recipeIngredients = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-ingredients`)
+    const recipeDirections = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-directions`)
+    const recipeNotes = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-notes`)
+
+    recCont.dataset.edit = id // data-edit is passed the unique ID of the target recipe
+
+    openView('#nr-container') // create_recipe partial is reset and displayed
+
+    const editInfo = document.querySelectorAll('#nr-container .recipe-info') // Reference all non-textarea fillable elements on create_recipe
+    const taArr = document.querySelectorAll('#nr-container textarea') // Reference all textareas on create_recipe
+
+    // Copies data from target view_recipe to matching fields on create_recipe
+    recipeInfo.forEach((elem, i) => {
+        if (i+1 == recipeInfo.length) {
+            let optionArr = document.querySelectorAll('.cuisine option')
+            for (let ii = 0; ii < optionArr.length; ii++) {
+                if ((optionArr[ii].innerHTML).localeCompare(elem.innerHTML) == 0) {
+                    editInfo[i].value = optionArr[ii].value
+                    break
+                } else if (ii+1 == optionArr.length) {
+                    editInfo[i].value = 'Other'
+                }
+            }
+        } else {
+            editInfo[i].value = elem.innerHTML
+        }
+    });
+
+    // Copies ingredient, direction, and note data from target view_recipe to create_recipe
+    recipeIngredients.forEach(ing => {
+        taArr[0].value += ing.innerHTML + '\n'
+    });
+
+    recipeDirections.forEach(dir => {
+        taArr[1].value += dir.innerHTML + '\n'
+    });
+
+    recipeNotes.forEach(note => {
+        taArr[2].value += note.innerHTML + '\n'
+    });
+}
+
+// Declarations
+const newRecipeButton = document.querySelector('#post-recipe')
 
 if (newRecipeButton) {
     newRecipeButton.addEventListener('click', e => {
@@ -142,40 +220,31 @@ if (newRecipeButton) {
         const cuisine = document.querySelector("select[name='cuisine']").value
         const directions = document.querySelector("textarea[name='directions']").value
         const notes = document.querySelector("textarea[name='notes']").value
-        const amountObj = document.querySelectorAll("input[name='amount']")
-        const unitObj = document.querySelectorAll("select[name='unit']")
-        const nameObj = document.querySelectorAll("input[name='name']")
-        const ingredientArr = []
+        const ingredients = document.querySelector("textarea[name='ingredients']").value
 
-        for (let i = 0; i < nameObj.length - 1; i++) {
-            ingredientArr.push((`${amountObj[i]} ${unitObj[i]} ${nameObj[i]}`).toString())
-        }
+        const cleanObj = cleanUpText({title, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes})
 
-        const cleanObj = cleanUpText({title, author, url, prep_time, cook_time, servings, cuisine, ingredientArr, directions, notes})
-        if (title && author && directions && ingredientArr) {
-            fetchCreateRecipe(cleanObj)
+        if (title && author && directions && ingredients) {
+            if (recCont.dataset.edit == '') {
+                console.log('Create Recipe')
+                fetchCreateRecipe(cleanObj)
+            } else {
+                console.log('Edit Recipe')
+                fetchEditRecipe(cleanObj, recCont.dataset.edit)
+            }
         } else {
             alert('Recipes must have:\n- A Title\n- An Author\n- At Least 1 Ingredient\n- Directions')
         }
     })
 }
 
-function editRecipe(id) {
-    // Edit the existing recipe
-    console.log(id)
-}
-
 function deleteRecipe(id) {
     /* id is equal to the unique id of the relevant recipe.
        This function should make it easy to delete both the card and the recipe when called.
     */
-
     // Cancles the function if the user does not confirm.
     if(!confirm('Are you sure you want to delete this recipe?')) return;
     
-    let parent = document.querySelector(`[data-id*="${id}"]`)
-    parent.remove()
-
     // Request data be delete here
     fetchRemoveRecipe(id)
 }
@@ -215,6 +284,10 @@ function fetchRemoveRecipe(id) {
         if (!data.error) {
             console.log("Recipe removed successfully")
             // If all cards are deleted, refresh the page.
+            let recInfoArr = document.querySelectorAll(`[data-id="${id}"]`)
+            recInfoArr.forEach(elem => {
+                elem.remove() 
+            });
             if (!document.querySelector('.card.flex')) {
                 window.location.replace("/list")
             }
@@ -248,4 +321,29 @@ function fetchScraper(newURL) {
         console.error(error)
         alert(ERROR)
     })
+}
+
+function fetchEditRecipe(recipeObj, id) {
+    Object.assign(recipeObj, {id})
+
+    fetch('/editRecipe', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(recipeObj)
+    }).then((response) => response.json()).then((data) => {
+        if (!data.error) {
+            alert("Recipe edit successfully")
+            recCont.dataset.edit = ''
+            window.location.replace("/list")
+        } else {
+            console.log(data.message)
+            alert("Recipe edit failed!")
+        }
+    }).catch((error) => {
+        console.error(error)
+        alert("Recipe edit failed!")
+    })
+    recCont.dataset.edit = '' // Reset data-edit so edit is not called by accident.
 }

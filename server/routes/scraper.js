@@ -4,11 +4,10 @@ module.exports = app => {
     app.post('/scraper', (req, res) => {
         // Fetches Text HTML based on passed URL, then passes the results to cheerio.js
 
-        console.log('POST Request Received');
+        console.log('POST Request Received - Webscraper');
         const fetch = require('node-fetch');
         const rURL = req.body;
         let results = null;
-        let cusErr = null;
 
         fetch(rURL.newURL)
         .then((response) => response.text())
