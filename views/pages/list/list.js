@@ -10,14 +10,6 @@
 const cardArr = document.querySelectorAll('.card.flex')
 const mainContainer = document.querySelector('#container')
 
-// if (cardArr) {
-//     .forEach(element => {
-        
-//     });
-//     cardArr.addEventListener('click', e => { 
-//         console.log('This clicks boss.')
-//     }) 
-// }
 document.querySelectorAll('.card.flex').forEach(card => {
     card.addEventListener('click', e => {
         if (e.target.nodeName != 'IMG') {
@@ -34,8 +26,6 @@ document.querySelectorAll('.card.flex').forEach(card => {
 // Declarations
 const cuisineSel = document.querySelector('.cuisine');
 const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
-const unitSel = document.querySelector('.units');
-const unitArr = ['tsp','Tbsp','fl oz','cup','pt','qt','gal','Gill','ml','l','oz','lb','pk','bu','g','drops','dash','grains','pinch']
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 
 cuisineArr.sort()
@@ -60,14 +50,13 @@ function fillOptions(arr, local) {
 }
 
 fillOptions(cuisineArr, cuisineSel);
-fillOptions(unitArr, unitSel);
 
 // ******************** Button JS ********************
 // Gives functionality to the various buttons on the page.
 
 // Declarations
 const wrapper = document.querySelector('#wrapper'); // The wrapper is special div that holds floating windows.
-let prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
+var prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
 const recCont = document.querySelector('#nr-container') // Container for new/edit recipe
 
 function openView(view) { 
