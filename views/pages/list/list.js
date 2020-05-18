@@ -1,26 +1,51 @@
-
-
 // ******************** Title Sections with this template comments ********************
 // Example:
-// ******************** Recipe Card JS ********************
+// ******************** Recipe Card JS (##A0) ********************
 // This JS handles filling out the data for the recipe cards.
 
-// ******************** Test JS ********************
+/**
+ * Search Index:
+ * ##A0 - Test JS
+ * 
+ * ##A1 - General JS
+ *      - ##A1F0 - fillOptions()
+ *      - ##A1F1 - card.addEventListener
+ * 
+ * ##A2 - Button JS
+ *      - ##A2F0 - openView()
+ *      - ##A2F1 - closeView()
+ *      - ##A2F2 - wrapper.addEventListener
+ *      - ##A2F3 - resetFields()
+ *      - ##A2F4 - submitURL.addEventListener
+ *      - ##A2F5 - editRecipe()
+ *      - ##A2F6 - newRecipeButton.addEventListener
+ *      - ##A2F7 - deleteRecipe()
+ * 
+ * ##A3 - Filter Options JS
+ *      - ##A3F0 - changeFilter()
+ *      - ##A3F1 - alphabetical()
+ *      - ##A3F2 - reversAlphabetical()
+ *      - ##A3F3 - cuisineSort()
+ *      - ##A3F4 - authorSort()
+ *      - ##A3F5 - applySort()
+ *      - ##A3F6 - pathBuilder()
+ *      - ##A3F7 - buildFilterListAlpha()
+ * 
+ * ##A4 - Fetch Request JS
+ *      - ##A4F0 - fetchCreateRecipe()
+ *      - ##A4F1 - fetchRemoveRecipe()
+ *      - ##A4F2 - fetchScraper()
+ *      - ##A4F3 - fetchEditRecipe
+ * 
+ * ##A5 - Function Calls
+ * 
+ */
+
+// ******************** Test JS (##A0) ********************
 // For testing purposes
-const cardArr = document.querySelectorAll('.card.flex')
-const mainContainer = document.querySelector('#container')
-
-document.querySelectorAll('.card.flex').forEach(card => {
-    card.addEventListener('click', e => {
-        if (e.target.nodeName != 'IMG') {
-            // console.log(document.querySelector(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`))
-            openView(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`)
-        }
-    })
-});
 
 
-// ******************** General JS ********************
+// ******************** General JS (##A1) ********************
 // General or Misc JS running on the page
 
 // Declarations
@@ -29,11 +54,13 @@ const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Gr
 const filterSel = document.querySelector('#filter')
 const filterArr = ['Old', 'New', 'A-Z', 'Z-A', 'Cuisine', 'Author']
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
+const cardArr = document.querySelectorAll('.card.flex')
+const mainContainer = document.querySelector('#container')
 
 cuisineArr.sort()
 filterArr.sort()
 
-function fillOptions(arr, local) {
+function fillOptions(arr, local) { // ##A1F0
     arr.forEach(elem => {
         let newOp = document.createElement('option');
         newOp.value = elem;
@@ -52,12 +79,16 @@ function fillOptions(arr, local) {
     }
 }
 
-fillOptions(cuisineArr, cuisineSel);
-if (filterSel) {
-    fillOptions(filterArr, filterSel)
-}
+document.querySelectorAll('.card.flex').forEach(card => { // ##A1F1
+    card.addEventListener('click', e => {
+        if (e.target.nodeName != 'IMG') {
+            // console.log(document.querySelector(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`))
+            openView(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`)
+        }
+    })
+});
 
-// ******************** Button JS ********************
+// ******************** Button JS (##A2) ********************
 // Gives functionality to the various buttons on the page.
 
 // Declarations
@@ -65,7 +96,7 @@ const wrapper = document.querySelector('#wrapper'); // The wrapper is special di
 var prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
 const recCont = document.querySelector('#nr-container') // Container for new/edit recipe
 
-function openView(view) { 
+function openView(view) { // ##A2F0
 /*  openView opens the passed view by setting display back to default.
     openView also closes the previous view by saving the last view passed to it. 
 */
@@ -86,7 +117,7 @@ function openView(view) {
     curView.classList.remove("hide"); // Opens the current view
 }
 
-function closeView(view, exit) {
+function closeView(view, exit) { // ##A2F1
 /*  closeView closes the passed view by setting display to none.
     closeView will also close the wrapper if exit is passed in as true 
 */
@@ -101,7 +132,7 @@ function closeView(view, exit) {
     } 
 }
 
-if (wrapper) {
+if (wrapper) { // ##A2F2
     wrapper.addEventListener('click', e => {
         if (e.target.id == 'wrapper') {
             wrapper.classList.add("hide");
@@ -110,7 +141,7 @@ if (wrapper) {
     })
 }
 
-function resetFields(view) {
+function resetFields(view) { // ##A2F3
     const formReset = document.querySelector(`${view} form`)
     if (formReset) {
         formReset.reset()
@@ -122,7 +153,7 @@ const submitURL = document.querySelector('#sub_URL')
 const inputURL = document.querySelector('#in-url')
 // const tempTA = document.querySelector('#temp-ta')
 
-if (submitURL) {
+if (submitURL) { // ##A2F4
     submitURL.addEventListener('click', e => {
     /*  Submits a URL to the webscraper
     */
@@ -150,7 +181,7 @@ if (submitURL) {
     })
 }
 
-function editRecipe(id) {
+function editRecipe(id) { // ##A2F5
     /* Pulls data from a unique view_recipe to the create_recipe view
        The create_recipe view can then be submitted to the /editRecipe function
     */
@@ -202,7 +233,7 @@ function editRecipe(id) {
 // Declarations
 const newRecipeButton = document.querySelector('#post-recipe')
 
-if (newRecipeButton) {
+if (newRecipeButton) { // ##A2F6
     newRecipeButton.addEventListener('click', e => {
         e.preventDefault()
     
@@ -233,7 +264,7 @@ if (newRecipeButton) {
     })
 }
 
-function deleteRecipe(id) {
+function deleteRecipe(id) { // ##A2F7
     /* id is equal to the unique id of the relevant recipe.
        This function should make it easy to delete both the card and the recipe when called.
     */
@@ -244,16 +275,19 @@ function deleteRecipe(id) {
     fetchRemoveRecipe(id)
 }
 
-// ******************** Filter Options JS ********************
+// ******************** Filter Options JS (##A3) ********************
 //js for filtering the recipe cards
 
+// Declarations
+const contBody = document.querySelector('#main-left')
 const recipeArr = Array.from(document.querySelectorAll('.card'))
 let currFilter = 'Old'
 
-function changeFilter() {
+function changeFilter() { // ##A3F0
     const newFilter = document.querySelector('#filter').value
 
     if (newFilter != currFilter) {
+        contBody.innerHTML = '' // Clears the dynamic elements created by previous sort
         switch (newFilter) {
             case 'Old':
                 console.log('click')
@@ -263,16 +297,16 @@ function changeFilter() {
                 applySort(recipeArr.reverse())
                 break;
             case 'A-Z':
-                alphabetical(recipeArr)
+                alphabetical(recipeArr, newFilter)
                 break;
             case 'Z-A':
-                reversAlphabetical(recipeArr)
+                reversAlphabetical(recipeArr, newFilter)
                 break;
             case 'Cuisine':
-                cuisineSort(recipeArr)
+                cuisineSort(recipeArr, newFilter)
                 break;
             case 'Author':
-                authorSort(recipeArr)
+                authorSort(recipeArr, newFilter)
                 break;
             default:
                 break;
@@ -281,7 +315,7 @@ function changeFilter() {
     }
 }
 
-function alphabetical(items) {
+function alphabetical(items, filter) { // ##A3F1
     items.sort(function(a, b) {
         if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
             return 1
@@ -292,10 +326,12 @@ function alphabetical(items) {
         }
         return 0
     });
+
+    items = buildFilterListAlpha(items, pathBuilder(items, filter))
     applySort(items)
 }
 
-function reversAlphabetical(items) {
+function reversAlphabetical(items, filter) { // ##A3F2
     items.sort(function(a, b) {
         if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
             return -1
@@ -306,10 +342,11 @@ function reversAlphabetical(items) {
         }
         return 0
     });
+    items = buildFilterListAlpha(items, pathBuilder(items, filter))
     applySort(items)
 }
 
-function cuisineSort(items) {
+function cuisineSort(items, filter) { // ##A3F3
     items.sort(function(a, b) {
         if(a.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase() > b.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase()) {
             return 1
@@ -320,10 +357,11 @@ function cuisineSort(items) {
         }
         return 0
     });
+    items = buildFilterListAlpha(items, pathBuilder(items, filter))
     applySort(items)
 }
 
-function authorSort(items) {
+function authorSort(items, filter) { // ##A3F4
     items.sort(function(a, b) {
         if(a.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
             return 1
@@ -334,21 +372,97 @@ function authorSort(items) {
         }
         return 0
     });
+    items = buildFilterListAlpha(items, pathBuilder(items, filter))
     applySort(items)
 }
 
-function applySort (items) {
+function applySort (items) { // ##A3F5
     items.forEach(item => {
-        document.querySelector('#main-left').appendChild(item);
+        contBody.appendChild(item);
     });
 }
 
-changeFilter()
+function pathBuilder(pathArr, filter) { // ##A3F6
+    /* Returns an array of all relative reference paths for the current filter
+    */
+    let newPathArr = []
 
-// ******************** Fetch Request JS ********************
+    switch (filter) {
+        case 'Old':
+
+            break;
+        case 'New':
+
+            break;
+        case 'A-Z':
+            pathArr.forEach(path => {
+                newPathArr.push(path.children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt())
+            });
+            break;
+        case 'Z-A':
+            pathArr.forEach(path => {
+                newPathArr.push(path.children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt())
+            });
+            break;
+        case 'Cuisine':
+            pathArr.forEach(path => {
+                newPathArr.push(path.children[1].children[1].firstElementChild.children[1].innerText.toUpperCase().trim().charAt(9))
+            });
+            break;
+        case 'Author':
+            pathArr.forEach(path => {
+                newPathArr.push(path.children[1].children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt(8))
+            });
+            break;
+        default:
+            break;
+    }
+    return newPathArr
+}
+
+function buildFilterListAlpha(arr, path) { // ##A3F7
+    /* buildFilterList(arr [Filtered node array], path [pathBuilder() array])
+       Takes in a filtered array and wraps each result in html for page display based on similar letters.
+       path provides the reference location for the letter comparison.
+    */
+    let newItems = []
+
+    for (let i = 0; i < arr.length;) {
+        let curLetter = path[i]
+        let prevLetter = path[i]
+
+        let topDiv = document.createElement('div')
+        let innerDiv = document.createElement('div')
+        let lettH1 = document.createElement('h1')
+        let lettHr = document.createElement('hr')
+
+        topDiv.classList.add('filter-box')
+        innerDiv.classList.add('box-content','flex','fw-w')
+        lettH1.innerText = curLetter
+
+        topDiv.append(lettH1)
+        topDiv.append(lettHr)
+        topDiv.append(innerDiv)
+
+        while (curLetter == prevLetter) {
+            innerDiv.append(arr[i])
+
+            i++
+            if (i+1 <= arr.length) {
+                prevLetter = path[i]
+            } else {
+                prevLetter = 'END'
+            }
+        }//End while
+        newItems.push(topDiv)
+    }//End for
+    return newItems
+}//End buildFilterListAlpha
+
+// ******************** Fetch Request JS (##A4) ********************
 // Contains all Fetch() requests performed on list.hbs
 
-function fetchCreateRecipe(recipeObj) {
+function fetchCreateRecipe(recipeObj) { // ##A4F0
     fetch('/recipe', {
         method: 'POST',
         headers: {
@@ -369,7 +483,7 @@ function fetchCreateRecipe(recipeObj) {
     })
 }
 
-function fetchRemoveRecipe(id) {
+function fetchRemoveRecipe(id) { // ##A4F1
     fetch('/removeRecipe', {
         method: 'DELETE',
         headers: {
@@ -396,7 +510,7 @@ function fetchRemoveRecipe(id) {
     })
 }
 
-function fetchScraper(newURL) {
+function fetchScraper(newURL) { // ##A4F2
     fetch('/scraper', {
         method: 'POST',
         headers: {
@@ -419,7 +533,7 @@ function fetchScraper(newURL) {
     })
 }
 
-function fetchEditRecipe(recipeObj, id) {
+function fetchEditRecipe(recipeObj, id) { // ##A4F3
     Object.assign(recipeObj, {id})
 
     fetch('/editRecipe', {
@@ -443,3 +557,13 @@ function fetchEditRecipe(recipeObj, id) {
     })
     recCont.dataset.edit = '' // Reset data-edit so edit is not called by accident.
 }
+
+// ******************** Function Calls (##A5) ********************
+// All function calls happening on page load - happens last so variables can be fully declared
+
+fillOptions(cuisineArr, cuisineSel);
+if (filterSel) {
+    fillOptions(filterArr, filterSel)
+}
+
+changeFilter() // Sets the page to the default filter on load

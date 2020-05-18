@@ -6,7 +6,7 @@
 #R5 - Build New Recipe View
 #R6 - Recipe Thumbnail View
 #R7 - Existing Recipe View
-#R8 - Search/Filter Bar
+#R8 - Search/Filter
 */
 
 /* ********** #R1 - Local Global CSS ********** */
@@ -134,9 +134,9 @@ textarea {
     overflow: auto;
 }
 
-.nr-container hr {
+/* .nr-container hr {
     width: 100%;
-}
+} */
 
 .nr-he {
     height: 200px;
@@ -205,6 +205,7 @@ textarea {
     border: 1px solid black;
     box-shadow: 2px 5px 3px #00000040;
     background: white;
+    margin: 10px;
 }
 
 .card-img {
@@ -295,8 +296,17 @@ textarea {
     margin-top: 10px;
 }
 
-/* ********** #R8 - Search/Filter Bar ********** */
+/* ********** #R8 - Search/Filter ********** */
 
+.filter-box {
+    margin-top: 10px;
+}
+
+.box-content {
+    margin-left: 50px;
+}
+
+/* ***** Filter Bar ***** */
 #filter-container {
     width: 100%;
     height: -webkit-max-content;

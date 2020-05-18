@@ -3,8 +3,12 @@
 {{> pagehead}}
 
 <body>
-    {{> nav}}
-    {{> filter_bar}}
+    {{> nav}}  
+
+    {{#if recipes}}
+        {{> filter_bar}}
+    {{/if}}
+    
     {{#unless user}}
         {{!-- If user is not logged in they get sent back to the home page --}}
         <script> window.location.replace("/") </script>
@@ -32,18 +36,23 @@
                     {{> view_recipe id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
                 {{/each}}
             {{/if}}
+
         </div>
+
         {{#if recipes}}
+
         <div id="main-body" class="flex">
-            <div id="main-left" class="flex fw-w">
+            <div id="main-left" class="">
                 {{#each recipes}}
                     {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
                 {{/each}}
             </div>
+
             <div id="main-right">
                 {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
             </div>
         </div>
+
         {{else}}
 
             <div class="fl-col new-user">
