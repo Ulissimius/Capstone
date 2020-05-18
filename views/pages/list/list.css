@@ -270,3 +270,10 @@ textarea {
 /* ********** #R7 - Existing Recipe View ********** */
 
 /* ********** #R8 - Search/Filter Bar ********** */
+
+#filter {
+    width: 80px;
+    position: absolute;
+    right: 0px;
+    top: 140px;
+}

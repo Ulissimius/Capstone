@@ -30,6 +30,8 @@
 
             {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
 
+            <select id="filter" onclick="changeFilter()"></select>
+
             {{!-- add short and full url --}}
             {{#each recipes}}
                 {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url prep=time.prep cook=time.cooking serving=servings calories=''}}

@@ -16,6 +16,8 @@ const cuisineSel = document.querySelector('.cuisine');
 const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
 const unitSel = document.querySelector('.units');
 const unitArr = ['tsp','Tbsp','fl oz','cup','pt','qt','gal','Gill','ml','l','oz','lb','pk','bu','g','drops','dash','grains','pinch']
+const filterSel = document.querySelector('#filter')
+const filterArr = ['Old', 'New', 'A-Z', 'Z-A', 'Cuisine', 'Author']
 const ERROR = "Something went wrong! You could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 
 cuisineArr.sort()
@@ -41,6 +43,10 @@ function fillOptions(arr, local) {
 
 fillOptions(cuisineArr, cuisineSel);
 fillOptions(unitArr, unitSel);
+if (filterSel) {
+    fillOptions(filterArr, filterSel)
+}
+
 
 // ******************** Button JS ********************
 // Gives functionality to the various buttons on the page.
@@ -178,6 +184,105 @@ function deleteRecipe(id) {
 
     // Request data be delete here
     fetchRemoveRecipe(id)
+}
+
+// ******************** Filter Options JS ********************
+//js for filtering the recipe cards
+
+const recipeArr = Array.from(document.querySelectorAll('.card'))
+let currFilter = 'Old'
+
+function changeFilter() {
+    const newFilter = document.querySelector('#filter').value
+
+    if (newFilter != currFilter) {
+        switch (newFilter) {
+            case 'Old':
+                console.log('click')
+                applySort(recipeArr)
+                break;
+            case 'New':
+                applySort(recipeArr.reverse())
+                break;
+            case 'A-Z':
+                alphabetical(recipeArr)
+                break;
+            case 'Z-A':
+                reversAlphabetical(recipeArr)
+                break;
+            case 'Cuisine':
+                cuisineSort(recipeArr)
+                break;
+            case 'Author':
+                authorSort(recipeArr)
+                break;
+            default:
+                break;
+        }
+        currFilter = newFilter
+    }
+}
+
+function alphabetical(items) {
+    items.sort(function(a, b) {
+        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return 1
+        }
+
+        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return -1
+        }
+        return 0
+    });
+    applySort(items)
+}
+
+function reversAlphabetical(items) {
+    items.sort(function(a, b) {
+        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return -1
+        }
+
+        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return 1
+        }
+        return 0
+    });
+    applySort(items)
+}
+
+function cuisineSort(items) {
+    items.sort(function(a, b) {
+        if(a.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase() > b.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase()) {
+            return 1
+        }
+
+        if(a.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase() < b.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase()) {
+            return -1
+        }
+        return 0
+    });
+    applySort(items)
+}
+
+function authorSort(items) {
+    items.sort(function(a, b) {
+        if(a.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return 1
+        }
+
+        if(a.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return -1
+        }
+        return 0
+    });
+    applySort(items)
+}
+
+function applySort (items) {
+    items.forEach(item => {
+        document.querySelector('#container').appendChild(item);
+    });
 }
 
 // ******************** Fetch Request JS ********************
