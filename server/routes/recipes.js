@@ -8,33 +8,44 @@ module.exports = app => {
         const data = req.body
         const authToken = req.cookies.authentication
         const cookieName = "login"
-        // const directions = data.directions.split("\n")
-        const time = {
-            prep: data.prep_time,
-            cooking: data.cook_time
-        }
-        if (typeof data.url == 'string') {
-            data.url = {
-                short_url: (new URL(data.url)).hostname, // Shortens the URL to just the hostname (https://www.website.com/page1/content -> www.website.com)
-                full_url: data.url
-            }
-        }
 
         if (authToken) {
             Users.findByToken(cookieName, authToken).then(user => {
                 if (user) {
+                    let urlObj = {}
+                    const time = {
+                        prep: data.prep_time,
+                        cooking: data.cook_time
+                    }
+                    if (typeof data.url == 'string') {
+                        if (data.url == 'N/A') {
+                            urlObj = {
+                                short_url: data.url,
+                                full_url: data.url
+                            }
+                        } else {
+                            urlObj = {
+                                short_url: (new URL(data.url)).hostname, // Shortens the URL to just the hostname (https://www.website.com/page1/content -> www.website.com)
+                                full_url: data.url
+                            }
+                        }
+                    } else {
+                        urlObj = data.url
+                    }
+
                     const recipe = new Recipes({
                         name: data.title,
                         user: user.username,
                         author: data.author,
-                        url: data.url,
+                        url: urlObj,
                         description: data.description,
                         cuisine: data.cuisine,
                         type: data.type,
-                        ingredients: data.ingredientArr,
+                        ingredients: (typeof data.ingredients == 'string' ? data.ingredients.split("\n") : data.ingredients),
                         directions: (typeof data.directions == 'string' ? data.directions.split("\n") : data.directions),
                         time: time,
                         servings: data.servings,
+                        notes: (typeof data.notes == 'string' ? data.notes.split("\n") : data.notes),
                         calorie: data.calories,
                         image: data.image
                     })
@@ -63,48 +74,58 @@ module.exports = app => {
         }
     })
 
-    app.put('/modifyRecipe', (req, res) => {
+    app.put('/editRecipe', (req, res) => {
         console.log('PUT Request Received to Modify a Recipe')
         const data = req.body
         const authToken = req.cookies.authentication
         const cookieName = "login"
-        const time = {
-            prep: data.prep_time,
-            cooking: data.cook_time
-        }
-        data.url = {
-            short_url: (new URL(data.url)).hostname, // Shortens the URL to just the hostname (https://www.website.com/page1/content -> www.website.com)
-            full_url: data.url
-        }
+
         if (authToken) {
             Users.findByToken(cookieName, authToken).then(user => {
                 if(user) {
-                    Recipes.findById(data.objectID).then(recipe => {
+                    let urlObj = {}
+                    const time = {
+                        prep: data.prep_time,
+                        cooking: data.cook_time
+                    }
+                    urlObj = {
+                        short_url: (new URL(data.url)).hostname, // Shortens the URL to just the hostname (https://www.website.com/page1/content -> www.website.com)
+                        full_url: data.url
+                    }
+
+                    Recipes.findById(data.id).then(recipe => {
+                        console.log(recipe)
                         recipe.name = data.title,
-                        recipe.user = data.username,
+                        recipe.user = user.username,
                         recipe.author = data.author,
-                        recipe.url = data.url,
+                        recipe.url = urlObj,
                         recipe.description = data.description,
                         recipe.cuisine = data.cuisine,
                         recipe.type = data.type,
-                        recipe.ingredients = data.ingredientArr,
+                        recipe.ingredients = data.ingredients.split("\n"),
                         recipe.directions = data.directions.split("\n"),
                         recipe.time = time,
                         recipe.servings = data.servings,
+                        recipe.notes = data.notes.split("\n"),
                         recipe.calorie = data.calories,
                         recipe.image = data.image
                         recipe.save().then(() => {
+                            console.log('Recipe Added Successfully.')
                             return res.status(200).send({error: false})
                         }).catch(e => {
+                            console.error(e)
                             return res.status(400).send({error: true, message: e})
                         })
                     }).catch(e => {
+                        console.error(e)
                         return res.status(400).send({error: true, message: e})
                     })
                 } else {
+                    console.error('User Not Found')
                     return res.status(400).send({error: true, message: 'User Not Found'})
                 }
             }).catch(e => {
+                console.error(e)
                 return res.status(400).send({error: true, message: e})
             })
         } else {
@@ -127,7 +148,7 @@ module.exports = app => {
         if(authToken) {
             Users.findByToken(cookieName, authToken).then(user => {
                 if(user) {
-                    Recipes.deleteOne({ _id: data.id}, function(err) {
+                    Recipes.deleteOne({ _id: data.id, user: user.username}, function(err) {
                         if(err) {
                             console.log(err)
                             return res.status(400).send({error: true, message: err})

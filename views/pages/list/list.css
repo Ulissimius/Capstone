@@ -36,7 +36,7 @@ textarea {
     min-height: 350px;
 }
 
-.new-user h1, .new-user h2, #add-button {
+.new-user h1, .new-user h2, .add-button {
     margin-top: 10px;
     margin-bottom: 15px;
 }
@@ -57,10 +57,11 @@ textarea {
 
 /* ********** #R3 - New Recipe Button ********** */
 .add-button {
-    display: flex; 
-    flex-direction: column;
     align-items: center;
     font-weight: bold;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
 }
 
 .button-text {
@@ -102,12 +103,15 @@ textarea {
 /* ********** #R4 - Select New Recipe Menu ********** */
 #nr-select {
     justify-content: space-evenly;
-    align-items: center;
     background: white;
     width: 500px;
     height: 300px;
     border: 1px solid black;
     box-shadow: 2px 5px 3px #00000040;
+}
+
+#nr-select form {
+    width: inherit;
 }
 
 #in-url {
@@ -163,15 +167,8 @@ textarea {
     margin: 0 10px 0 10px;
 }
 
-.nr-in-li {
-    flex-wrap: wrap;
-    padding-left: 10px;
-}
-
-.li-div {
-    width: 25%;
-    height: 20px;
-    margin-top: 10px;
+.nr-in-ta {
+    padding: 10px;
 }
 
 .li-amt {
@@ -194,17 +191,9 @@ textarea {
     padding: 10px;
 }
 
-/* .nr-no {
-
-} */
-
 .nr-no-ta {
     padding: 10px;
 }
-
-/* .nr-nu {
-
-} */
 
 /* ********** #R6 - Recipe Thumbnail View ********** */
 .card {
@@ -235,13 +224,13 @@ textarea {
     border-bottom: 1px solid black;
 }
 
-#ctl {
+.ctl {
     width: 323px;
     height: 33px;
     align-items: center;
 }
 
-#ctr {
+.ctr {
     width: 55px;
     height: 33px;
     align-items: center;
@@ -257,10 +246,6 @@ textarea {
     border-right: 1px solid black;
 }
 
-/* .card-info-right {
-
-} */
-
 .card-info-left, .card-info-right {
     justify-content: space-evenly;
     padding-left: 5px;
@@ -268,6 +253,29 @@ textarea {
 }
 
 /* ********** #R7 - Existing Recipe View ********** */
+
+.vr-di-li {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+}
+
+.vr-di-li li {
+    padding-bottom: 5px;
+}
+
+.vr-in-li {
+    flex-wrap: wrap;
+    padding-left: 10px;
+}
+
+.li-div {
+    width: 33%;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    margin-top: 10px;
+}
 
 /* ********** #R8 - Search/Filter Bar ********** */
 
