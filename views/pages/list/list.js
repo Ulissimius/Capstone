@@ -31,6 +31,7 @@ const filterArr = ['Old', 'New', 'A-Z', 'Z-A', 'Cuisine', 'Author']
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 
 cuisineArr.sort()
+filterArr.sort()
 
 function fillOptions(arr, local) {
     arr.forEach(elem => {
@@ -341,6 +342,8 @@ function applySort (items) {
         document.querySelector('#main-left').appendChild(item);
     });
 }
+
+changeFilter()
 
 // ******************** Fetch Request JS ********************
 // Contains all Fetch() requests performed on list.hbs
