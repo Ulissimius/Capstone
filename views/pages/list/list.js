@@ -338,7 +338,7 @@ function authorSort(items) {
 
 function applySort (items) {
     items.forEach(item => {
-        document.querySelector('#container').appendChild(item);
+        document.querySelector('#main-left').appendChild(item);
     });
 }
 

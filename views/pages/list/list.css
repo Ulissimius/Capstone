@@ -62,6 +62,9 @@ textarea {
     width: -webkit-max-content;
     width: -moz-max-content;
     width: max-content;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 .button-text {
@@ -254,6 +257,21 @@ textarea {
 
 /* ********** #R7 - Existing Recipe View ********** */
 
+#main-body {
+    height: auto;
+    width: 100%;
+}
+
+#main-left {
+    flex-grow: 1;
+}
+
+#main-right {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+}
+
 .vr-di-li {
     padding-top: 10px;
     padding-left: 20px;
@@ -279,9 +297,32 @@ textarea {
 
 /* ********** #R8 - Search/Filter Bar ********** */
 
+#filter-container {
+    width: 100%;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    padding: 5px 0;
+    background: #ECD185;
+    border-bottom: 1px solid #707070;
+    font: 1rem Segoe UI;
+}
+
+#filter-sel-div {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 15%;
+}
+
+#filter-sel-div p {
+    padding-right: 5px;
+}
+
 #filter {
-    width: 80px;
-    position: absolute;
-    right: 0px;
-    top: 140px;
+    font: 1rem Segoe UI;
+}
+
+#filter-drop-div {
+    width: 70%;
 }

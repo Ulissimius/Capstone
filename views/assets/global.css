@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -30,8 +34,8 @@ footer {
 
 #wrapper {
     width: 100%;
-    height: auto;
-    position: absolute;
+    height: 100vh;
+    position: fixed;
     z-index: 1;
 }
 
@@ -53,7 +57,9 @@ footer {
 /* ********** Navbar CSS ********** */
 nav {
     width: 100%;
-    min-height: 50px;
+    min-height: -webkit-max-content;
+    min-height: -moz-max-content;
+    min-height: max-content;
     height: auto;
     background: #ECD185;
     border-bottom: 1px solid #707070;
@@ -168,6 +174,10 @@ nav {
 .jc-ai-cen {
     justify-content: center;
     align-items: center;
+}
+
+.fw-w {
+    flex-wrap: wrap;
 }
 
 .hide {

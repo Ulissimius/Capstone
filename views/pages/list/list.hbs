@@ -4,7 +4,7 @@
 
 <body>
     {{> nav}}
-
+    {{> filter_bar}}
     {{#unless user}}
         {{!-- If user is not logged in they get sent back to the home page --}}
         <script> window.location.replace("/") </script>
@@ -33,17 +33,17 @@
                 {{/each}}
             {{/if}}
         </div>
-
         {{#if recipes}}
-
-            {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
-
-            <select id="filter" onclick="changeFilter()"></select>
-
-            {{#each recipes}}
-                {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
-            {{/each}}
-
+        <div id="main-body" class="flex">
+            <div id="main-left" class="flex fw-w">
+                {{#each recipes}}
+                    {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
+                {{/each}}
+            </div>
+            <div id="main-right">
+                {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
+            </div>
+        </div>
         {{else}}
 
             <div class="fl-col new-user">
