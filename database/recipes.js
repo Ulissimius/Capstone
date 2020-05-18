@@ -23,7 +23,7 @@ const RecipeSchema = new mongoose.Schema({
             type: String,
             trim: true
         },
-        long_url: {
+        full_url: {
             type: String,
             trim: true
         }
@@ -104,6 +104,10 @@ const RecipeSchema = new mongoose.Schema({
             type: String,
             trim: true
         }
+    },
+    created_at: {
+        type: Date, 
+        default: Date.now
     }
 })
 

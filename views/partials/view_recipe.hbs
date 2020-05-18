@@ -1,77 +1,87 @@
-<div id="vr-container" class="nr-container fl-col rel">
+<div class="nr-container fl-col rel wrapper-child hide" data-id={{id}}>
     {{> exit_button}}
-    <div id="vr-he" class="nr-he flex">
+    <div class="nr-he fl-col">
+        <div class="filler"></div>
         {{!-- Header area, Title, Picture(?), Maybe some other info --}}
-        <div id="vr-he-info" class="nr-he-info">
+        <div class="nr-he-info">
             {{!-- Title: Use input, swap to h1/2/3 after entering a title, swap back upon editing --}}
             <table>
                 <tr>
                     <td><h3>Title:</h3></td>
-                    <td><input type="text" name="Title" id="name"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                    <td><h3 class='recipe-info'>{{title}}</h3></td>
                 </tr>
                 <tr>
                     <td><h3>Author:</h3></td>
-                    <td><input type="text" name="Author" id="author"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                    <td><h4 class='recipe-info'>{{auth}}</h4></td>
                 </tr>
                 <tr>
                     <td><h3>URL:</h3></td>
-                    <td><input type="text" name="URL" id="url"><img src="/assets/images/edit-24px.svg" alt=""></td>
+                    <td><h4><a href="{{url}}" class='recipe-info'>{{url}}</a></h4></td>
                 </tr>
             </table>
         </div>
-
     </div>
+
 
     <div id="vr-in" class="nr-in fl-col">
         {{!-- List of ingredients --}}
         <div class="flex">
             <h2>Ingredients</h2>
             <span class="nr-in-sp"></span>
-            <div class="fl-col">
+            <div class="fl-col ai-cen sub-info">
                 <p>Prep Time</p>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
+                <p class='recipe-info'>{{preptime}}</p>
             </div>
             <span class="nr-in-sp"></span>
-            <div class="fl-col">
+            <div class="fl-col ai-cen sub-info">
                 <p>Cook Time</p>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
+                <p class='recipe-info'>{{cooktime}}</p>
             </div>
             <span class="nr-in-sp"></span>
-            <div class="fl-col">
+            <div class="fl-col ai-cen sub-info">
                 <p>Servings</p>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
+                <p class='recipe-info'>{{serving}}</p>
+            </div>
+            <span class="nr-in-sp"></span>
+            <div class="fl-col ai-cen sub-info">
+                <p>Cuisine</p>
+                <p class='recipe-info'>{{cuis}}</p>
             </div>
             <span class="nr-in-sp"></span>
         </div>
         <hr>
-        <div id="vr-in-li" class="nr-in-li flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Ingredient</p>
+        <div class="vr-in-li flex"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
+            {{#each ingArr}}
+                <div class="li-div flex">
+                    <p class='recipe-ingredients'>{{this}}</p>
+                </div>
+            {{/each}}
         </div>
     </div>
 
-    <div id="vr-di" class="nr-di fl-col">
+    <div id="vr-di" class="nr-di">
         {{!-- Recipe directions --}}
         <h2>Directions</h2>
         <hr>
-        <div id="vr-di-li" class="nr-di-li fl-col">
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Step</p>
-            {{!-- <hr> --}}
+        <div class="vr-di-li">
+            <ol>
+                {{#each dirArr}}
+                <li>
+                    <p class='recipe-directions'>{{this}}</p>
+                </li>
+                {{/each}}
+            </ol>
         </div>
-
     </div>
 
-    <div id="vr-no" class="nr-no fl-col">
+    <div id="nr-no" class="nr-no fl-col">
         {{!-- Writers notes --}}
         <hr>
         <h3>Notes</h3>
-        {{!-- Reveal this when the user clicks "add notes" --}}
-        <div id="vr-no-ta" class="nr-no-ta flex">
-            {{!-- <div class="fl-col">
-                <h3>Add Notes</h3>
-                <img src="/assets/images/add_circle-24px.svg" alt="">
-            </div> --}}
-            <p><img src="/assets/images/add_circle-24px.svg" alt="">Add Note</p>
-            <textarea name="notes" cols="20" rows="5" style="display: none;"></textarea>
+        <div class="nr-no-ta">
+                {{#each note}}
+                    <p class='recipe-notes'>{{this}}</p>
+                {{/each}}
         </div>
     </div>
     <hr>
