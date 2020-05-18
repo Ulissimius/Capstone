@@ -15,7 +15,8 @@ function doItAgain(data, url) {
     // console.log(parse.domain); // 'google.com'
     // console.log(parse.subdomain); // 'www' */
 
-    let sws = { // Object collection of supported websites this function can parse. 
+    // Object collection of supported websites this function can parse. 
+    const sws = {
         allrecipes: {
             layout_1: {
                 parent: "allrecipes",
@@ -31,8 +32,8 @@ function doItAgain(data, url) {
                 servings: ($('div.recipe-meta-item-header:contains(Servings:)').next().text()).trim(),
                 cuisine: '', // Not present on page
                 ingredients: getArray('span.ingredients-item-name'),
-                directions: getArray('div.section-body > p'),
-                notes: ($('span.icon.icon-chef.default-icon.section-icon').next().text()).trim()
+                directions: getArray('div.paragraph'),
+                notes: getArray($('span.icon.icon-chef.default-icon.section-icon').next())
             },
             layout_2: {
                 parent: "allrecipes",

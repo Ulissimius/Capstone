@@ -3,11 +3,11 @@
     </div>
     <div class="card-info flex">
         <div class="card-title flex">
-            <div id="ctl" class="flex">
+            <div class="ctl flex">
                 <h3>{{title}}</h3>
             </div>
-            <div id="ctr" class="flex">
-                <img src="/assets/images/edit-24px.svg" alt="E" onclick="editRecipe(this)">
+            <div class="ctr flex">
+                <img src="/assets/images/edit-24px.svg" alt="E" onclick="editRecipe('{{id}}')">
                 <img src="/assets/images/delete_forever-24px.svg" alt="D" onclick="deleteRecipe('{{id}}')">
             </div>
         </div>
