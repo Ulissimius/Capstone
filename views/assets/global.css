@@ -58,6 +58,11 @@ footer {
 .rel {
     position: relative;
 }
+
+.disabled {
+        
+}
+
 /* ********** Navbar CSS ********** */
 nav {
     width: 100%;
@@ -151,6 +156,37 @@ nav {
     margin-right: 5px;
     letter-spacing: 0px;
     color: #707070;
+}
+
+/* ***** Filter Bar ***** */
+#filter-container {
+    width: 100%;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    padding: 5px 0;
+    background: #ECD185;
+    border-bottom: 1px solid #707070;
+    font: 1rem Segoe UI;
+}
+
+#filter-sel-div {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 15%;
+}
+
+#filter-sel-div p {
+    padding-right: 5px;
+}
+
+#filter {
+    font: 1rem Segoe UI;
+}
+
+#filter-drop-div {
+    width: 70%;
 }
 
 /* ********** Generic Flex Settings ********** */

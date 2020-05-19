@@ -112,4 +112,48 @@ module.exports = app => {
             })
         }
     })
+
+    app.get('/social', (req, res) => {
+        console.log('GET Request Received at Social Page')
+
+        const authToken = req.cookies.authentication
+
+        if (authToken) {
+            Users.findByToken('login', authToken).then(user => {
+                if (!user) {
+                    console.log('No User Found')
+                    // Return a 200 OK status and send the html page
+                    return res.render('pages/social/social.hbs', {
+                        assetUrl: '/pages/social/social',
+                        user: null
+                    })
+                } else {
+                    console.log(`Visitor is Logged In as ${user.username}`)
+                    Recipes.find({user: user.username}).then(recipe => {
+                        if (!recipe) {
+                            // Return a 200 OK status and send the html page
+                            return res.render('pages/social/social.hbs', {
+                                assetUrl: '/pages/social/social',
+                                user: user
+                            })
+                        } else {
+                            // Return a 200 OK status and send the html page
+                            return res.render('pages/social/social.hbs', {
+                                assetUrl: '/pages/social/social',
+                                user: user,
+                                recipes: recipe
+                            })
+                        }
+                    })
+                }
+            })
+        } else {
+            console.log('User Not Logged In')
+            // Return a 200 OK status and send the html page
+            return res.render('pages/social/social.hbs', {
+                assetUrl: '/pages/social/social',
+                user: null
+            })
+        }
+    })
 }

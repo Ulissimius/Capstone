@@ -6,10 +6,15 @@
         <a class="navlink fl-fl nav-hm" href="/" draggable="false">
             Home
         </a>
+        {{#if user}}
         <a class="navlink fl-fl nav-li" href="/list" draggable="false">
             My Recipe List
         </a>
-        <a class="navlink fl-fl nav-acc nav-last" href="/account" draggable="false">
+        {{/if}}
+        <a class="navlink fl-fl nav-acc" href="/social" draggable="false">
+            Discover
+        </a>
+        <a class="navlink fl-fl nav-disc nav-last" href="/account" draggable="false">
             Account
         </a>
         <a class="navlink fl-fl nav-spare">
@@ -20,8 +25,10 @@
         </a>
         <a class="navlink fl-fl nav-spare">
         </a>
+        {{#unless user}}
         <a class="navlink fl-fl nav-spare">
         </a>
+        {{/unless}}
     </div>
     <div class="userinfo flex">
         {{#if user}}
