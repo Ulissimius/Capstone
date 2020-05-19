@@ -63,7 +63,7 @@ nav {
     width: 100%;
     min-height: -webkit-max-content;
     min-height: -moz-max-content;
-    min-height: max-content;
+    min-height: 45px;
     height: auto;
     background: #ECD185;
     border-bottom: 1px solid #707070;
@@ -74,7 +74,8 @@ nav {
     width: 15%;
     justify-content: center;
     align-items: center;
-    font: 1vw Segoe UI;
+    font: 1.5rem Segoe UI;
+    font-weight: bold;
     letter-spacing: 0px;
     color: #707070;
 }
@@ -85,6 +86,8 @@ nav {
     width: 70%;
     background: #E8C563;
     border-right: 1px solid #707070;
+    font: 1rem Segoe UI;
+    font-weight: bold;
 }
 
 .navlink {
@@ -94,7 +97,6 @@ nav {
     border-left: 1px solid #707070;
     color: #707070;
     letter-spacing: 0px;
-    font: 1vw Segoe UI;
 }
 
 .nav-last {
@@ -128,7 +130,8 @@ nav {
     position: relative;
     justify-content: center;
     align-items: center;
-    font: 1vw Segoe UI;
+    font: 1rem Segoe UI;
+    font-style: italic;
     letter-spacing: 0px;
     color: #707070;
 }
@@ -140,8 +143,12 @@ nav {
 
 .logout {
     width: auto;
-    height: 100%;
-    font: 1vw Segoe UI;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    font: .8rem Segoe UI;
+    padding: 2px;
+    margin-right: 5px;
     letter-spacing: 0px;
     color: #707070;
 }

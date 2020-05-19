@@ -26,6 +26,7 @@ html, body {
     border-radius: 6px;
     box-shadow: 2px 2px 5px rgb(180, 149, 110);
     padding: 14px;
+    margin-top: 10px;
     justify-content: center;
     align-items: center;
     flex-direction: column;

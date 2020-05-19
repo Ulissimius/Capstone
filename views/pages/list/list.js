@@ -10,6 +10,8 @@
  * ##A1 - General JS
  *      - ##A1F0 - fillOptions()
  *      - ##A1F1 - card.addEventListener
+ *      - ##A1F2 - setStatus()
+ *      - ##A1F3 - stopStatus()
  * 
  * ##A2 - Button JS
  *      - ##A2F0 - openView()
@@ -56,6 +58,8 @@ const filterArr = ['Old', 'New', 'A-Z', 'Z-A', 'Cuisine', 'Author']
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 const cardArr = document.querySelectorAll('.card.flex')
 const mainContainer = document.querySelector('#container')
+var myStatus = () => {}
+var pointer = -1
 
 cuisineArr.sort()
 filterArr.sort()
@@ -87,6 +91,31 @@ document.querySelectorAll('.card.flex').forEach(card => { // ##A1F1
         }
     })
 });
+
+function setStatus() { // ##A1F2
+    if (pointer == -1) {
+        pointer = 3;
+        statusElem.classList.remove('hide');
+        submitURL.setAttribute('disabled', true);
+        inputURL.setAttribute('disabled', true);
+    }
+
+    if (pointer == 3) {
+        statusElem.innerText = "Fetching data"
+        pointer = 0
+    } else {
+        statusElem.innerText += "."
+        pointer++
+    } 
+};
+
+function stopStatus() { // ##A1F3
+    statusElem.classList.add('hide')
+    submitURL.removeAttribute('disabled')
+    inputURL.removeAttribute('disabled')
+    pointer = -1
+    clearInterval(myStatus)
+}
 
 // ******************** Button JS (##A2) ********************
 // Gives functionality to the various buttons on the page.
@@ -151,32 +180,14 @@ function resetFields(view) { // ##A2F3
 // Declarations
 const submitURL = document.querySelector('#sub_URL')
 const inputURL = document.querySelector('#in-url')
-// const tempTA = document.querySelector('#temp-ta')
+const statusElem = document.querySelector('#status-update')
 
 if (submitURL) { // ##A2F4
     submitURL.addEventListener('click', e => {
     /*  Submits a URL to the webscraper
     */
-        // let objArr = [];
-        // let pointer = 0;
         let recipeURL = inputURL.value
-        // let timer = setInterval(placeReplace, 750)
 
-        // tempTA.classList.remove("hide")
-        // tempTA.innerHTML = ''
-        // closeView('#nr-select', true)
-
-        // function placeReplace() {
-        //     if (pointer == 0) {
-        //         tempTA.placeholder = "Fetching data."
-        //     } else if (pointer == 1) {
-        //         tempTA.placeholder = "Fetching data.."
-        //     } else {
-        //         tempTA.placeholder = "Fetching data..."
-        //         pointer = -1
-        //     }
-        //     pointer++
-        // };
         fetchScraper(recipeURL)
     })
 }
@@ -472,13 +483,16 @@ function fetchCreateRecipe(recipeObj) { // ##A4F0
     }).then((response) => response.json()).then((data) => {
         if (!data.error) {
             console.log("Recipe created successfully")
+            stopStatus()
             window.location.replace("/list")
         } else {
             console.log(data.message)
+            stopStatus()
             alert("Recipe creation failed!")
         }
     }).catch((error) => {
         console.error(error)
+        stopStatus()
         alert("Recipe creation failed!")
     })
 }
@@ -511,26 +525,52 @@ function fetchRemoveRecipe(id) { // ##A4F1
 }
 
 function fetchScraper(newURL) { // ##A4F2
-    fetch('/scraper', {
+    let request = fetch('/scraper', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({newURL})
     })
-    .then((response) => response.json() )
+
+    myStatus = setInterval(setStatus, 750)
+
+    request.then((response) => response.json() )
     .then((data) => {
         if (!data.error) {
             fetchCreateRecipe(data.results)
         } else {
             console.log(data.message)
+            stopStatus()
             alert(ERROR)
         }
     })
     .catch((error) => {
         console.error(error)
+        stopStatus()
         alert(ERROR)
     })
+
+    // fetch('/scraper', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({newURL})
+    // })
+    // .then((response) => response.json() )
+    // .then((data) => {
+    //     if (!data.error) {
+    //         fetchCreateRecipe(data.results)
+    //     } else {
+    //         console.log(data.message)
+    //         alert(ERROR)
+    //     }
+    // })
+    // .catch((error) => {
+    //     console.error(error)
+    //     alert(ERROR)
+    // })
 }
 
 function fetchEditRecipe(recipeObj, id) { // ##A4F3
