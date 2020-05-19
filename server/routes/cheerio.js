@@ -71,8 +71,29 @@ function doItAgain(data, url) {
                 directions: getArray('div.wprm-recipe-instruction-text'),
                 notes: getArray('div.wprm-recipe-notes')
             }
+        },
+        foodnetwork: {
+            layout_1: {
+                parent: "foodnetwork",
+                self: "layout_1",
+                url: {
+                    short_url: hostname,
+                    full_url: url
+                },
+                title: ($('span.o-AssetTitle__a-HeadlineText').text()).trim(),
+                author: foodNetworkAuth(),
+                prep_time: ($($('ul.o-RecipeInfo__m-Time li span.o-RecipeInfo__a-Description').get(0)).text()).trim(),
+                cook_time: ($($('ul.o-RecipeInfo__m-Time li span.o-RecipeInfo__a-Description').get(1)).text()).trim(),
+                servings: ($($('ul.o-RecipeInfo__m-Yield li span.o-RecipeInfo__a-Description').get(0)).text()).trim(),
+                cuisine: '', // Not Found
+                ingredients: getArray('p.o-Ingredients__a-Ingredient'),
+                directions: getArray('li.o-Method__m-Step'),
+                notes: getArray('p.o-ChefNotes__a-Description')
+            }
         }
     };
+
+    // ******************** Generic Functions ********************
 
     function getArray(route) {
         //Takes in a jquery selector or an array and returns a new trimmed array.
@@ -89,6 +110,23 @@ function doItAgain(data, url) {
         });
 
         return newArr;
+    }
+
+    function nullEmpty(obj) {
+        let keys = Object.keys(obj)
+        Object.values(obj).forEach((val, i) => {
+            if (val == '' || val == [] || val == {} || val == null) {
+                obj[keys[i]] = 'N/A'
+            }
+        }); 
+        return obj
+    }
+
+    // ******************** Specific Functions ********************
+
+    function foodNetworkAuth() {
+        var res = ($('title').text()).trim().split('| ') 
+        return res[1]
     }
 
     function fifteenspatulaGetIng() {
@@ -117,19 +155,13 @@ function doItAgain(data, url) {
         }
     }
 
-    function nullEmpty(obj) {
-        let keys = Object.keys(obj)
-        Object.values(obj).forEach((val, i) => {
-            if (val == '' || val == [] || val == {} || val == null) {
-                obj[keys[i]] = 'N/A'
-            }
-        }); 
-        return obj
-    }
+
+    // Return results
 
     if (parsed_URL in sws) {
         try {
             if (sws[parsed_URL].layout_1.ingredients.length > 0) {
+                console.log(sws[parsed_URL].layout_1)
                 return nullEmpty(sws[parsed_URL].layout_1);
             } else if (typeof sws[parsed_URL].layout_2 !== 'undefined') {
                 if (sws[parsed_URL].layout_2.ingredients.length > 0) {
