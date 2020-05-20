@@ -80,8 +80,8 @@ function doItAgain(data, url) {
                     short_url: hostname,
                     full_url: url
                 },
-                title: ($('span.o-AssetTitle__a-HeadlineText').text()).trim(),
-                author: foodNetworkAuth(),
+                title: foodNetworkAuthTitle(true),
+                author: foodNetworkAuthTitle(false),
                 prep_time: ($($('ul.o-RecipeInfo__m-Time li span.o-RecipeInfo__a-Description').get(0)).text()).trim(),
                 cook_time: ($($('ul.o-RecipeInfo__m-Time li span.o-RecipeInfo__a-Description').get(1)).text()).trim(),
                 servings: ($($('ul.o-RecipeInfo__m-Yield li span.o-RecipeInfo__a-Description').get(0)).text()).trim(),
@@ -124,9 +124,14 @@ function doItAgain(data, url) {
 
     // ******************** Specific Functions ********************
 
-    function foodNetworkAuth() {
-        var res = ($('title').text()).trim().split('| ') 
-        return res[1]
+    function foodNetworkAuthTitle(toggle) {
+        var res = ($('title').text()).trim().split(' | ')
+        if (toggle == true) {
+            return res[0] // Title
+        } else {
+            return res[1] // Author
+        }
+        
     }
 
     function fifteenspatulaGetIng() {
