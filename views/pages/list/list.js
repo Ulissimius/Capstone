@@ -247,11 +247,16 @@ function deleteRecipe(id) {
 // ******************** Filter Options JS ********************
 //js for filtering the recipe cards
 
-const recipeArr = Array.from(document.querySelectorAll('.card'))
-let currFilter = 'Old'
+var recipeArr = Array.from(document.querySelectorAll('.card'))
+const originalRecipeOrder = Array.from(document.querySelectorAll('.card'))
+var currFilter = 'Old'
 
 function changeFilter() {
-    const newFilter = document.querySelector('#filter').value
+    const newFilter = ''
+
+    if (filterSel) {
+        newFilter = document.querySelector('#filter').value
+    }
 
     if (newFilter != currFilter) {
         switch (newFilter) {
@@ -384,6 +389,7 @@ function fetchRemoveRecipe(id) {
             recInfoArr.forEach(elem => {
                 elem.remove() 
             });
+            recipeArr = Array.from(document.querySelectorAll('.card'))
             if (!document.querySelector('.card.flex')) {
                 window.location.replace("/list")
             }
