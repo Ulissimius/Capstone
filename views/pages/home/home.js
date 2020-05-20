@@ -51,6 +51,7 @@ if (newUserButton) {
             }
         } else {
             // Maybe eventually use this section to display a message on screen to fill out all information
+            alert('Please fill out Email, Username, and Password.')
         }
     })
 }

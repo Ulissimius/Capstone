@@ -1,9 +1,4 @@
 /* Disables scrolling on the home page */
-#container {
-    display: flex;
-    justify-content: center;
-}
-
 .home-modal div{
     display: flex;
     justify-content: center;
@@ -22,6 +17,7 @@
     background: rgb(151, 118, 77);
     border-radius: 6px;
     box-shadow: 2px 2px 5px rgb(180, 149, 110);
+    margin-top: 10px;
     padding: 14px;
     justify-content: center;
     align-items: center;
@@ -49,4 +45,9 @@
     border-radius: 4px;
     margin: 0 6px;
     min-width: 75px;
+}
+
+form {
+    width: 100%;
+    height: 100%;
 }

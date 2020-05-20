@@ -6,7 +6,7 @@
 #R5 - Build New Recipe View
 #R6 - Recipe Thumbnail View
 #R7 - Existing Recipe View
-#R8 - Search/Filter Bar
+#R8 - Search/Filter
 */
 
 /* ********** #R1 - Local Global CSS ********** */
@@ -62,6 +62,9 @@ textarea {
     width: -webkit-max-content;
     width: -moz-max-content;
     width: max-content;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 .button-text {
@@ -131,9 +134,9 @@ textarea {
     overflow: auto;
 }
 
-.nr-container hr {
+/* .nr-container hr {
     width: 100%;
-}
+} */
 
 .nr-he {
     height: 200px;
@@ -202,6 +205,7 @@ textarea {
     border: 1px solid black;
     box-shadow: 2px 5px 3px #00000040;
     background: white;
+    margin: 10px;
 }
 
 .card-img {
@@ -254,6 +258,21 @@ textarea {
 
 /* ********** #R7 - Existing Recipe View ********** */
 
+#main-body {
+    height: auto;
+    width: 100%;
+}
+
+#main-left {
+    flex-grow: 1;
+}
+
+#main-right {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+}
+
 .vr-di-li {
     padding-top: 10px;
     padding-left: 20px;
@@ -277,11 +296,43 @@ textarea {
     margin-top: 10px;
 }
 
-/* ********** #R8 - Search/Filter Bar ********** */
+/* ********** #R8 - Search/Filter ********** */
+
+.filter-box {
+    margin-top: 10px;
+}
+
+.box-content {
+    margin-left: 50px;
+}
+
+/* ***** Filter Bar ***** */
+#filter-container {
+    width: 100%;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    padding: 5px 0;
+    background: #ECD185;
+    border-bottom: 1px solid #707070;
+    font: 1rem Segoe UI;
+}
+
+#filter-sel-div {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 15%;
+}
+
+#filter-sel-div p {
+    padding-right: 5px;
+}
 
 #filter {
-    width: 80px;
-    position: absolute;
-    right: 0px;
-    top: 140px;
+    font: 1rem Segoe UI;
+}
+
+#filter-drop-div {
+    width: 70%;
 }

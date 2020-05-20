@@ -3,8 +3,12 @@
 {{> pagehead}}
 
 <body>
-    {{> nav}}
+    {{> nav}}  
 
+    {{#if recipes}}
+        {{> filter_bar}}
+    {{/if}}
+    
     {{#unless user}}
         {{!-- If user is not logged in they get sent back to the home page --}}
         <script> window.location.replace("/") </script>
@@ -20,6 +24,7 @@
                 <form class="fl-col ai-cen rel">
                     <input id="in-url" type="text" name="" placeholder="https://www">
                     <input id="sub_URL" type="button" value="Submit">
+                    <p id="status-update" class="hide"></p>
                 </form>
                 <h3>or</h3>
                 {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-container')" zClass="wrapper-child"}}
@@ -32,17 +37,22 @@
                     {{> view_recipe id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
                 {{/each}}
             {{/if}}
+
         </div>
 
         {{#if recipes}}
 
-            {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
+        <div id="main-body" class="flex">
+            <div id="main-left" class="">
+                {{#each recipes}}
+                    {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
+                {{/each}}
+            </div>
 
-            <select id="filter" onclick="changeFilter()"></select>
-
-            {{#each recipes}}
-                {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
-            {{/each}}
+            <div id="main-right">
+                {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
+            </div>
+        </div>
 
         {{else}}
 
