@@ -9,15 +9,15 @@
  * 
  * ##A1 - General JS
  *      - ##A1F0 - fillOptions()
- *      - ##A1F1 - card.addEventListener
+ *      - ##A1F1 - card.addEventListener------------- Moved to global
  *      - ##A1F2 - setStatus()
  *      - ##A1F3 - stopStatus()
  * 
  * ##A2 - Button JS
- *      - ##A2F0 - openView()
- *      - ##A2F1 - closeView()
- *      - ##A2F2 - wrapper.addEventListener
- *      - ##A2F3 - resetFields()
+ *      - ##A2F0 - openView()------------------------ Moved to global
+ *      - ##A2F1 - closeView()----------------------- Moved to global
+ *      - ##A2F2 - wrapper.addEventListener---------- Moved to global
+ *      - ##A2F3 - resetFields()--------------------- Moved to global
  *      - ##A2F4 - submitURL.addEventListener
  *      - ##A2F5 - editRecipe()
  *      - ##A2F6 - newRecipeButton.addEventListener
@@ -58,6 +58,10 @@ const filterArr = ['Old', 'New', 'A-Z', 'Z-A', 'Cuisine', 'Author']
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 const cardArr = document.querySelectorAll('.card.flex')
 const mainContainer = document.querySelector('#container')
+const recCont = document.querySelector('#nr-container') // Container for new/edit recipe
+const submitURL = document.querySelector('#sub_URL')
+const inputURL = document.querySelector('#in-url')
+const statusElem = document.querySelector('#status-update')
 var myStatus = () => {}
 var pointer = -1
 
@@ -82,15 +86,6 @@ function fillOptions(arr, local) { // ##A1F0
         local.append(newOp);
     }
 }
-
-document.querySelectorAll('.card.flex').forEach(card => { // ##A1F1
-    card.addEventListener('click', e => {
-        if (e.target.nodeName != 'IMG') {
-            // console.log(document.querySelector(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`))
-            openView(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`)
-        }
-    })
-});
 
 function setStatus() { // ##A1F2
     if (pointer == -1) {
@@ -119,68 +114,6 @@ function stopStatus() { // ##A1F3
 
 // ******************** Button JS (##A2) ********************
 // Gives functionality to the various buttons on the page.
-
-// Declarations
-const wrapper = document.querySelector('#wrapper'); // The wrapper is special div that holds floating windows.
-var prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
-const recCont = document.querySelector('#nr-container') // Container for new/edit recipe
-
-function openView(view) { // ##A2F0
-/*  openView opens the passed view by setting display back to default.
-    openView also closes the previous view by saving the last view passed to it. 
-*/
-    let curView = document.querySelector(view); // Finds the current view element to open
-    resetFields(view)
-
-    if (prevView) { // Looks for a previous view and closes it if one is found.
-        closeView(prevView);
-        prevView = null
-    }
-
-    if (wrapper.classList.contains('hide')) { // Opens the wrapper div if it is closed.
-        wrapper.classList.remove("hide");
-    }
-
-    prevView = view; // sets the new previous view for the next call of openView
-
-    curView.classList.remove("hide"); // Opens the current view
-}
-
-function closeView(view, exit) { // ##A2F1
-/*  closeView closes the passed view by setting display to none.
-    closeView will also close the wrapper if exit is passed in as true 
-*/
-    if (typeof view == 'string') {
-        view = document.querySelector(view)
-    }
-
-    view.classList.add("hide"); // Closes the current view
-
-    if (exit == true) { // Closes the wrapper div if the x button was used.
-        wrapper.classList.add("hide");
-    } 
-}
-
-if (wrapper) { // ##A2F2
-    wrapper.addEventListener('click', e => {
-        if (e.target.id == 'wrapper') {
-            wrapper.classList.add("hide");
-            // document.querySelector('#wrapper > div:not(.hide)').classList.add("hide")
-        }
-    })
-}
-
-function resetFields(view) { // ##A2F3
-    const formReset = document.querySelector(`${view} form`)
-    if (formReset) {
-        formReset.reset()
-    }
-}
-
-// Declarations
-const submitURL = document.querySelector('#sub_URL')
-const inputURL = document.querySelector('#in-url')
-const statusElem = document.querySelector('#status-update')
 
 if (submitURL) { // ##A2F4
     submitURL.addEventListener('click', e => {
@@ -550,27 +483,6 @@ function fetchScraper(newURL) { // ##A4F2
         stopStatus()
         alert(ERROR)
     })
-
-    // fetch('/scraper', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({newURL})
-    // })
-    // .then((response) => response.json() )
-    // .then((data) => {
-    //     if (!data.error) {
-    //         fetchCreateRecipe(data.results)
-    //     } else {
-    //         console.log(data.message)
-    //         alert(ERROR)
-    //     }
-    // })
-    // .catch((error) => {
-    //     console.error(error)
-    //     alert(ERROR)
-    // })
 }
 
 function fetchEditRecipe(recipeObj, id) { // ##A4F3
