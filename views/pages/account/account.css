@@ -54,3 +54,25 @@ html, body {
 #email, #username, #password, #confirmPasword{
     display: flex;
 }
+#buttonDiv{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#deleteAcc{
+    height: 40px;
+    width: 100px;
+    margin-right: 64px;
+    background-color: red;
+    font-weight: 600;
+    border-color: black;
+    outline: none;
+}
+#update-user{
+    height: 40px;
+    width: 100px;
+    background-color: green;
+    font-weight: 600;
+    border-color: black;
+    outline: none;
+}

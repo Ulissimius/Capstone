@@ -54,7 +54,7 @@
 const cuisineSel = document.querySelector('.cuisine');
 const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
 const filterSel = document.querySelector('#filter')
-const filterArr = ['Old', 'New', 'A-Z', 'Z-A', 'Cuisine', 'Author']
+const filterArr = ['Date Added', 'Alphabetical', 'Cuisine', 'Author']
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 const cardArr = document.querySelectorAll('.card.flex')
 const mainContainer = document.querySelector('#container')
@@ -289,29 +289,33 @@ function deleteRecipe(id) { // ##A2F7
 // ******************** Filter Options JS (##A3) ********************
 //js for filtering the recipe cards
 
-// Declarations
+//Declarations
 const contBody = document.querySelector('#main-left')
-const recipeArr = Array.from(document.querySelectorAll('.card'))
-let currFilter = 'Old'
+var recipeArr = Array.from(document.querySelectorAll('.card'))
+const originalRecipeOrder = Array.from(document.querySelectorAll('.card'))
+var currFilter = 'Date Added'
 
-function changeFilter() { // ##A3F0
-    const newFilter = document.querySelector('#filter').value
+function changeFilter() {
+    var newFilter = ''
+
+    if (filterSel) {
+        newFilter = document.querySelector('#filter').value
+    }
+
 
     if (newFilter != currFilter) {
         contBody.innerHTML = '' // Clears the dynamic elements created by previous sort
+        
+        if (document.querySelector('#filter-direction').value != 'Filter ∨') {
+            document.querySelector('#filter-direction').value = 'Filter ∨'
+        }
+
         switch (newFilter) {
-            case 'Old':
-                console.log('click')
+            case 'Date Added':
                 applySort(recipeArr)
                 break;
-            case 'New':
-                applySort(recipeArr.reverse())
-                break;
-            case 'A-Z':
+            case 'Alphabetical':
                 alphabetical(recipeArr, newFilter)
-                break;
-            case 'Z-A':
-                reversAlphabetical(recipeArr, newFilter)
                 break;
             case 'Cuisine':
                 cuisineSort(recipeArr, newFilter)
@@ -323,6 +327,26 @@ function changeFilter() { // ##A3F0
                 break;
         }
         currFilter = newFilter
+    }
+}
+
+function filterDirection() {
+    let elemValue = document.querySelector('#filter-direction').value
+    let reverseList = recipeArr.reverse()
+    contBody.innerHTML = ''
+    
+    reverseList = buildFilterListAlpha(reverseList, pathBuilder(reverseList, currFilter))
+    applySort(reverseList)
+
+    switch (elemValue) {
+        case 'Filter ∨':
+            document.querySelector('#filter-direction').value = 'Filter ∧'
+            break;
+        case 'Filter ∧':
+            document.querySelector('#filter-direction').value = 'Filter ∨'
+            break;
+        default:
+            break;
     }
 }
 
@@ -338,21 +362,6 @@ function alphabetical(items, filter) { // ##A3F1
         return 0
     });
 
-    items = buildFilterListAlpha(items, pathBuilder(items, filter))
-    applySort(items)
-}
-
-function reversAlphabetical(items, filter) { // ##A3F2
-    items.sort(function(a, b) {
-        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-            return -1
-        }
-
-        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-            return 1
-        }
-        return 0
-    });
     items = buildFilterListAlpha(items, pathBuilder(items, filter))
     applySort(items)
 }
@@ -399,18 +408,10 @@ function pathBuilder(pathArr, filter) { // ##A3F6
     let newPathArr = []
 
     switch (filter) {
-        case 'Old':
+        case 'Date Added':
 
             break;
-        case 'New':
-
-            break;
-        case 'A-Z':
-            pathArr.forEach(path => {
-                newPathArr.push(path.children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt())
-            });
-            break;
-        case 'Z-A':
+        case 'Alphabetical':
             pathArr.forEach(path => {
                 newPathArr.push(path.children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt())
             });
@@ -512,6 +513,7 @@ function fetchRemoveRecipe(id) { // ##A4F1
             recInfoArr.forEach(elem => {
                 elem.remove() 
             });
+            recipeArr = Array.from(document.querySelectorAll('.card'))
             if (!document.querySelector('.card.flex')) {
                 window.location.replace("/list")
             }
