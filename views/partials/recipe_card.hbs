@@ -1,4 +1,4 @@
-<div class="card flex" data-id='{{id}}'>
+<div class="card flex" data-id='{{id}}' data-date='{{date}}'>
     <div class="card-img">
     </div>
     <div class="card-info flex">
@@ -19,7 +19,7 @@
         <div class="card-body fl-fl">
             <div class="card-info-left fl-col-fl">
                 <p>Author: {{auth}}</p>
-                <p>Cuisine: {{cuis}}</p>
+                <P>User: {{username}}</P>
                 <p>Type: {{ty}}</p>
                 <p>Link: {{link}}</p>
             </div>
@@ -27,7 +27,8 @@
                 <p>Prep Time: {{prep}}</p>
                 <p>Cook Time: {{cook}}</p>
                 <p>Servings: {{serving}}</p>
-                <p>Calories P/S: {{calories}}</p>
+                <p>Cuisine: {{cuis}}</p>
+                {{!-- <p>Calories P/S: {{calories}}</p> --}}
             </div>
         </div>
     </div>

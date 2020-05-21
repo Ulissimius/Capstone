@@ -53,6 +53,7 @@ module.exports = app => {
                 } else {
                     console.log(`Visitor is Logged In as ${user.username}`)
                     Recipes.find({user: user.username}).then(recipe => {
+
                         if (!recipe) {
                             // Return a 200 OK status and send the html page
                             return res.render('pages/list/list.hbs', {
@@ -61,10 +62,18 @@ module.exports = app => {
                             })
                         } else {
                             // Return a 200 OK status and send the html page
+                            function dateString() {
+                                recipe.forEach(date => {
+                                    let dateStr = `${date.created_at.getFullYear()}-${date.created_at.getMonth()+1}-${date.created_at.getDate()}`
+                                    date.display_date = dateStr
+                                });
+                                return recipe
+                            }
+
                             return res.render('pages/list/list.hbs', {
                                 assetUrl: '/pages/list/list',
                                 user: user,
-                                recipes: recipe
+                                recipes: dateString()
                             })
                         }
                     })
@@ -129,8 +138,12 @@ module.exports = app => {
                     })
                 } else {
                     console.log(`Visitor is Logged In as ${user.username}`)
-                    Recipes.find({user: user.username}).then(recipe => {
-                        if (!recipe) {
+                    Recipes.find({user: {$ne: user.username}}).limit(20).exec(function(err, posts) {
+                        if (err) {
+                            console.log(err)
+                        }
+
+                        if (!posts) {
                             // Return a 200 OK status and send the html page
                             return res.render('pages/social/social.hbs', {
                                 assetUrl: '/pages/social/social',
@@ -138,10 +151,17 @@ module.exports = app => {
                             })
                         } else {
                             // Return a 200 OK status and send the html page
+                            function dateString() {
+                                posts.forEach(date => {
+                                    let dateStr = `${date.created_at.getFullYear()}-${date.created_at.getMonth()+1}-${date.created_at.getDate()}`
+                                    date.display_date = dateStr
+                                });
+                                return posts
+                            }
                             return res.render('pages/social/social.hbs', {
                                 assetUrl: '/pages/social/social',
                                 user: user,
-                                recipes: recipe
+                                recipes: dateString()
                             })
                         }
                     })

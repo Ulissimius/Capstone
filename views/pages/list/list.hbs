@@ -27,7 +27,7 @@
             
         {{#if recipes}}
             {{#each recipes}}
-                {{> view_recipe id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
+                {{> view_recipe username=user id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
             {{/each}}
         {{/if}}
 
@@ -44,7 +44,7 @@
         <div id="main-body" class="flex">
             <div id="main-left" class="">
                 {{#each recipes}}
-                    {{> recipe_card id=_id title=name discover='true' auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
+                    {{> recipe_card date=display_date id=_id title=name discover='true' auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
                 {{/each}}
             </div>
 

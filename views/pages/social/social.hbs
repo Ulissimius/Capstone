@@ -29,7 +29,7 @@
         <div id="main-body" class="flex">
             <div id="main-left" class="flex fw-w">
                 {{#each recipes}}
-                    {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
+                    {{> recipe_card date=display_date username=user id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
                 {{/each}}
             </div>
 
