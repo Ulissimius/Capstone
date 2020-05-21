@@ -40,6 +40,7 @@ footer {
     width: 100%;
     height: 100vh;
     position: fixed;
+    background-color: rgba(0,0,0,.18);
     z-index: 1;
 }
 
@@ -55,14 +56,17 @@ footer {
     right: 0;
 }
 
+.svg-img-button {
+    cursor: pointer;
+}
+
 .rel {
     position: relative;
 }
+
 /* ********** Navbar CSS ********** */
 nav {
     width: 100%;
-    min-height: -webkit-max-content;
-    min-height: -moz-max-content;
     min-height: 45px;
     height: auto;
     background: #ECD185;
@@ -151,6 +155,37 @@ nav {
     margin-right: 5px;
     letter-spacing: 0px;
     color: #707070;
+}
+
+/* ***** Filter Bar ***** */
+#filter-container {
+    width: 100%;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    padding: 5px 0;
+    background: #ECD185;
+    border-bottom: 1px solid #707070;
+    font: 1rem Segoe UI;
+}
+
+#filter-sel-div {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 15%;
+}
+
+#filter-sel-div p {
+    padding-right: 5px;
+}
+
+#filter {
+    font: 1rem Segoe UI;
+}
+
+#filter-drop-div {
+    width: 70%;
 }
 
 /* ********** Generic Flex Settings ********** */

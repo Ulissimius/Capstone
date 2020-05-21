@@ -2,55 +2,54 @@
 <html lang="en">
 {{> pagehead}}
 
+{{#unless user}}
+    {{!-- If user is not logged in they get sent back to the home page --}}
+    <script> window.location.replace("/") </script>
+{{/unless}}
+
 <body>
+    <div id="wrapper" class="fl-col rel hide">
+        <div id="nr-select" class="fl-col ai-cen rel hide">
+            {{> exit_button}}
+            <h2>Create a new recipe</h2>
+            <h3>Enter a URL from a recipe you like</h3>
+            <p style="font-size: small;">Supported Website: allrecipes.com, fifteenspatulas.com</p>
+            <form class="fl-col ai-cen rel">
+                <input id="in-url" type="text" name="" placeholder="https://www">
+                <input id="sub_URL" type="button" value="Submit">
+                <p id="status-update" class="hide"></p>
+            </form>
+            <h3>or</h3>
+            {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-container')"}}
+        </div>
+
+        {{> create_recipe}}
+            
+        {{#if recipes}}
+            {{#each recipes}}
+                {{> view_recipe username=user id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
+            {{/each}}
+        {{/if}}
+
+    </div>
     {{> nav}}  
 
     {{#if recipes}}
         {{> filter_bar}}
     {{/if}}
-    
-    {{#unless user}}
-        {{!-- If user is not logged in they get sent back to the home page --}}
-        <script> window.location.replace("/") </script>
-    {{/unless}}
 
     <div id="container" class="fl-col">
-        <div id="wrapper" class="fl-col rel hide">
-            <div id="nr-select" class="fl-col ai-cen rel hide">
-                {{> exit_button}}
-                <h2>Create a new recipe</h2>
-                <h3>Enter a URL from a recipe you like</h3>
-                <p style="font-size: small;">Supported Website: allrecipes.com, fifteenspatulas.com</p>
-                <form class="fl-col ai-cen rel">
-                    <input id="in-url" type="text" name="" placeholder="https://www">
-                    <input id="sub_URL" type="button" value="Submit">
-                    <p id="status-update" class="hide"></p>
-                </form>
-                <h3>or</h3>
-                {{> add_recipe_button title="Create Your Own Recipe" clickEvent="openView('#nr-container')" zClass="wrapper-child"}}
-            </div>
-
-            {{> create_recipe}}
-            
-            {{#if recipes}}
-                {{#each recipes}}
-                    {{> view_recipe id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
-                {{/each}}
-            {{/if}}
-
-        </div>
-
         {{#if recipes}}
 
         <div id="main-body" class="flex">
             <div id="main-left" class="">
                 {{#each recipes}}
-                    {{> recipe_card id=_id title=name auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
+                    {{> recipe_card date=display_date id=_id title=name discover='true' auth=author cuis=cuisine ty='' link=url.short_url prep=time.prep cook=time.cooking serving=servings calories=''}}
                 {{/each}}
             </div>
 
             <div id="main-right">
-                {{> add_recipe_button title="Add New Recipe" clickEvent="openView('#nr-select')"}}
+                {{> add_recipe_button zClass='sticky-button' title="Add New Recipe" clickEvent="openView('#nr-select')"}}
             </div>
         </div>
 
