@@ -25,13 +25,14 @@
  * 
  * ##A3 - Filter Options JS
  *      - ##A3F0 - changeFilter()
- *      - ##A3F1 - alphabetical()
- *      - ##A3F2 - reversAlphabetical()
+ *      - ##A3F1 - filterDirection()
+ *      - ##A3F2 - alphabetical()
  *      - ##A3F3 - cuisineSort()
  *      - ##A3F4 - authorSort()
- *      - ##A3F5 - applySort()
- *      - ##A3F6 - pathBuilder()
- *      - ##A3F7 - buildFilterListAlpha()
+ *      - ##A3F5 - dateSort()
+ *      - ##A3F6 - applySort()
+ *      - ##A3F7 - pathBuilder()
+ *      - ##A3F8 - buildFilterListAlpha()
  * 
  * ##A4 - Fetch Request JS
  *      - ##A4F0 - fetchCreateRecipe()
@@ -228,7 +229,7 @@ var recipeArr = Array.from(document.querySelectorAll('.card'))
 const originalRecipeOrder = Array.from(document.querySelectorAll('.card'))
 var currFilter = 'Date Added'
 
-function changeFilter() {
+function changeFilter() {  // ##A3F0
     var newFilter = ''
 
     if (filterSel) {
@@ -245,7 +246,7 @@ function changeFilter() {
 
         switch (newFilter) {
             case 'Date Added':
-                applySort(recipeArr)
+                dateSort(recipeArr, newFilter)
                 break;
             case 'Alphabetical':
                 alphabetical(recipeArr, newFilter)
@@ -263,7 +264,7 @@ function changeFilter() {
     }
 }
 
-function filterDirection() {
+function filterDirection() { // ##A3F1
     let elemValue = document.querySelector('#filter-direction').value
     let reverseList = recipeArr.reverse()
     contBody.innerHTML = ''
@@ -283,7 +284,7 @@ function filterDirection() {
     }
 }
 
-function alphabetical(items, filter) { // ##A3F1
+function alphabetical(items, filter) { // ##A3F2
     items.sort(function(a, b) {
         if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
             return 1
@@ -301,11 +302,11 @@ function alphabetical(items, filter) { // ##A3F1
 
 function cuisineSort(items, filter) { // ##A3F3
     items.sort(function(a, b) {
-        if(a.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase() > b.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase()) {
+        if(a.children[1].children[1].children[1].children[3].innerText.toLowerCase() > b.children[1].children[1].children[1].children[3].innerText.toLowerCase()) {
             return 1
         }
-
-        if(a.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase() < b.children[1].children[1].firstElementChild.children[1].innerText.toLowerCase()) {
+        
+        if(a.children[1].children[1].children[1].children[3].innerText.toLowerCase() < b.children[1].children[1].children[1].children[3].innerText.toLowerCase()) {
             return -1
         }
         return 0
@@ -329,20 +330,81 @@ function authorSort(items, filter) { // ##A3F4
     applySort(items)
 }
 
-function applySort (items) { // ##A3F5
+function dateSort(items, filter) { // ##A3F5
+    items.sort(function(a, b) {
+        if(a.dataset.date > b.dataset.date) {
+            return 1
+        }
+
+        if(a.dataset.date < b.dataset.date) {
+            return -1
+        }
+        return 0
+    });
+    items = buildFilterListAlpha(items, pathBuilder(items, filter))
+    applySort(items)
+}
+
+function applySort (items) { // ##A3F6
     items.forEach(item => {
         contBody.appendChild(item);
     });
 }
 
-function pathBuilder(pathArr, filter) { // ##A3F6
+function pathBuilder(pathArr, filter) { // ##A3F7
     /* Returns an array of all relative reference paths for the current filter
     */
     let newPathArr = []
 
     switch (filter) {
         case 'Date Added':
-
+            pathArr.forEach(path => {
+                const dateArr = path.dataset.date.toUpperCase().trim().split('-')
+                let month = ''
+                switch (dateArr[1]) {
+                    case '1':
+                        month = 'January'
+                        break;
+                    case '2':
+                        month = 'February'
+                        break;
+                    case '3':
+                        month = 'March'
+                        break;
+                    case '4':
+                        month = 'April'
+                        break;
+                    case '5':
+                        month = 'May'
+                        break;
+                    case '6':
+                        month = 'June'
+                        break;
+                    case '7':
+                        month = 'July'
+                        break;
+                    case '8':
+                        month = 'August'
+                        break;
+                    case '9':
+                        month = 'September'
+                        break;
+                    case '10':
+                        month = 'October'
+                        break;
+                    case '11':
+                        month = 'November'
+                        break;
+                    case '12':
+                        month = 'December'
+                        break;
+                    default:
+                        break;
+                }
+                let fulldate = ''
+                fulldate = fulldate.concat(month, ' ', dateArr[2], ', ', dateArr[0])
+                newPathArr.push(fulldate.trim())
+            });
             break;
         case 'Alphabetical':
             pathArr.forEach(path => {
@@ -351,7 +413,7 @@ function pathBuilder(pathArr, filter) { // ##A3F6
             break;
         case 'Cuisine':
             pathArr.forEach(path => {
-                newPathArr.push(path.children[1].children[1].firstElementChild.children[1].innerText.toUpperCase().trim().charAt(9))
+                newPathArr.push(path.children[1].children[1].children[1].children[3].innerText.toUpperCase().trim().charAt(9))
             });
             break;
         case 'Author':
@@ -365,7 +427,7 @@ function pathBuilder(pathArr, filter) { // ##A3F6
     return newPathArr
 }
 
-function buildFilterListAlpha(arr, path) { // ##A3F7
+function buildFilterListAlpha(arr, path) { // ##A3F8
     /* buildFilterList(arr [Filtered node array], path [pathBuilder() array])
        Takes in a filtered array and wraps each result in html for page display based on similar letters.
        path provides the reference location for the letter comparison.

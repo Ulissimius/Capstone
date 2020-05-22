@@ -97,9 +97,10 @@ const RecipeSchema = new mongoose.Schema({
         trim: true
     }],
     image: {
-        // file: {
-        //     type: binData
-        // },
+        file: {
+            data: Buffer,
+            contentType: String
+        },
         link: {
             type: String,
             trim: true
