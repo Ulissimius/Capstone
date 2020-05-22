@@ -109,7 +109,7 @@ textarea {
 
 /* ********** #R4 - Select New Recipe Menu ********** */
 #nr-select {
-    justify-content: space-evenly;
+    justify-content: space-around;
     background: white;
     width: 500px;
     height: 300px;
@@ -127,6 +127,14 @@ textarea {
     border-radius: 10px;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+#sub_URL {
+    margin: 5px;
+}
+
+#support-info {
+    width: 100%;
 }
 
 /* ********** #R5 - Build New Recipe View ********** */

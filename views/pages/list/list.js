@@ -12,6 +12,9 @@
  *      - ##A1F1 - card.addEventListener------------- Moved to global
  *      - ##A1F2 - setStatus()
  *      - ##A1F3 - stopStatus()
+ *      - ##A1F4 - window.addEventListener('load')
+ *      - ##A1F5 - favoriteOnLoad(stars)
+ *      - ##A1F6 - favoriteRecipe(elem, id)
  * 
  * ##A2 - Button JS
  *      - ##A2F0 - openView()------------------------ Moved to global
@@ -40,12 +43,12 @@
  *      - ##A4F3 - fetchEditRecipe
  * 
  * ##A5 - Function Calls
+ *      - ##A5F0 - window.addEventListener("beforeunload")
  * 
  */
 
 // ******************** Test JS (##A0) ********************
 // For testing purposes
-
 
 // ******************** General JS (##A1) ********************
 // General or Misc JS running on the page
@@ -217,6 +220,72 @@ function deleteRecipe(id) { // ##A2F7
     
     // Request data be delete here
     fetchRemoveRecipe(id)
+}
+
+
+var favoriteArr = [] // This is the array of favorite recipes collected on page load
+var updateFavArr = [] // This is the array that gets checked against on page exit/refresh
+var favDidRun = false;
+window.addEventListener('load', () => { // ##A1F4
+    /**
+    * On Load create a reference to the users existing favorites
+    * and create a copy that gets updated as the user marks/removes favorites
+    */
+    fetch('/getFavorites')
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.error == true) {
+            console.error(data.error)
+        } else {
+            favoriteArr = Array.from(data.favorites)
+            let newObj = JSON.parse(JSON.stringify(data.favorites))
+            updateFavArr = Array.from(newObj)
+        }
+    }).catch((e) => {
+        console.log(e)
+        console.error('Unable to fetch favorite data.')
+    })
+})
+
+function favoriteOnLoad(stars) { // ##A1F5
+    /**
+    * Toggles the fav button on if the respective recipe is a favorite
+    */
+    stars.forEach(setFav => {
+        let isFav = (setFav.dataset.favorite === 'true')
+        if (isFav == true) {
+            // Switch to full star
+            setFav.src = '/assets/images/star-24px.svg'
+        }
+    });
+}
+
+function favoriteRecipe(elem, id) { // ##A1F6
+    /**
+    * The fav button (star) will toggle between empty and full
+    * Then the change is saved to an array for use on page unload
+    */
+    let isFav = (elem.dataset.favorite === 'true')
+    if (isFav == false) {
+        // Switch to full star
+        elem.src = '/assets/images/star-24px.svg'
+        elem.dataset.favorite = 'true'
+    } else {
+        // Switch to empty star
+        elem.src = '/assets/images/star_border-24px.svg'
+        elem.dataset.favorite = 'false'
+    }
+
+    if (id) {
+        for (let i = 0; i < updateFavArr.length; i++) {
+            if (updateFavArr[i]._id == id) {
+                updateFavArr[i].favorite = (!isFav)
+                break
+            }
+        }
+
+        favDidRun = true
+    }
 }
 
 // ******************** Filter Options JS (##A3) ********************
@@ -521,3 +590,46 @@ if (filterSel) {
 }
 
 changeFilter() // Sets the page to the default filter on load
+
+favoriteOnLoad(Array.from(document.querySelectorAll('[data-favorite]')))
+
+window.addEventListener("beforeunload", function(e){ // ##A5F0
+    /**
+     * Only prevents the user from exiting if they interacted with the favorite button.
+     * On page unload (refresh / exit) the user is prompted if they are sure and their selection
+     * of favorites are updated in the DB.
+     * This function may be changed to run every... 30 seconds or so instead of on page unload.
+     * Maybe have it track the last favorite input from the user and after so many seconds makes a call to update.
+     */
+    // Do something
+    if (favDidRun) {
+        e.preventDefault()
+        diffArr = []
+        for (let i = 0; i < updateFavArr.length; i++) {
+            if (updateFavArr[i].favorite != favoriteArr[i].favorite) {
+                // console.log(`Array position: ${i}\nupdateFavArr value: ${updateFavArr[i].favorite}\nfavoriteArr value: ${favoriteArr[i].favorite}`)
+                // Do a fetch for each array change
+
+                // Or do one fetch with an array of the changes
+                diffArr.push(updateFavArr[i])
+            }
+        }
+        fetch('/updateFavorites', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(diffArr)
+        }).then((response) => response.json())
+        .then((data) => {
+            if (data.error == true) {
+                console.error(data.error)
+            }
+        }).catch((e) => {
+            console.log(e)
+            console.error('Unable to update favorites')
+        })
+    } else {
+        return false;
+    }
+});

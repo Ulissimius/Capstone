@@ -176,4 +176,91 @@ module.exports = app => {
             })
         }
     })
+
+    // Accepts GET requests to fetch favorite recipes
+    app.get('/getFavorites', (req, res) => {
+        console.log('GET Request Received to fetch favorites')
+        const authToken = req.cookies.authentication
+        const cookieName = "login"
+
+        if(authToken) {
+            Users.findByToken(cookieName, authToken).then(user => {
+                if(user) {
+                    Recipes.find({ user: user.username }, 'favorite').then(favorites => {
+                        console.log(favorites)
+                        return res.status(200).send({error: false, favorites})
+                    }).catch(e => {
+                        console.log(e)
+                        return res.status(400).send({error: true, message: e})
+                    })
+                } else {
+                    console.log('User Not Found')
+                    return res.status(400).send({error: true, message: 'User Not Found'})
+                }
+            }).catch(e => {
+                console.log(e)
+                return res.status(400).send({error: true, message: e})
+            })
+        } else {
+            console.log('User Not Logged In')
+            // Return a 200 OK status and send the html page
+            return res.render('pages/home/home.hbs', {
+                assetUrl: '/pages/home/home',
+                user: null
+            })
+        }
+    })
+
+    app.put('/updateFavorites', (req, res) => {
+        console.log('GET Request Received to update favorites')
+        const data = req.body
+        var idTrueArr = []
+        var idFalseArr = []
+        data.forEach(elem => {
+            if (elem.favorite == true) {
+                idTrueArr.push(elem._id)
+            } else {
+                idFalseArr.push(elem._id)
+            }
+        });
+        const authToken = req.cookies.authentication
+        const cookieName = "login"
+
+        if(authToken) {
+            Users.findByToken(cookieName, authToken).then(user => {
+                if(user) {
+                    if (idTrueArr) {
+                        Recipes.update({ _id: { $in: idTrueArr }}, { $set: { favorite: true }}, { multi: true }).then(() => {
+                            console.log('Favorites Updated Successfully.')
+                        }).catch(e => {
+                            console.log(e)
+                            return res.status(400).send({error: true})
+                        })
+                    } 
+                    if (idFalseArr) {
+                        Recipes.update({ _id: { $in: idFalseArr }}, { $set: { favorite: false }}, { multi: true }).then(() => {
+                            console.log('Favorites Updated Successfully.')
+                        }).catch(e => {
+                            console.log(e)
+                            return res.status(400).send({error: true})
+                        })
+                    }
+                    return res.status(200).send({error: false})
+                } else {
+                    console.log('User Not Found')
+                    return res.status(400).send({error: true, message: 'User Not Found'})
+                }
+            }).catch(e => {
+                console.log(e)
+                return res.status(400).send({error: true, message: e})
+            })
+        } else {
+            console.log('User Not Logged In')
+            // Return a 200 OK status and send the html page
+            return res.render('pages/home/home.hbs', {
+                assetUrl: '/pages/home/home',
+                user: null
+            })
+        }
+    })
 }
