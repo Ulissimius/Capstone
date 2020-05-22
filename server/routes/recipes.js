@@ -187,7 +187,6 @@ module.exports = app => {
             Users.findByToken(cookieName, authToken).then(user => {
                 if(user) {
                     Recipes.find({ user: user.username }, 'favorite').then(favorites => {
-                        console.log(favorites)
                         return res.status(200).send({error: false, favorites})
                     }).catch(e => {
                         console.log(e)
