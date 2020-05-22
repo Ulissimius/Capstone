@@ -47,23 +47,6 @@ const RecipeSchema = new mongoose.Schema({
         required: true,
         trim: true
     }],
-    // ingredients: [{
-    //     name: {
-    //         type: String,
-    //         required: true,
-    //         trim: true
-    //     },
-    //     amount: {
-    //         type: String,
-    //         required: true,
-    //         trim: true
-    //     },
-    //     unit: {
-    //         type: String,
-    //         required: true,
-    //         trim: true
-    //     }
-    // }],
     directions: [{
         type: String,
         required: true,
@@ -105,6 +88,10 @@ const RecipeSchema = new mongoose.Schema({
             type: String,
             trim: true
         }
+    },
+    favorite: {
+        type: Boolean,
+        default: false
     },
     created_at: {
         type: Date, 
