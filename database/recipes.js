@@ -12,6 +12,11 @@ const RecipeSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    author_user: {
+        type: String,
+        required: true,
+        trim: true
+    },
     author: {
         type: String,
         required: true,

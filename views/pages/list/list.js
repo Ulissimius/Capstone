@@ -4,48 +4,48 @@
 // This JS handles filling out the data for the recipe cards.
 
 /**
- * Search Index:
- * ##A0 - Test JS
- * 
- * ##A1 - General JS
- *      - ##A1F0 - fillOptions()
- *      - ##A1F1 - card.addEventListener------------- Moved to global
- *      - ##A1F2 - setStatus()
- *      - ##A1F3 - stopStatus()
- *      - ##A1F4 - window.addEventListener('load')
- *      - ##A1F5 - favoriteOnLoad(stars)
- *      - ##A1F6 - favoriteRecipe(elem, id)
- * 
- * ##A2 - Button JS
- *      - ##A2F0 - openView()------------------------ Moved to global
- *      - ##A2F1 - closeView()----------------------- Moved to global
- *      - ##A2F2 - wrapper.addEventListener---------- Moved to global
- *      - ##A2F3 - resetFields()--------------------- Moved to global
- *      - ##A2F4 - submitURL.addEventListener
- *      - ##A2F5 - editRecipe()
- *      - ##A2F6 - newRecipeButton.addEventListener
- *      - ##A2F7 - deleteRecipe()
- * 
- * ##A3 - Filter Options JS
- *      - ##A3F0 - changeFilter()
- *      - ##A3F1 - alphabetical()
- *      - ##A3F2 - reversAlphabetical()
- *      - ##A3F3 - cuisineSort()
- *      - ##A3F4 - authorSort()
- *      - ##A3F5 - applySort()
- *      - ##A3F6 - pathBuilder()
- *      - ##A3F7 - buildFilterListAlpha()
- * 
- * ##A4 - Fetch Request JS
- *      - ##A4F0 - fetchCreateRecipe() -------------- Moved to global
- *      - ##A4F1 - fetchRemoveRecipe()
- *      - ##A4F2 - fetchScraper()
- *      - ##A4F3 - fetchEditRecipe
- * 
- * ##A5 - Function Calls
- *      - ##A5F0 - window.addEventListener()
- * 
- */
+* Search Index:
+* ##A0 - Test JS
+* 
+* ##A1 - General JS
+*      - ##A1F0 - fillOptions()
+*      - ##A1F1 - card.addEventListener------------- Moved to global
+*      - ##A1F2 - setStatus()
+*      - ##A1F3 - stopStatus()
+*      - ##A1F4 - window.addEventListener('load')
+*      - ##A1F5 - favoriteOnLoad(stars)
+*      - ##A1F6 - favoriteRecipe(elem, id)
+* 
+* ##A2 - Button JS
+*      - ##A2F0 - openView()------------------------ Moved to global
+*      - ##A2F1 - closeView()----------------------- Moved to global
+*      - ##A2F2 - wrapper.addEventListener---------- Moved to global
+*      - ##A2F3 - resetFields()--------------------- Moved to global
+*      - ##A2F4 - submitURL.addEventListener
+*      - ##A2F5 - editRecipe()
+*      - ##A2F6 - newRecipeButton.addEventListener
+*      - ##A2F7 - deleteRecipe()
+* 
+* ##A3 - Filter Options JS
+*      - ##A3F0 - changeFilter()
+*      - ##A3F1 - alphabetical()
+*      - ##A3F2 - reversAlphabetical()
+*      - ##A3F3 - cuisineSort()
+*      - ##A3F4 - authorSort()
+*      - ##A3F5 - applySort()
+*      - ##A3F6 - pathBuilder()
+*      - ##A3F7 - buildFilterListAlpha()
+* 
+* ##A4 - Fetch Request JS
+*      - ##A4F0 - fetchCreateRecipe() -------------- Moved to global
+*      - ##A4F1 - fetchRemoveRecipe()
+*      - ##A4F2 - fetchScraper()
+*      - ##A4F3 - fetchEditRecipe
+* 
+* ##A5 - Function Calls
+*      - ##A5F0 - window.addEventListener()
+* 
+*/
 
 // ******************** Test JS (##A0) ********************
 // For testing purposes
@@ -140,8 +140,10 @@ function editRecipe(id) { // ##A2F5
     const recipeIngredients = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-ingredients`)
     const recipeDirections = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-directions`)
     const recipeNotes = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-notes`)
+    const nameValue = (document.querySelector(`.card.flex[data-id="${id}"] .card-info-left.fl-col-fl p:nth-child(2)`).innerText).split(': ')
 
     recCont.dataset.edit = id // data-edit is passed the unique ID of the target recipe
+    recCont.dataset.name = nameValue[1]
 
     openView('#nr-container') // create_recipe partial is reset and displayed
 
@@ -196,8 +198,8 @@ if (newRecipeButton) { // ##A2F6
         const directions = document.querySelector("textarea[name='directions']").value
         const notes = document.querySelector("textarea[name='notes']").value
         const ingredients = document.querySelector("textarea[name='ingredients']").value
-
-        const cleanObj = cleanUpText({title, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes})
+        const auth_user = recCont.dataset.name
+        const cleanObj = cleanUpText({title, auth_user, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes})
 
         if (title && author && directions && ingredients) {
             if (recCont.dataset.edit == '') {
@@ -546,7 +548,6 @@ function fetchEditRecipe(recipeObj, id) { // ##A4F3
     }).then((response) => response.json()).then((data) => {
         if (!data.error) {
             alert("Recipe edit successfully")
-            recCont.dataset.edit = ''
             window.location.replace("/list")
         } else {
             console.log(data.message)
@@ -573,12 +574,12 @@ favoriteOnLoad(Array.from(document.querySelectorAll('[data-favorite]')))
 
 window.addEventListener("beforeunload", function(e){ // ##A5F0
     /**
-     * Only prevents the user from exiting if they interacted with the favorite button.
-     * On page unload (refresh / exit) the user is prompted if they are sure and their selection
-     * of favorites are updated in the DB.
-     * This function may be changed to run every... 30 seconds or so instead of on page unload.
-     * Maybe have it track the last favorite input from the user and after so many seconds makes a call to update.
-     */
+    * Only prevents the user from exiting if they interacted with the favorite button.
+    * On page unload (refresh / exit) the user is prompted if they are sure and their selection
+    * of favorites are updated in the DB.
+    * This function may be changed to run every... 30 seconds or so instead of on page unload.
+    * Maybe have it track the last favorite input from the user and after so many seconds makes a call to update.
+    */
     // Do something
     if (favDidRun) {
         e.preventDefault()

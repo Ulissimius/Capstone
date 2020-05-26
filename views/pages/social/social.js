@@ -1,4 +1,4 @@
-function copyRecipe(id) { // ##A2F5
+function copyRecipe(id, name) { // ##A2F5
     /* Pulls data from a unique view_recipe to the create_recipe view
     The create_recipe view can then be submitted to the /editRecipe function
     */
@@ -28,6 +28,7 @@ function copyRecipe(id) { // ##A2F5
     recipeObj = {
         url: recipeInfo[2].innerText,
         title: recipeInfo[0].innerText,
+        auth_user: name,
         author: recipeInfo[1].innerText,
         prep_time: recipeInfo[3].innerText,
         cook_time: recipeInfo[4].innerText,

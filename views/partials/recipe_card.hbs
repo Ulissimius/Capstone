@@ -13,7 +13,7 @@
                 <img src="/assets/images/delete_forever-24px.svg" alt="Del" class="svg-img-button" onclick="deleteRecipe('{{id}}')">
                 {{else}}
                 {{!-- add recipe to my recipes button --}}
-                <img src="/assets/images/add_box-24px.svg" alt="Save" class="svg-img-button" onclick="copyRecipe('{{id}}')">
+                <img src="/assets/images/add_box-24px.svg" alt="Save" class="svg-img-button" onclick="copyRecipe('{{id}}', '{{username}}')">
                 <img src="/assets/images/thumb_up_alt-24px.svg" alt="Vote" class="svg-img-button">
                 {{/if}}
             </div>

@@ -43,7 +43,7 @@
         <div id="main-body" class="flex">
             <div id="main-left" class="">
                 {{#each recipes}}
-                    {{> recipe_card fav=favorite date=display_date id=_id title=name discover='true' auth=author cuis=cuisine ty='N/A' link=url.short_url prep=time.prep cook=time.cooking serving=servings}}
+                    {{> recipe_card fav=favorite username=author_user date=display_date id=_id title=name discover='true' auth=author cuis=cuisine ty='N/A' link=url.short_url prep=time.prep cook=time.cooking serving=servings}}
                 {{/each}}
             </div>
 

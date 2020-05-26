@@ -249,9 +249,14 @@ textarea {
 .ctl {
     flex-grow: 1;
     height: 33px;
-    text-overflow: ellipsis;
     overflow: hidden;
     align-items: center;
+}
+
+.ctl h3 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .ctr {
