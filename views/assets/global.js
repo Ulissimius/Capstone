@@ -121,3 +121,29 @@ function resetFields(view) { // ##A2F3
         formReset.reset()
     }
 }
+
+function fetchCreateRecipe(recipeObj) { // ##A4F0
+    fetch('/recipe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(recipeObj)
+    }).then((response) => response.json()).then((data) => {
+        if (!data.error) {
+            console.log("Recipe created successfully")
+            if (window.location.pathname == '/list') {
+                alert("Recipe Created Successfully!\nThe page will now reload.")
+                window.location.replace("/list")
+            } else {
+                alert("Recipe Copied Successfully!")
+            }
+        } else {
+            console.log(data.message)
+            alert("Recipe creation failed!")
+        }
+    }).catch((error) => {
+        console.error(error)
+        alert("Recipe creation failed!")
+    })
+}
