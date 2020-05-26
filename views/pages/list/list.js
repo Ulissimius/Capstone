@@ -37,13 +37,13 @@
  *      - ##A3F7 - buildFilterListAlpha()
  * 
  * ##A4 - Fetch Request JS
- *      - ##A4F0 - fetchCreateRecipe()
+ *      - ##A4F0 - fetchCreateRecipe() -------------- Moved to global
  *      - ##A4F1 - fetchRemoveRecipe()
  *      - ##A4F2 - fetchScraper()
  *      - ##A4F3 - fetchEditRecipe
  * 
  * ##A5 - Function Calls
- *      - ##A5F0 - window.addEventListener("beforeunload")
+ *      - ##A5F0 - window.addEventListener()
  * 
  */
 
@@ -125,6 +125,8 @@ if (submitURL) { // ##A2F4
         let recipeURL = inputURL.value
 
         fetchScraper(recipeURL)
+
+        stopStatus()
     })
 }
 
@@ -475,30 +477,6 @@ function buildFilterListAlpha(arr, path) { // ##A3F7
 
 // ******************** Fetch Request JS (##A4) ********************
 // Contains all Fetch() requests performed on list.hbs
-
-function fetchCreateRecipe(recipeObj) { // ##A4F0
-    fetch('/recipe', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(recipeObj)
-    }).then((response) => response.json()).then((data) => {
-        if (!data.error) {
-            console.log("Recipe created successfully")
-            stopStatus()
-            window.location.replace("/list")
-        } else {
-            console.log(data.message)
-            stopStatus()
-            alert("Recipe creation failed!")
-        }
-    }).catch((error) => {
-        console.error(error)
-        stopStatus()
-        alert("Recipe creation failed!")
-    })
-}
 
 function fetchRemoveRecipe(id) { // ##A4F1
     fetch('/removeRecipe', {
