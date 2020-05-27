@@ -106,97 +106,207 @@ footer {
     visibility: visible;
 }
 
-/* ********** Navbar CSS ********** */
-nav {
-    width: 100%;
-    min-height: 45px;
-    height: auto;
-    background: #ECD185;
-    border-bottom: 1px solid #707070;
+@media only screen and (min-width: 769px) {
+    /* ********** Navbar CSS ********** */
+    nav {
+        width: 100%;
+        min-height: 45px;
+        height: auto;
+        background: #ECD185;
+        border-bottom: 1px solid #707070;
+    }
+
+    /* ***** Navbar Title ***** */
+    #title {
+        width: 15%;
+        justify-content: center;
+        align-items: center;
+        font: 1.5rem Segoe UI;
+        font-weight: bold;
+        letter-spacing: 0px;
+        color: #707070;
+    }
+
+    /* ***** Navbar Buttons ***** */
+    #navbtns {
+        flex: 1 1 auto;
+        width: 70%;
+        background: #E8C563;
+        border-right: 1px solid #707070;
+        font: 1rem Segoe UI;
+        font-weight: bold;
+    }
+
+    .navlink {
+        width: 12.5%;
+        justify-content: center;
+        align-items: center;
+        border-left: 1px solid #707070;
+        color: #707070;
+        letter-spacing: 0px;
+    }
+
+    .nav-last {
+        border-right: 1px solid #707070;
+    }
+
+    .navlink:link, .navlink:visited, .navlink:hover, .navlink:active {
+        text-decoration: none;
+    }
+
+    .navlink:hover {
+        cursor: pointer;
+        background: rgb(235, 191, 72);
+    }
+
+    .nav-spare, .nav-spare:hover {
+        border: none;
+        background: #E8C563;
+        cursor: default;
+    }
+
+    /* *** Navbar Home *** */
+
+    /* *** Navbar Recipe *** */
+
+    /* *** Navbar Account *** */
+
+    /* ***** Navbar Login ***** */
+    .userinfo {
+        width: 15%;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        font: 1rem Segoe UI;
+        font-style: italic;
+        letter-spacing: 0px;
+        color: #707070;
+    }
+
+    .userinfo p {
+        display: flex;
+        width: 100%;
+        text-align: center;
+    }
+
+    .logout {
+        width: auto;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        font: .8rem Segoe UI;
+        padding: 2px;
+        margin-right: 5px;
+        letter-spacing: 0px;
+        color: #707070;
+    }
 }
 
-/* ***** Navbar Title ***** */
-#title {
-    width: 15%;
-    justify-content: center;
-    align-items: center;
-    font: 1.5rem Segoe UI;
-    font-weight: bold;
-    letter-spacing: 0px;
-    color: #707070;
-}
+/* ********** Navbar Mobile CSS ********** */
+@media only screen and (max-width: 768px) {
+    /* ********** Navbar CSS ********** */
+    nav {
+        width: 100%;
+        height: auto;
+        background: #ECD185;
+        border-bottom: 1px solid #707070;
+    }
 
-/* ***** Navbar Buttons ***** */
-#navbtns {
-    flex: 1 1 auto;
-    width: 70%;
-    background: #E8C563;
-    border-right: 1px solid #707070;
-    font: 1rem Segoe UI;
-    font-weight: bold;
-}
+    /* ***** Navbar Title ***** */
+    #title {
+        flex-direction: column;
+        width: 100%;
+        font: 1.5rem Segoe UI;
+        font-weight: bold;
+        letter-spacing: 0px;
+        color: #707070;
+    }
+    
+    #mob-head {
+        width: 100%;
+        padding: 2.5px 10px;
+    }
 
-.navlink {
-    width: 12.5%;
-    justify-content: center;
-    align-items: center;
-    border-left: 1px solid #707070;
-    color: #707070;
-    letter-spacing: 0px;
-}
+    #mob-title {
+        flex-grow: 1;
+        justify-content: start;
+    }
 
-.nav-last {
-    border-right: 1px solid #707070;
-}
+    #hamburger {
+        justify-content: end;
+    }
 
-.navlink:link, .navlink:visited, .navlink:hover, .navlink:active {
-    text-decoration: none;
-}
+    /* ***** Navbar Buttons ***** */
+    #navbtns {
+        display: none;
+    }
 
-.navlink:hover {
-    cursor: pointer;
-    background: rgb(235, 191, 72);
-}
+    .navlink {
+        width: 100%;
+        align-items: center;
+        font: 1rem Segoe UI;
+        font-weight: bold;
+        color: #707070;
+        letter-spacing: 0px;
+        border-bottom: 1px solid black;
+        padding: 2.5px 10px;
+    }
+    
+    .nav-hm {
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
 
-.nav-spare, .nav-spare:hover {
-    border: none;
-    background: #E8C563;
-    cursor: default;
-}
+    .nav-last {
+        border-bottom: none;
+    }
+    
+    .navlink:nth-child(odd) {
+        background: rgb(235, 191, 72);
+    }
 
-/* *** Navbar Home *** */
+    .navlink:link, .navlink:visited, .navlink:hover, .navlink:active {
+        text-decoration: none;
+    }
 
-/* *** Navbar Recipe *** */
+    .navlink:hover {
+        cursor: pointer;
+        background: rgb(235, 191, 72);
+    }
 
-/* *** Navbar Account *** */
+    .nav-spare, .nav-spare:hover {
+        border: none;
+        background: #E8C563;
+        cursor: default;
+    }
 
-/* ***** Navbar Login ***** */
-.userinfo {
-    width: 15%;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    font: 1rem Segoe UI;
-    font-style: italic;
-    letter-spacing: 0px;
-    color: #707070;
-}
+    /* *** Navbar Home *** */
 
-.userinfo p {
-    width: 100%;
-    text-align: center;
-}
+    /* *** Navbar Recipe *** */
 
-.logout {
-    width: auto;
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    font: .8rem Segoe UI;
-    padding: 2px;
-    margin-right: 5px;
-    letter-spacing: 0px;
-    color: #707070;
+    /* *** Navbar Account *** */
+
+    /* ***** Navbar Login ***** */
+    .userinfo {
+        display: none;
+    }
+
+    .userinfo p {
+        width: 100%;
+        text-align: center;
+    }
+
+    .logout {
+        width: auto;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        font: .8rem Segoe UI;
+        padding: 2px;
+        margin-right: 5px;
+        letter-spacing: 0px;
+        color: #707070;
+    }
 }
 
 /* ***** Filter Bar ***** */
