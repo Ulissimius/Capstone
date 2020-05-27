@@ -173,6 +173,7 @@ footer {
 
     /* ***** Navbar Login ***** */
     .userinfo {
+        display: flex;
         width: 15%;
         position: relative;
         justify-content: center;
