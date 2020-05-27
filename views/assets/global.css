@@ -185,9 +185,8 @@ footer {
     }
 
     .userinfo p {
-        display: flex;
-        width: 100%;
-        text-align: center;
+        flex-grow: 1;
+        margin-left: 5px;
     }
 
     .logout {
