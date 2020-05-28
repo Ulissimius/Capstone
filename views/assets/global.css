@@ -106,14 +106,18 @@ footer {
     visibility: visible;
 }
 
+/* ********** Navbar CSS ********** */
 @media only screen and (min-width: 769px) {
-    /* ********** Navbar CSS ********** */
     nav {
         width: 100%;
         min-height: 45px;
         height: auto;
         background: #ECD185;
         border-bottom: 1px solid #707070;
+    }
+
+    #hamburger {
+        display: none;
     }
 
     /* ***** Navbar Title ***** */
@@ -176,7 +180,7 @@ footer {
         display: flex;
         width: 15%;
         position: relative;
-        justify-content: center;
+        text-align: center;
         align-items: center;
         font: 1rem Segoe UI;
         font-style: italic;
@@ -212,6 +216,11 @@ footer {
         border-bottom: 1px solid #707070;
     }
 
+    #hamburger {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
     /* ***** Navbar Title ***** */
     #title {
         flex-direction: column;
@@ -230,10 +239,6 @@ footer {
     #mob-title {
         flex-grow: 1;
         justify-content: start;
-    }
-
-    #hamburger {
-        justify-content: end;
     }
 
     /* ***** Navbar Buttons ***** */

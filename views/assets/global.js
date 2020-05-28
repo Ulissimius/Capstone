@@ -99,7 +99,7 @@ function closeView(view, exit) { // ##A2F1
     } 
 }
 
-document.querySelectorAll('.card.flex').forEach(card => { // ##A1F1
+document.querySelectorAll('.card').forEach(card => { // ##A1F1
     card.addEventListener('click', e => {
         if (e.target.nodeName != 'IMG') {
             openView(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`)

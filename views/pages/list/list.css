@@ -217,88 +217,101 @@ textarea {
 }
 
 /* ********** #R6 - Recipe Thumbnail View ********** */
-.card {
-    width: 504px;
-    height: 127px;
-    border: 1px solid black;
-    box-shadow: 2px 5px 3px #00000040;
-    background: white;
-    margin: 10px;
-}
+@media only screen and (min-width: 768px) {
+    .card {
+        display: flex;
+        width: 504px;
+        height: 127px;
+        border: 1px solid black;
+        box-shadow: 2px 5px 3px #00000040;
+        background: white;
+        margin: 10px;
+    }
 
-.card-img {
-    width: 126px;
-    height: 125px;
-    border-right: 1px solid black;
-    background-image: url("https://picsum.photos/127/127");
-}
+    .card-img {
+        width: 126px;
+        height: 125px;
+        border-right: 1px solid black;
+        background-image: url("https://picsum.photos/127/127");
+    }
 
-.card-info {
-    width: 378px;
-    height: 125px;
-    flex-wrap: wrap;
-}
+    .card-info {
+        width: 378px;
+        height: 125px;
+    }
 
-.card-title {
-    width: 100%;
-    height: 33px;
-    padding: 0 5px;
-    border-bottom: 1px solid black;
-}
+    .card-title {
+        width: 100%;
+        height: 33px;
+        padding: 0 5px;
+        border-bottom: 1px solid black;
+    }
 
-.ctl {
-    flex-grow: 1;
-    height: 33px;
-    overflow: hidden;
-    align-items: center;
-}
+    .ctl {
+        flex-grow: 1;
+        height: 33px;
+        overflow: hidden;
+        align-items: center;
+    }
 
-.ctl h3 {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
+    .ctl h3 {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 
-.ctr {
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content;
-    height: 100%;
-    align-items: center;
-}
+    .ctr {
+        width: -webkit-max-content;
+        width: -moz-max-content;
+        width: max-content;
+        height: 100%;
+        align-items: center;
+    }
 
-.card-body {
-    width: 378px;
-    height: 92px;
+    .card-body {
+        display: flex;
+        flex: 1 1 auto;
+        width: 378px;
+        height: 92px;
 
-}
+    }
 
-.card-info-left {
-    border-right: 1px solid black;
-}
+    .card-info-left {
+        border-right: 1px solid black;
+    }
 
-.card-info-left, .card-info-right {
-    justify-content: space-evenly;
-    padding-left: 5px;
-    padding-right: 5px;
+    .card-info-left, .card-info-right {
+        justify-content: space-evenly;
+        padding-left: 5px;
+        padding-right: 5px;
+    }   
 }
 
 /* ********** #R7 - Existing Recipe View ********** */
+@media only screen and (min-width: 768px) {
+    #main-body {
+        height: auto;
+        width: 100%;
+    }
 
-#main-body {
-    height: auto;
-    width: 100%;
-}
+    #main-left {
+        flex-grow: 1;
+    }
 
-#main-left {
-    flex-grow: 1;
-}
+    #main-right {
+        width: -webkit-max-content;
+        width: -moz-max-content;
+        width: max-content;
+        margin-left: 10px;
+    }
 
-#main-right {
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content;
-    margin-left: 10px;
+    .filter-box {
+        margin-top: 10px;
+    }
+
+    .box-content {
+        margin-left: 50px;
+    }
 }
 
 .vr-di-li {
@@ -324,15 +337,8 @@ textarea {
     margin-top: 10px;
 }
 
+
 /* ********** #R8 - Search/Filter ********** */
-
-.filter-box {
-    margin-top: 10px;
-}
-
-.box-content {
-    margin-left: 50px;
-}
 
 /* ***** Filter Bar ***** */
 #filter-container {
@@ -366,4 +372,97 @@ textarea {
 
 #filter-drop-div {
     width: 70%;
+}
+
+/* ********** Existing Recipe Mobile ********** */
+@media only screen and (max-width: 768px) {
+    #main-body {
+        height: auto;
+        width: 100%;
+    }
+
+    #main-left {
+        width: 100%;
+    }
+
+    #main-right {
+        display: none;
+    }
+
+    .filter-box {
+        margin-top: 10px;
+    }
+
+    .box-content {
+        justify-content: center;
+    }
+}
+
+/* ********** Recipe Card Mobile ********** */
+@media only screen and (max-width: 768px) {
+    .card {
+        width: 80vw;
+        height: auto;
+        max-height: 300px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        box-shadow: 2px 5px 3px #00000040;
+        background: white;
+        margin: 10px;
+        font-size: 1rem;
+    }
+
+    .card-img {
+        width: 100%;
+        height: 100px;
+        border-bottom: 1px solid black;
+        background-image: url("https://picsum.photos/127/127");
+        background-size: cover;
+    }
+
+    .card-info {
+        width: auto;
+        height: auto;
+    }
+
+    .card-title {
+        width: 100%;
+        height: 33px;
+        padding: 0 5px;
+        border-bottom: 1px solid black;
+    }
+
+    .ctl {
+        flex-grow: 1;
+        height: 33px;
+        overflow: hidden;
+        align-items: center;
+    }
+
+    .ctl h3 {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .ctr {
+        width: -webkit-max-content;
+        width: -moz-max-content;
+        width: max-content;
+        height: 100%;
+        align-items: center;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+    }
+
+    .card-info-left, .card-info-right {
+        justify-content: space-evenly;
+        padding: 0 5px;
+    }
 }
