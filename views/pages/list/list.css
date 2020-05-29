@@ -56,164 +56,186 @@ textarea {
 }
 
 /* ********** #R3 - New Recipe Button ********** */
-.add-button {
-    align-items: center;
-    font-weight: bold;
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content;
-    cursor: pointer;
-}
+@media only screen and (min-width: 768px) {
+    .add-button {
+        align-items: center;
+        font-weight: bold;
+        width: -webkit-max-content;
+        width: -moz-max-content;
+        width: max-content;
+        cursor: pointer;
+    }
 
-.sticky-button {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 44px;
-}
+    .sticky-button {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 44px;
+    }
 
-.button-text {
-    text-shadow: 2px 5px 3px #00000040;
-    margin-bottom: 10px;
-}
+    .button-text {
+        text-shadow: 2px 5px 3px #00000040;
+        margin-bottom: 10px;
+    }
 
-.button-frame {
-    width: 50px;
-    height: 50px;
-    background: #E8C563 0% 0% no-repeat padding-box;
-    box-shadow: 2px 5px 3px #00000040;
-    border: 5px solid #0000A8;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-}
+    .button-frame {
+        width: 50px;
+        height: 50px;
+        background: #E8C563 0% 0% no-repeat padding-box;
+        box-shadow: 2px 5px 3px #00000040;
+        border: 5px solid #0000A8;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+    }
 
-.button-frame span {
-    border: 2px solid #0000A8;
-}
+    .button-frame span {
+        border: 2px solid #0000A8;
+    }
 
-.line:first-of-type{
-    position: absolute;
-    width: 30px;
-    height: 0px;
-    top: 18px;
-    left: 5px;
-}
+    .line:first-of-type{
+        position: absolute;
+        width: 30px;
+        height: 0px;
+        top: 18px;
+        left: 5px;
+    }
 
-.line:last-of-type {
-    position: absolute;
-    height: 30px;
-    width: 0px;
-    top: 5px;
-    left: 18px;
+    .line:last-of-type {
+        position: absolute;
+        height: 30px;
+        width: 0px;
+        top: 5px;
+        left: 18px;
+    }   
 }
 
 /* ********** #R4 - Select New Recipe Menu ********** */
-#nr-select {
-    justify-content: space-around;
-    background: white;
-    width: 500px;
-    height: 300px;
-    border: 1px solid black;
-    box-shadow: 2px 5px 3px #00000040;
-    margin-top: 10vh;
-}
+@media only screen and (min-width: 768px) {
+    #nr-select {
+        justify-content: space-around;
+        background: white;
+        width: 500px;
+        height: 300px;
+        border: 1px solid black;
+        box-shadow: 2px 5px 3px #00000040;
+        margin-top: 10vh;
+    }
 
-#nr-select form {
-    width: inherit;
-}
+    #nr-select form {
+        width: inherit;
+    }
 
-#in-url {
-    width: 90%;
-    border-radius: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
+    #in-url {
+        width: 90%;
+        border-radius: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 
-#sub_URL {
-    margin: 5px;
-}
+    #sub_URL {
+        margin: 5px;
+    }
 
-#support-info {
-    width: 100%;
+    #support-info {
+        width: 100%;
+    }    
 }
 
 /* ********** #R5 - Build New Recipe View ********** */
-.nr-container {
-    width: 1080px;
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    max-height: 100vh;
-    border: 2px solid black;
-    background: white;
-    overflow: auto;
-    margin: 10vh 0;
-}
+@media only screen and (min-width: 768px) {
+    .nr-container {
+        min-width: 768px;
+        width: 50vw;
+        max-width: 1086px;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        max-height: 100vh;
+        border: 2px solid black;
+        background: white;
+        overflow: auto;
+        margin: 10vh 0;
+    }
 
-.nr-he {
-    height: 200px;
-    border-bottom: 2px solid black;
-    justify-content: end;
-    background: url("https://picsum.photos/1076/200");
-    color: white;
-}
+    .nr-container h2 {
+        margin: 2.5px 0 2.5px 10px;
+    }
 
-.nr-he-info {
-    height: 100px;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.35);
-}
+    .nr-he {
+        height: 200px;
+        border-bottom: 2px solid black;
+        justify-content: end;
+        background: url("https://picsum.photos/1076/200");
+        color: white;
+    }
 
-.nr-in {
-    height: auto;
-}
+    .nr-he-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100px;
+        width: 100%;
+        padding: 0 10px;
+        background: rgba(0, 0, 0, 0.35);
+    }
 
-.sub-info {
-    width: 85px;
-}
+    .nr-he-info h4, .nr-he-info h3 {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 
-.sub-info input {
-    width: 80px;
-}
+    .nr-in {
+        height: auto;
+    }
 
-.nr-in-sp {
-    border: 1px solid black;
-    width: 0px;
-    margin: 0 10px 0 10px;
-}
+    .sub-info {
+        width: 85px;
+    }
 
-.nr-in-ta {
-    padding: 10px;
-}
+    .sub-info input {
+        width: 80px;
+    }
 
-.li-amt {
-    width: 40px;
-}
+    .nr-in-sp {
+        border: 1px solid black;
+        width: 0px;
+        margin: 0 10px 0 10px;
+    }
 
-.li-unit {
-    width: 60px;
-}
+    .nr-in-ta {
+        padding: 10px;
+    }
 
-.li-name {
-    width: 136px;
-}
+    .li-amt {
+        width: 40px;
+    }
 
-.nr-di {
-    height: auto;
-}
+    .li-unit {
+        width: 60px;
+    }
 
-.nr-di-li {
-    padding: 10px;
-}
+    .li-name {
+        width: 136px;
+    }
 
-.nr-no-ta {
-    padding: 10px;
-}
+    .nr-di {
+        height: auto;
+    }
 
-#post-recipe {
-    position: -webkit-sticky;
-    position: sticky;
-    bottom: 0;
+    .nr-di-li {
+        padding: 10px;
+    }
+
+    .nr-no-ta {
+        margin: 0 10px 10px 10px;
+    }
+
+    #post-recipe {
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 0;
+    }
 }
 
 /* ********** #R6 - Recipe Thumbnail View ********** */
@@ -312,31 +334,35 @@ textarea {
     .box-content {
         margin-left: 50px;
     }
-}
 
-.vr-di-li {
-    padding-top: 10px;
-    padding-left: 20px;
-    padding-bottom: 5px;
-}
+    .vr-di-li {
+        padding-top: 10px;
+        padding-left: 20px;
+        padding-bottom: 5px;
+    }
 
-.vr-di-li li {
-    padding-bottom: 5px;
-}
+    .vr-di-li li {
+        padding-bottom: 5px;
+    }
 
-.vr-in-li {
-    flex-wrap: wrap;
-    padding-left: 10px;
-}
+    .vr-in-li {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 10px;
+    }
 
-.li-div {
-    width: 33%;
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    margin-top: 10px;
-}
+    .li-div {
+        width: 33%;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        margin-top: 10px;
+    }
 
+    .shopping-list {
+        margin-right: 5px;
+    }
+}
 
 /* ********** #R8 - Search/Filter ********** */
 
@@ -372,97 +398,4 @@ textarea {
 
 #filter-drop-div {
     width: 70%;
-}
-
-/* ********** Existing Recipe Mobile ********** */
-@media only screen and (max-width: 768px) {
-    #main-body {
-        height: auto;
-        width: 100%;
-    }
-
-    #main-left {
-        width: 100%;
-    }
-
-    #main-right {
-        display: none;
-    }
-
-    .filter-box {
-        margin-top: 10px;
-    }
-
-    .box-content {
-        justify-content: center;
-    }
-}
-
-/* ********** Recipe Card Mobile ********** */
-@media only screen and (max-width: 768px) {
-    .card {
-        width: 80vw;
-        height: auto;
-        max-height: 300px;
-        display: flex;
-        flex-direction: column;
-        border: 1px solid black;
-        box-shadow: 2px 5px 3px #00000040;
-        background: white;
-        margin: 10px;
-        font-size: 1rem;
-    }
-
-    .card-img {
-        width: 100%;
-        height: 100px;
-        border-bottom: 1px solid black;
-        background-image: url("https://picsum.photos/127/127");
-        background-size: cover;
-    }
-
-    .card-info {
-        width: auto;
-        height: auto;
-    }
-
-    .card-title {
-        width: 100%;
-        height: 33px;
-        padding: 0 5px;
-        border-bottom: 1px solid black;
-    }
-
-    .ctl {
-        flex-grow: 1;
-        height: 33px;
-        overflow: hidden;
-        align-items: center;
-    }
-
-    .ctl h3 {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-
-    .ctr {
-        width: -webkit-max-content;
-        width: -moz-max-content;
-        width: max-content;
-        height: 100%;
-        align-items: center;
-    }
-
-    .card-body {
-        display: flex;
-        flex-direction: column;
-        width: auto;
-        height: auto;
-    }
-
-    .card-info-left, .card-info-right {
-        justify-content: space-evenly;
-        padding: 0 5px;
-    }
 }
