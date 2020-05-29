@@ -529,7 +529,8 @@ function fetchScraper(newURL) { // ##A4F2
     request.then((response) => response.json() )
     .then((data) => {
         if (!data.error) {
-            fetchCreateRecipe(data.results)
+            cleanResults = cleanUpText(data.results)
+            fetchCreateRecipe(cleanResults)
         } else {
             console.log(data.message)
             stopStatus()

@@ -24,6 +24,7 @@ function cleanUpText(text) {
                     } else {
                         e = e.trim()
                         e = e.replace(/  +/g, ' ')
+                        e = e.replace(/\xa0/g, ' ')
                     }
                     newText.push(e)
                 }
@@ -40,6 +41,7 @@ function cleanUpText(text) {
                     } else {
                         val = val.trim()
                         val = val.replace(/  +/g, ' ')
+                        val = val.replace(/\xa0/g, ' ')
                     }
                     text[keys[i]] = val
                 }
@@ -47,6 +49,7 @@ function cleanUpText(text) {
         } else {
             text = text.trim()
             text = text.replace(/  +/g, ' ')
+            text = text.replace(/\xa0/g, ' ')
         }
 
         if (typeof text == 'array') {
@@ -75,7 +78,7 @@ function openView(view) { // ##A2F0
         closeView(prevView);
         prevView = null
     }
-    
+
     stopScroll.style.overflow = 'hidden'
 
     if (wrapper.classList.contains('hide')) { // Opens the wrapper div if it is closed.
@@ -96,7 +99,9 @@ function closeView(view, exit) { // ##A2F1
         view = document.querySelector(view)
     }
 
-    view.classList.add("hide"); // Closes the current view
+    if (view) {
+        view.classList.add("hide"); // Closes the current view
+    }
 
     if (exit == true) { // Closes the wrapper div if the x button was used.
         wrapper.classList.add("hide");
