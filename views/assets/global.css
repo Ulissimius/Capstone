@@ -226,6 +226,7 @@ footer {
     #hamburger {
         display: flex;
         justify-content: flex-end;
+        cursor: pointer;
     }
     
     /* ***** Navbar Title ***** */
