@@ -4,21 +4,9 @@
         <div class="filler"></div>
         {{!-- Header area, Title, Picture(?), Maybe some other info --}}
         <div class="nr-he-info">
-            {{!-- Title: Use input, swap to h1/2/3 after entering a title, swap back upon editing --}}
-            <table>
-                <tr>
-                    <td><h3>Title:</h3></td>
-                    <td><h3 class='recipe-info'>{{title}}</h3></td>
-                </tr>
-                <tr>
-                    <td><h3>Author:</h3></td>
-                    <td><h4 class='recipe-info'>{{auth}}</h4></td>
-                </tr>
-                <tr>
-                    <td><h3>URL:</h3></td>
-                    <td><h4><a href="{{url}}" class='recipe-info'>{{url}}</a></h4></td>
-                </tr>
-            </table>
+            <h3 class='recipe-info'>{{title}}</h3>
+            <h4 class='recipe-info'>By: {{auth}}</h4>
+            <h4><a href="{{url}}" class='recipe-info'>{{url}}</a></h4>
         </div>
     </div>
 

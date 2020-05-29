@@ -59,7 +59,7 @@ const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Gr
 const filterSel = document.querySelector('#filter')
 const filterArr = ['Date Added', 'Alphabetical', 'Cuisine', 'Author']
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
-const cardArr = document.querySelectorAll('.card.flex')
+const cardArr = document.querySelectorAll('.card')
 const mainContainer = document.querySelector('#container')
 const recCont = document.querySelector('#nr-container') // Container for new/edit recipe
 const submitURL = document.querySelector('#sub_URL')
@@ -140,7 +140,7 @@ function editRecipe(id) { // ##A2F5
     const recipeIngredients = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-ingredients`)
     const recipeDirections = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-directions`)
     const recipeNotes = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-notes`)
-    const nameValue = (document.querySelector(`.card.flex[data-id="${id}"] .card-info-left.fl-col-fl p:nth-child(2)`).innerText).split(': ')
+    const nameValue = (document.querySelector(`.card[data-id="${id}"] .card-info-left.fl-col-fl p:nth-child(2)`).innerText).split(': ')
 
     recCont.dataset.edit = id // data-edit is passed the unique ID of the target recipe
     recCont.dataset.name = nameValue[1]
@@ -155,7 +155,7 @@ function editRecipe(id) { // ##A2F5
         if (i+1 == recipeInfo.length) {
             let optionArr = document.querySelectorAll('.cuisine option')
             for (let ii = 0; ii < optionArr.length; ii++) {
-                if ((optionArr[ii].innerHTML).localeCompare(elem.innerHTML) == 0) {
+                if ((optionArr[ii].innerText).localeCompare(elem.innerText) == 0) {
                     editInfo[i].value = optionArr[ii].value
                     break
                 } else if (ii+1 == optionArr.length) {
@@ -163,21 +163,28 @@ function editRecipe(id) { // ##A2F5
                 }
             }
         } else {
-            editInfo[i].value = elem.innerHTML
+            editInfo[i].value = elem.innerText
         }
     });
 
+    editInfo[1].value = splitAuth(editInfo)
+
+    function splitAuth(info) {
+        let auth = info[1].value.split(': ')
+        return auth[1]
+    }
+
     // Copies ingredient, direction, and note data from target view_recipe to create_recipe
     recipeIngredients.forEach(ing => {
-        taArr[0].value += ing.innerHTML + '\n'
+        taArr[0].value += ing.innerText + '\n'
     });
 
     recipeDirections.forEach(dir => {
-        taArr[1].value += dir.innerHTML + '\n'
+        taArr[1].value += dir.innerText + '\n'
     });
 
     recipeNotes.forEach(note => {
-        taArr[2].value += note.innerHTML + '\n'
+        taArr[2].value += note.innerText + '\n'
     });
 }
 
@@ -496,7 +503,7 @@ function fetchRemoveRecipe(id) { // ##A4F1
                 elem.remove() 
             });
             recipeArr = Array.from(document.querySelectorAll('.card'))
-            if (!document.querySelector('.card.flex')) {
+            if (!document.querySelector('.card')) {
                 window.location.replace("/list")
             }
         } else {
