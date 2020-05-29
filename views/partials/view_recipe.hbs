@@ -41,8 +41,12 @@
         <div class="vr-in-li"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}
             {{#each ingArr}}
                 <div class="li-div flex">
-                    <input type="checkbox" name="on_list" class="shopping-list">
-                    <p class='recipe-ingredients'>{{this}}</p>
+                    <div>
+                        <input type="checkbox" name="on_list" class="shopping-list">
+                    </div>
+                    <div>
+                        <p class='recipe-ingredients'>{{this}}</p>
+                    </div>
                 </div>
             {{/each}}
         </div>

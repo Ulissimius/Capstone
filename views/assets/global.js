@@ -62,6 +62,7 @@ function cleanUpText(text) {
 
 const wrapper = document.querySelector('#wrapper'); // The wrapper is special div that holds floating windows.
 var prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
+const stopScroll = document.querySelector('body')
 
 function openView(view) { // ##A2F0
     /*  openView opens the passed view by setting display back to default.
@@ -74,6 +75,8 @@ function openView(view) { // ##A2F0
         closeView(prevView);
         prevView = null
     }
+    
+    stopScroll.style.overflow = 'hidden'
 
     if (wrapper.classList.contains('hide')) { // Opens the wrapper div if it is closed.
         wrapper.classList.remove("hide");
@@ -88,6 +91,7 @@ function closeView(view, exit) { // ##A2F1
     /*  closeView closes the passed view by setting display to none.
         closeView will also close the wrapper if exit is passed in as true 
     */
+    stopScroll.style.overflow = 'auto'
     if (typeof view == 'string') {
         view = document.querySelector(view)
     }
@@ -110,7 +114,7 @@ document.querySelectorAll('.card').forEach(card => { // ##A1F1
 if (wrapper) { // ##A2F2
     wrapper.addEventListener('click', e => {
         if (e.target.id == 'wrapper') {
-            wrapper.classList.add("hide");
+            closeView('#wrapper')
         }
     })
 }

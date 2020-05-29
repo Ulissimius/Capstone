@@ -33,6 +33,7 @@
         padding-top: 10px;
         padding-left: 20px;
         padding-bottom: 5px;
+        word-wrap: break-word;
     }
 
     .vr-di-li li {
@@ -53,6 +54,10 @@
         align-items: center;
     }
     
+    .li-div div:last-of-type {
+        max-width: 90%;
+    }
+
     .shopping-list {
         margin-right: 5px;
     }
