@@ -72,16 +72,16 @@
     function openMenu() {
         const menu = document.querySelector('#mobile_nav')
         const filter = document.querySelector('#filter-container')
-        const nav = document.querySelector('nav')
+        const navHeight = document.querySelector('nav')
 
         menu.classList.toggle('hide')
 
         if (!filter.style.top) {
             filter.style.top = '51px'
         }
-
+        console.log((navHeight.scrollHeight + 1) + 'px')
         if (filter.style.top == '51px') {
-            filter.style.top = nav.style.height
+            filter.style.top = (navHeight.scrollHeight + 1) + 'px'
         } else {
             filter.style.top = '51px'
         }
