@@ -54,6 +54,38 @@ textarea {
     -webkit-user-select: none;
 }
 
+@media only screen and (max-width: 768px) {
+    .new-user {
+        align-items: center;
+        min-height: 350px;
+        text-align: center;
+    }
+
+    .new-user h1, .new-user h2, .add-button {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .new-user h1 {
+        font-size: 2.5rem;
+    }
+    
+    .new-user h2 {
+        font-size: 1.5rem;
+    }
+
+
+    #arrows {
+        width: 300px;
+        height: auto;
+        -ms-user-select: none;
+            user-select: none;
+        -moz-user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+    }
+}
+
 /* ********** #R3 - New Recipe Button ********** */
 @media only screen and (min-width: 768px) {
     .add-button {
