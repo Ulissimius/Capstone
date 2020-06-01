@@ -1,5 +1,35 @@
-/* ********** Existing Recipe Mobile ********** */
 @media only screen and (max-width: 768px) {
+    /* ********** New User View Mobile ********** */
+    .new-user {
+        align-items: center;
+        min-height: 350px;
+        text-align: center;
+    }
+
+    .new-user h1, .new-user h2, .add-button {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .new-user h1 {
+        font-size: 2.5rem;
+    }
+
+    .new-user h2 {
+        font-size: 1.5rem;
+    }
+
+    #arrows {
+        width: 300px;
+        height: auto;
+        -ms-user-select: none;
+            user-select: none;
+        -moz-user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+    }
+    
+    /* ********** Existing Recipe Mobile ********** */
     #main-body {
         height: auto;
         width: 100%;
@@ -60,10 +90,9 @@
     .shopping-list {
         margin-right: 5px;
     }
-}
 
-/* ********** Recipe Card Mobile ********** */
-@media only screen and (max-width: 768px) {
+
+    /* ********** Recipe Card Mobile ********** */
     .card {
         width: 300px;
         height: auto;
@@ -129,10 +158,9 @@
         justify-content: space-evenly;
         padding: 0 5px;
     }
-}
 
-/* ********** New Recipe Button Mobile ********** */
-@media only screen and (max-width: 768px) {
+
+    /* ********** New Recipe Button Mobile ********** */
     .add-button {
         align-items: center;
         font-weight: bold;
@@ -184,10 +212,9 @@
         top: 5px;
         left: 18px;
     }   
-}
 
-/* ********** Select New Recipe Menu Mobile ********** */
-@media only screen and (max-width: 768px) {
+
+    /* ********** Select New Recipe Menu Mobile ********** */
     #nr-select {
         justify-content: space-around;
         background: white;
@@ -216,10 +243,8 @@
     #support-info {
         width: 100%;
     }    
-}
 
-/* ********** Build New Recipe Mobile ********** */
-@media only screen and (max-width: 768px) {
+    /* ********** Build New Recipe Mobile ********** */
     .nr-container {
         width: 95vw;
         height: -webkit-max-content;

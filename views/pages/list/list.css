@@ -54,40 +54,8 @@ textarea {
     -webkit-user-select: none;
 }
 
-@media only screen and (max-width: 768px) {
-    .new-user {
-        align-items: center;
-        min-height: 350px;
-        text-align: center;
-    }
-
-    .new-user h1, .new-user h2, .add-button {
-        margin-top: 10px;
-        margin-bottom: 15px;
-    }
-
-    .new-user h1 {
-        font-size: 2.5rem;
-    }
-    
-    .new-user h2 {
-        font-size: 1.5rem;
-    }
-
-
-    #arrows {
-        width: 300px;
-        height: auto;
-        -ms-user-select: none;
-            user-select: none;
-        -moz-user-select: none;
-        -webkit-user-drag: none;
-        -webkit-user-select: none;
-    }
-}
-
-/* ********** #R3 - New Recipe Button ********** */
 @media only screen and (min-width: 768px) {
+    /* ********** #R3 - New Recipe Button ********** */
     .add-button {
         align-items: center;
         font-weight: bold;
@@ -138,10 +106,10 @@ textarea {
         top: 5px;
         left: 18px;
     }   
-}
 
-/* ********** #R4 - Select New Recipe Menu ********** */
-@media only screen and (min-width: 768px) {
+
+    /* ********** #R4 - Select New Recipe Menu ********** */
+
     #nr-select {
         justify-content: space-around;
         background: white;
@@ -170,10 +138,10 @@ textarea {
     #support-info {
         width: 100%;
     }    
-}
 
-/* ********** #R5 - Build New Recipe View ********** */
-@media only screen and (min-width: 768px) {
+
+    /* ********** #R5 - Build New Recipe View ********** */
+
     .nr-container {
         min-width: 768px;
         width: 50vw;
@@ -267,10 +235,10 @@ textarea {
         position: sticky;
         bottom: 0;
     }
-}
 
-/* ********** #R6 - Recipe Thumbnail View ********** */
-@media only screen and (min-width: 768px) {
+
+    /* ********** #R6 - Recipe Thumbnail View ********** */
+
     .card {
         display: flex;
         width: 504px;
@@ -338,10 +306,10 @@ textarea {
         padding-left: 5px;
         padding-right: 5px;
     }   
-}
 
-/* ********** #R7 - Existing Recipe View ********** */
-@media only screen and (min-width: 768px) {
+
+    /* ********** #R7 - Existing Recipe View ********** */
+
     #main-body {
         height: auto;
         width: 100%;
