@@ -3,7 +3,7 @@ if (newUserButton) {
     newUserButton.addEventListener('click', e => {
         e.preventDefault()
     
-        const email = document.querySelector('#new-email').value
+        const email = document.querySelector('#new-email').value.toLowerCase()
         const username = document.querySelector('#new-username').value
         const password = document.querySelector('#new-password').value
     
@@ -61,7 +61,7 @@ if (loginButton) {
     loginButton.addEventListener('click', e => {
         e.preventDefault()
     
-        const email = document.querySelector('#login-email').value
+        const email = document.querySelector('#login-email').value.toLowerCase()
         const password = document.querySelector('#login-password').value
     
         if (email && password) {

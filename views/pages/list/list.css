@@ -340,7 +340,7 @@ textarea {
     height: -webkit-max-content;
     height: -moz-max-content;
     height: max-content;
-    width: 15%;
+    width: 20%;
 }
 
 #filter-sel-div p {
@@ -352,5 +352,5 @@ textarea {
 }
 
 #filter-drop-div {
-    width: 70%;
+    width: 60%;
 }

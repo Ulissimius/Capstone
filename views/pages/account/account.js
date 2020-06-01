@@ -5,7 +5,7 @@ if (updateUserButton) {
     updateUserButton.addEventListener('click', e => {
         e.preventDefault()
 
-        const email = document.querySelector('#new-email').value
+        const email = document.querySelector('#new-email').value.toLowerCase()
         const username = document.querySelector('#new-username').value
         const password = document.querySelector('#new-password').value
         const confirmPassword = document.querySelector('#confirm-new-password').value

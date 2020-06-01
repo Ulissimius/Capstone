@@ -23,16 +23,7 @@
  *      - ##A2F6 - newRecipeButton.addEventListener
  *      - ##A2F7 - deleteRecipe()
  * 
- * ##A3 - Filter Options JS
- *      - ##A3F0 - changeFilter()
- *      - ##A3F1 - filterDirection()
- *      - ##A3F2 - alphabetical()
- *      - ##A3F3 - cuisineSort()
- *      - ##A3F4 - authorSort()
- *      - ##A3F5 - dateSort()
- *      - ##A3F6 - applySort()
- *      - ##A3F7 - pathBuilder()
- *      - ##A3F8 - buildFilterListAlpha()
+ * ##A3 - Filter Options JS-------------------------- Moved to global
  * 
  * ##A4 - Fetch Request JS
  *      - ##A4F0 - fetchCreateRecipe()
@@ -54,8 +45,6 @@
 // Declarations
 const cuisineSel = document.querySelector('.cuisine');
 const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
-const filterSel = document.querySelector('#filter')
-const filterArr = ['Date Added', 'Alphabetical', 'Cuisine', 'Author']
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
 const cardArr = document.querySelectorAll('.card.flex')
 const mainContainer = document.querySelector('#container')
@@ -67,7 +56,6 @@ var myStatus = () => {}
 var pointer = -1
 
 cuisineArr.sort()
-filterArr.sort()
 
 function fillOptions(arr, local) { // ##A1F0
     arr.forEach(elem => {
@@ -220,252 +208,6 @@ function deleteRecipe(id) { // ##A2F7
     fetchRemoveRecipe(id)
 }
 
-// ******************** Filter Options JS (##A3) ********************
-//js for filtering the recipe cards
-
-//Declarations
-const contBody = document.querySelector('#main-left')
-var recipeArr = Array.from(document.querySelectorAll('.card'))
-const originalRecipeOrder = Array.from(document.querySelectorAll('.card'))
-var currFilter = 'Date Added'
-
-function changeFilter() {  // ##A3F0
-    var newFilter = ''
-
-    if (filterSel) {
-        newFilter = document.querySelector('#filter').value
-    }
-
-
-    if (newFilter != currFilter) {
-        contBody.innerHTML = '' // Clears the dynamic elements created by previous sort
-        
-        if (document.querySelector('#filter-direction').value != 'Filter ∨') {
-            document.querySelector('#filter-direction').value = 'Filter ∨'
-        }
-
-        switch (newFilter) {
-            case 'Date Added':
-                dateSort(recipeArr, newFilter)
-                break;
-            case 'Alphabetical':
-                alphabetical(recipeArr, newFilter)
-                break;
-            case 'Cuisine':
-                cuisineSort(recipeArr, newFilter)
-                break;
-            case 'Author':
-                authorSort(recipeArr, newFilter)
-                break;
-            default:
-                break;
-        }
-        currFilter = newFilter
-    }
-}
-
-function filterDirection() { // ##A3F1
-    let elemValue = document.querySelector('#filter-direction').value
-    let reverseList = recipeArr.reverse()
-    contBody.innerHTML = ''
-    
-    reverseList = buildFilterListAlpha(reverseList, pathBuilder(reverseList, currFilter))
-    applySort(reverseList)
-
-    switch (elemValue) {
-        case 'Filter ∨':
-            document.querySelector('#filter-direction').value = 'Filter ∧'
-            break;
-        case 'Filter ∧':
-            document.querySelector('#filter-direction').value = 'Filter ∨'
-            break;
-        default:
-            break;
-    }
-}
-
-function alphabetical(items, filter) { // ##A3F2
-    items.sort(function(a, b) {
-        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-            return 1
-        }
-
-        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-            return -1
-        }
-        return 0
-    });
-
-    items = buildFilterListAlpha(items, pathBuilder(items, filter))
-    applySort(items)
-}
-
-function cuisineSort(items, filter) { // ##A3F3
-    items.sort(function(a, b) {
-        if(a.children[1].children[1].children[1].children[3].innerText.toLowerCase() > b.children[1].children[1].children[1].children[3].innerText.toLowerCase()) {
-            return 1
-        }
-        
-        if(a.children[1].children[1].children[1].children[3].innerText.toLowerCase() < b.children[1].children[1].children[1].children[3].innerText.toLowerCase()) {
-            return -1
-        }
-        return 0
-    });
-    items = buildFilterListAlpha(items, pathBuilder(items, filter))
-    applySort(items)
-}
-
-function authorSort(items, filter) { // ##A3F4
-    items.sort(function(a, b) {
-        if(a.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-            return 1
-        }
-
-        if(a.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-            return -1
-        }
-        return 0
-    });
-    items = buildFilterListAlpha(items, pathBuilder(items, filter))
-    applySort(items)
-}
-
-function dateSort(items, filter) { // ##A3F5
-    items.sort(function(a, b) {
-        if(a.dataset.date > b.dataset.date) {
-            return 1
-        }
-
-        if(a.dataset.date < b.dataset.date) {
-            return -1
-        }
-        return 0
-    });
-    items = buildFilterListAlpha(items, pathBuilder(items, filter))
-    applySort(items)
-}
-
-function applySort (items) { // ##A3F6
-    items.forEach(item => {
-        contBody.appendChild(item);
-    });
-}
-
-function pathBuilder(pathArr, filter) { // ##A3F7
-    /* Returns an array of all relative reference paths for the current filter
-    */
-    let newPathArr = []
-
-    switch (filter) {
-        case 'Date Added':
-            pathArr.forEach(path => {
-                const dateArr = path.dataset.date.toUpperCase().trim().split('-')
-                let month = ''
-                switch (dateArr[1]) {
-                    case '1':
-                        month = 'January'
-                        break;
-                    case '2':
-                        month = 'February'
-                        break;
-                    case '3':
-                        month = 'March'
-                        break;
-                    case '4':
-                        month = 'April'
-                        break;
-                    case '5':
-                        month = 'May'
-                        break;
-                    case '6':
-                        month = 'June'
-                        break;
-                    case '7':
-                        month = 'July'
-                        break;
-                    case '8':
-                        month = 'August'
-                        break;
-                    case '9':
-                        month = 'September'
-                        break;
-                    case '10':
-                        month = 'October'
-                        break;
-                    case '11':
-                        month = 'November'
-                        break;
-                    case '12':
-                        month = 'December'
-                        break;
-                    default:
-                        break;
-                }
-                let fulldate = ''
-                fulldate = fulldate.concat(month, ' ', dateArr[2], ', ', dateArr[0])
-                newPathArr.push(fulldate.trim())
-            });
-            break;
-        case 'Alphabetical':
-            pathArr.forEach(path => {
-                newPathArr.push(path.children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt())
-            });
-            break;
-        case 'Cuisine':
-            pathArr.forEach(path => {
-                newPathArr.push(path.children[1].children[1].children[1].children[3].innerText.toUpperCase().trim().charAt(9))
-            });
-            break;
-        case 'Author':
-            pathArr.forEach(path => {
-                newPathArr.push(path.children[1].children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt(8))
-            });
-            break;
-        default:
-            break;
-    }
-    return newPathArr
-}
-
-function buildFilterListAlpha(arr, path) { // ##A3F8
-    /* buildFilterList(arr [Filtered node array], path [pathBuilder() array])
-       Takes in a filtered array and wraps each result in html for page display based on similar letters.
-       path provides the reference location for the letter comparison.
-    */
-    let newItems = []
-
-    for (let i = 0; i < arr.length;) {
-        let curLetter = path[i]
-        let prevLetter = path[i]
-
-        let topDiv = document.createElement('div')
-        let innerDiv = document.createElement('div')
-        let lettH1 = document.createElement('h1')
-        let lettHr = document.createElement('hr')
-
-        topDiv.classList.add('filter-box')
-        innerDiv.classList.add('box-content','flex','fw-w')
-        lettH1.innerText = curLetter
-
-        topDiv.append(lettH1)
-        topDiv.append(lettHr)
-        topDiv.append(innerDiv)
-
-        while (curLetter == prevLetter) {
-            innerDiv.append(arr[i])
-
-            i++
-            if (i+1 <= arr.length) {
-                prevLetter = path[i]
-            } else {
-                prevLetter = 'END'
-            }
-        }//End while
-        newItems.push(topDiv)
-    }//End for
-    return newItems
-}//End buildFilterListAlpha
-
 // ******************** Fetch Request JS (##A4) ********************
 // Contains all Fetch() requests performed on list.hbs
 
@@ -578,8 +320,3 @@ function fetchEditRecipe(recipeObj, id) { // ##A4F3
 // All function calls happening on page load - happens last so variables can be fully declared
 
 fillOptions(cuisineArr, cuisineSel);
-if (filterSel) {
-    fillOptions(filterArr, filterSel)
-}
-
-changeFilter() // Sets the page to the default filter on load
