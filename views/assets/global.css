@@ -342,37 +342,76 @@ footer {
 }
 
 /* ***** Filter Bar ***** */
-#filter-container {
-    width: 100%;
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    padding: 5px 0;
-    background: #ECD185;
-    border-bottom: 1px solid #707070;
-    font: 1rem Segoe UI;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0px;
+@media only screen and (min-width: 768px) {
+    #filter-container {
+        width: 100%;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        padding: 5px 0;
+        background: #ECD185;
+        border-bottom: 1px solid #707070;
+        font: 1rem Segoe UI;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0px;
+    }
+
+    #filter-sel-div {
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        width: 15%;
+    }
+
+    #filter-sel-div p {
+        padding-right: 5px;
+    }
+
+    #filter {
+        font: 1rem Segoe UI;
+    }
+
+    #filter-drop-div {
+        width: 70%;
+    }
 }
 
-#filter-sel-div {
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    width: 15%;
-}
+/* ***** Filter Bar Mobile ***** */
+@media only screen and (max-width: 768px) {
+    #filter-container {
+        width: 100%;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        padding: 5px 0;
+        background: #ECD185;
+        border-bottom: 1px solid #707070;
+        font: 1rem Segoe UI;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 51px;
+    }
 
-#filter-sel-div p {
-    padding-right: 5px;
-}
+    #filter-sel-div {
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        width: 100%;
+    }
 
-#filter {
-    font: 1rem Segoe UI;
-}
+    #filter-sel-div p {
+        padding-right: 5px;
+    }
 
-#filter-drop-div {
-    width: 70%;
+    #filter {
+        font: 1rem Segoe UI;
+    }
+
+    #filter-drop-div {
+        width: 100%;
+        display: none;
+    }
 }
 
 /* ********** Generic Flex Settings ********** */
