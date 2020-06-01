@@ -6,7 +6,6 @@
 #R5 - Build New Recipe View
 #R6 - Recipe Thumbnail View
 #R7 - Existing Recipe View
-#R8 - Search/Filter
 */
 
 /* ********** #R1 - Local Global CSS ********** */
@@ -362,40 +361,4 @@ textarea {
     .shopping-list {
         margin-right: 5px;
     }
-}
-
-/* ********** #R8 - Search/Filter ********** */
-
-/* ***** Filter Bar ***** */
-#filter-container {
-    width: 100%;
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    padding: 5px 0;
-    background: #ECD185;
-    border-bottom: 1px solid #707070;
-    font: 1rem Segoe UI;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-}
-
-#filter-sel-div {
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    width: 15%;
-}
-
-#filter-sel-div p {
-    padding-right: 5px;
-}
-
-#filter {
-    font: 1rem Segoe UI;
-}
-
-#filter-drop-div {
-    width: 70%;
 }

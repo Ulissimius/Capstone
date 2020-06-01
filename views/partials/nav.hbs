@@ -71,7 +71,18 @@
 <script>
     function openMenu() {
         const menu = document.querySelector('#mobile_nav')
+        const filter = document.querySelector('#filter-container')
 
         menu.classList.toggle('hide')
+
+        if (!filter.style.top) {
+            filter.style.top = '51px'
+        }
+
+        if (filter.style.top == '51px') {
+            filter.style.top = '241px'
+        } else {
+            filter.style.top = '51px'
+        }
     }
 </script>
