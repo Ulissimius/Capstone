@@ -4,40 +4,51 @@
 // This JS handles filling out the data for the recipe cards.
 
 /**
- * Search Index:
- * ##A0 - Test JS
- * 
- * ##A1 - General JS
- *      - ##A1F0 - fillOptions()
- *      - ##A1F1 - card.addEventListener------------- Moved to global
- *      - ##A1F2 - setStatus()
- *      - ##A1F3 - stopStatus()
- * 
- * ##A2 - Button JS
- *      - ##A2F0 - openView()------------------------ Moved to global
- *      - ##A2F1 - closeView()----------------------- Moved to global
- *      - ##A2F2 - wrapper.addEventListener---------- Moved to global
- *      - ##A2F3 - resetFields()--------------------- Moved to global
- *      - ##A2F4 - submitURL.addEventListener
- *      - ##A2F5 - editRecipe()
- *      - ##A2F6 - newRecipeButton.addEventListener
- *      - ##A2F7 - deleteRecipe()
- * 
- * ##A3 - Filter Options JS-------------------------- Moved to global
- * 
- * ##A4 - Fetch Request JS
- *      - ##A4F0 - fetchCreateRecipe()
- *      - ##A4F1 - fetchRemoveRecipe()
- *      - ##A4F2 - fetchScraper()
- *      - ##A4F3 - fetchEditRecipe
- * 
- * ##A5 - Function Calls
- * 
- */
+* Search Index:
+* ##A0 - Test JS
+* 
+* ##A1 - General JS
+*      - ##A1F0 - fillOptions()
+*      - ##A1F1 - card.addEventListener------------- Moved to global
+*      - ##A1F2 - setStatus()
+*      - ##A1F3 - stopStatus()
+*      - ##A1F4 - window.addEventListener('load')
+*      - ##A1F5 - favoriteOnLoad(stars)
+*      - ##A1F6 - favoriteRecipe(elem, id)
+* 
+* ##A2 - Button JS
+*      - ##A2F0 - openView()------------------------ Moved to global
+*      - ##A2F1 - closeView()----------------------- Moved to global
+*      - ##A2F2 - wrapper.addEventListener---------- Moved to global
+*      - ##A2F3 - resetFields()--------------------- Moved to global
+*      - ##A2F4 - submitURL.addEventListener
+*      - ##A2F5 - editRecipe()
+*      - ##A2F6 - newRecipeButton.addEventListener
+*      - ##A2F7 - deleteRecipe()
+* 
+* ##A3 - Filter Options JS
+*      - ##A3F0 - changeFilter()
+*      - ##A3F1 - alphabetical()
+*      - ##A3F2 - reversAlphabetical()
+*      - ##A3F3 - cuisineSort()
+*      - ##A3F4 - authorSort()
+*      - ##A3F5 - applySort()
+*      - ##A3F6 - pathBuilder()
+*      - ##A3F7 - buildFilterListAlpha()
+* 
+* ##A4 - Fetch Request JS
+*      - ##A4F0 - fetchCreateRecipe() -------------- Moved to global
+*      - ##A4F1 - fetchRemoveRecipe()
+*      - ##A4F2 - fetchScraper()
+*      - ##A4F3 - fetchEditRecipe
+* 
+* ##A5 - Function Calls
+*      - ##A5F0 - window.addEventListener()
+* 
+*/
 
 // ******************** Test JS (##A0) ********************
 // For testing purposes
-
 
 // ******************** General JS (##A1) ********************
 // General or Misc JS running on the page
@@ -46,7 +57,7 @@
 const cuisineSel = document.querySelector('.cuisine');
 const cuisineArr = ['Mexican', 'Italian', 'Indian', 'Cajun', 'Soul', 'Thai', 'Greek', 'Chinese', 'Lebanese', 'Japanese', 'American', 'Moroccan', 'Mediterranean', 'French', 'Spanish', 'German', 'Korean', 'Vietnamese', 'Turkish', 'Caribbean', 'British'];
 const ERROR = "Something went wrong!\nYou could try:\n- Entering a full recipe URL from a valid website.\n- Creating you're own recipe from scratch."
-const cardArr = document.querySelectorAll('.card.flex')
+const cardArr = document.querySelectorAll('.card')
 const mainContainer = document.querySelector('#container')
 const recCont = document.querySelector('#nr-container') // Container for new/edit recipe
 const submitURL = document.querySelector('#sub_URL')
@@ -111,6 +122,8 @@ if (submitURL) { // ##A2F4
         let recipeURL = inputURL.value
 
         fetchScraper(recipeURL)
+
+        stopStatus()
     })
 }
 
@@ -124,8 +137,10 @@ function editRecipe(id) { // ##A2F5
     const recipeIngredients = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-ingredients`)
     const recipeDirections = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-directions`)
     const recipeNotes = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-notes`)
+    const nameValue = (document.querySelector(`.card[data-id="${id}"] .card-info-left.fl-col-fl p:nth-child(2)`).innerText).split(': ')
 
     recCont.dataset.edit = id // data-edit is passed the unique ID of the target recipe
+    recCont.dataset.name = nameValue[1]
 
     openView('#nr-container') // create_recipe partial is reset and displayed
 
@@ -137,7 +152,7 @@ function editRecipe(id) { // ##A2F5
         if (i+1 == recipeInfo.length) {
             let optionArr = document.querySelectorAll('.cuisine option')
             for (let ii = 0; ii < optionArr.length; ii++) {
-                if ((optionArr[ii].innerHTML).localeCompare(elem.innerHTML) == 0) {
+                if ((optionArr[ii].innerText).localeCompare(elem.innerText) == 0) {
                     editInfo[i].value = optionArr[ii].value
                     break
                 } else if (ii+1 == optionArr.length) {
@@ -145,21 +160,28 @@ function editRecipe(id) { // ##A2F5
                 }
             }
         } else {
-            editInfo[i].value = elem.innerHTML
+            editInfo[i].value = elem.innerText
         }
     });
 
+    editInfo[1].value = splitAuth(editInfo)
+
+    function splitAuth(info) {
+        let auth = info[1].value.split(': ')
+        return auth[1]
+    }
+
     // Copies ingredient, direction, and note data from target view_recipe to create_recipe
     recipeIngredients.forEach(ing => {
-        taArr[0].value += ing.innerHTML + '\n'
+        taArr[0].value += ing.innerText + '\n'
     });
 
     recipeDirections.forEach(dir => {
-        taArr[1].value += dir.innerHTML + '\n'
+        taArr[1].value += dir.innerText + '\n'
     });
 
     recipeNotes.forEach(note => {
-        taArr[2].value += note.innerHTML + '\n'
+        taArr[2].value += note.innerText + '\n'
     });
 }
 
@@ -180,8 +202,8 @@ if (newRecipeButton) { // ##A2F6
         const directions = document.querySelector("textarea[name='directions']").value
         const notes = document.querySelector("textarea[name='notes']").value
         const ingredients = document.querySelector("textarea[name='ingredients']").value
-
-        const cleanObj = cleanUpText({title, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes})
+        const auth_user = recCont.dataset.name
+        const cleanObj = cleanUpText({title, auth_user, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes})
 
         if (title && author && directions && ingredients) {
             if (recCont.dataset.edit == '') {
@@ -211,30 +233,6 @@ function deleteRecipe(id) { // ##A2F7
 // ******************** Fetch Request JS (##A4) ********************
 // Contains all Fetch() requests performed on list.hbs
 
-function fetchCreateRecipe(recipeObj) { // ##A4F0
-    fetch('/recipe', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(recipeObj)
-    }).then((response) => response.json()).then((data) => {
-        if (!data.error) {
-            console.log("Recipe created successfully")
-            stopStatus()
-            window.location.replace("/list")
-        } else {
-            console.log(data.message)
-            stopStatus()
-            alert("Recipe creation failed!")
-        }
-    }).catch((error) => {
-        console.error(error)
-        stopStatus()
-        alert("Recipe creation failed!")
-    })
-}
-
 function fetchRemoveRecipe(id) { // ##A4F1
     fetch('/removeRecipe', {
         method: 'DELETE',
@@ -251,7 +249,7 @@ function fetchRemoveRecipe(id) { // ##A4F1
                 elem.remove() 
             });
             recipeArr = Array.from(document.querySelectorAll('.card'))
-            if (!document.querySelector('.card.flex')) {
+            if (!document.querySelector('.card')) {
                 window.location.replace("/list")
             }
         } else {
@@ -277,7 +275,8 @@ function fetchScraper(newURL) { // ##A4F2
     request.then((response) => response.json() )
     .then((data) => {
         if (!data.error) {
-            fetchCreateRecipe(data.results)
+            cleanResults = cleanUpText(data.results)
+            fetchCreateRecipe(cleanResults)
         } else {
             console.log(data.message)
             stopStatus()
@@ -303,7 +302,6 @@ function fetchEditRecipe(recipeObj, id) { // ##A4F3
     }).then((response) => response.json()).then((data) => {
         if (!data.error) {
             alert("Recipe edit successfully")
-            recCont.dataset.edit = ''
             window.location.replace("/list")
         } else {
             console.log(data.message)
@@ -320,3 +318,51 @@ function fetchEditRecipe(recipeObj, id) { // ##A4F3
 // All function calls happening on page load - happens last so variables can be fully declared
 
 fillOptions(cuisineArr, cuisineSel);
+if (filterSel) {
+    fillOptions(filterArr, filterSel)
+}
+
+changeFilter() // Sets the page to the default filter on load
+
+favoriteOnLoad(Array.from(document.querySelectorAll('[data-favorite]')))
+
+window.addEventListener("beforeunload", function(e){ // ##A5F0
+    /**
+    * Only prevents the user from exiting if they interacted with the favorite button.
+    * On page unload (refresh / exit) the user is prompted if they are sure and their selection
+    * of favorites are updated in the DB.
+    * This function may be changed to run every... 30 seconds or so instead of on page unload.
+    * Maybe have it track the last favorite input from the user and after so many seconds makes a call to update.
+    */
+    // Do something
+    if (favDidRun) {
+        e.preventDefault()
+        diffArr = []
+        for (let i = 0; i < updateFavArr.length; i++) {
+            if (updateFavArr[i].favorite != favoriteArr[i].favorite) {
+                // console.log(`Array position: ${i}\nupdateFavArr value: ${updateFavArr[i].favorite}\nfavoriteArr value: ${favoriteArr[i].favorite}`)
+                // Do a fetch for each array change
+
+                // Or do one fetch with an array of the changes
+                diffArr.push(updateFavArr[i])
+            }
+        }
+        fetch('/updateFavorites', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(diffArr)
+        }).then((response) => response.json())
+        .then((data) => {
+            if (data.error == true) {
+                console.error(data.error)
+            }
+        }).catch((e) => {
+            console.log(e)
+            console.error('Unable to update favorites')
+        })
+    } else {
+        return false;
+    }
+});

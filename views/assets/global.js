@@ -24,6 +24,7 @@ function cleanUpText(text) {
                     } else {
                         e = e.trim()
                         e = e.replace(/  +/g, ' ')
+                        e = e.replace(/\xa0/g, ' ')
                     }
                     newText.push(e)
                 }
@@ -40,6 +41,7 @@ function cleanUpText(text) {
                     } else {
                         val = val.trim()
                         val = val.replace(/  +/g, ' ')
+                        val = val.replace(/\xa0/g, ' ')
                     }
                     text[keys[i]] = val
                 }
@@ -47,6 +49,7 @@ function cleanUpText(text) {
         } else {
             text = text.trim()
             text = text.replace(/  +/g, ' ')
+            text = text.replace(/\xa0/g, ' ')
         }
 
         if (typeof text == 'array') {
@@ -62,6 +65,7 @@ function cleanUpText(text) {
 
 const wrapper = document.querySelector('#wrapper'); // The wrapper is special div that holds floating windows.
 var prevView = null; // prevView holds the previous view id so it can be closed when you open a new view.
+const stopScroll = document.querySelector('body')
 
 function openView(view) { // ##A2F0
     /*  openView opens the passed view by setting display back to default.
@@ -74,6 +78,8 @@ function openView(view) { // ##A2F0
         closeView(prevView);
         prevView = null
     }
+
+    stopScroll.style.overflow = 'hidden'
 
     if (wrapper.classList.contains('hide')) { // Opens the wrapper div if it is closed.
         wrapper.classList.remove("hide");
@@ -88,18 +94,21 @@ function closeView(view, exit) { // ##A2F1
     /*  closeView closes the passed view by setting display to none.
         closeView will also close the wrapper if exit is passed in as true 
     */
+    stopScroll.style.overflow = 'auto'
     if (typeof view == 'string') {
         view = document.querySelector(view)
     }
 
-    view.classList.add("hide"); // Closes the current view
+    if (view) {
+        view.classList.add("hide"); // Closes the current view
+    }
 
     if (exit == true) { // Closes the wrapper div if the x button was used.
         wrapper.classList.add("hide");
     } 
 }
 
-document.querySelectorAll('.card.flex').forEach(card => { // ##A1F1
+document.querySelectorAll('.card').forEach(card => { // ##A1F1
     card.addEventListener('click', e => {
         if (e.target.nodeName != 'IMG') {
             openView(`div.nr-container.fl-col.rel.wrapper-child[data-id='${card.dataset.id}']`)
@@ -110,7 +119,7 @@ document.querySelectorAll('.card.flex').forEach(card => { // ##A1F1
 if (wrapper) { // ##A2F2
     wrapper.addEventListener('click', e => {
         if (e.target.id == 'wrapper') {
-            wrapper.classList.add("hide");
+            closeView('#wrapper')
         }
     })
 }
@@ -122,99 +131,31 @@ function resetFields(view) { // ##A2F3
     }
 }
 
-var favoriteArr = [] // This is the array of favorite recipes collected on page load
-var updateFavArr = [] // This is the array that gets checked against on page exit/refresh
-var favDidRun = false;
-window.addEventListener('load', () => {
-    fetch('/getFavorites')
-    .then((response) => response.json())
-    .then((data) => {
-        if (data.error == true) {
-            console.error(data.error)
+function fetchCreateRecipe(recipeObj) { // ##A4F0
+    fetch('/recipe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(recipeObj)
+    }).then((response) => response.json()).then((data) => {
+        if (!data.error) {
+            console.log("Recipe created successfully")
+            if (window.location.pathname == '/list') {
+                alert("Recipe Created Successfully!\nThe page will now reload.")
+                window.location.replace("/list")
+            } else {
+                alert("Recipe Copied Successfully!")
+            }
         } else {
-            favoriteArr = Array.from(data.favorites)
-            favoriteOnLoad(Array.from(document.querySelectorAll('[data-favorite]')))
-            let newObj = JSON.parse(JSON.stringify(data.favorites))
-            updateFavArr = Array.from(newObj)
+            console.log(data.message)
+            alert("Recipe creation failed!")
         }
-    }).catch((e) => {
-        console.log(e)
-        console.error('Unable to fetch favorite data.')
+    }).catch((error) => {
+        console.error(error)
+        alert("Recipe creation failed!")
     })
 })
-
-function favoriteOnLoad(stars) {
-    stars.forEach(setFav => {
-        isFav = (setFav.dataset.favorite === 'true')
-        if (isFav == true) {
-            // Switch to full star
-            setFav.src = '/assets/images/star-24px.svg'
-        }
-    });
-}
-
-function favoriteRecipe(elem, id) {
-    // If you click this it updates the DB with favorite = true
-    // If you click it again it updates the DB with favorite = false
-    // On page load if favorite = true star loads filled in
-    // Store fav recipes until page exit/reload then update the db based on changes.
-    isFav = (elem.dataset.favorite === 'true')
-    if (isFav == false) {
-        // Switch to full star
-        elem.src = '/assets/images/star-24px.svg'
-        elem.dataset.favorite = 'true'
-    } else {
-        // Switch to empty star
-        elem.src = '/assets/images/star_border-24px.svg'
-        elem.dataset.favorite = 'false'
-    }
-
-    if (id) {
-        for (let i = 0; i < updateFavArr.length; i++) {
-            if (updateFavArr[i]._id == id) {
-                updateFavArr[i].favorite = (!isFav)
-                break
-            }
-        }
-
-        favDidRun = true
-    }
-}
-
-window.addEventListener("beforeunload", function(e){
-    // Do something
-    if (favDidRun) {
-        e.preventDefault()
-        diffArr = []
-        for (let i = 0; i < updateFavArr.length; i++) {
-            if (updateFavArr[i].favorite != favoriteArr[i].favorite) {
-                // console.log(`Array position: ${i}\nupdateFavArr value: ${updateFavArr[i].favorite}\nfavoriteArr value: ${favoriteArr[i].favorite}`)
-                // Do a fetch for each array change
-
-                // Or do one fetch with an array of the changes
-                diffArr.push(updateFavArr[i])
-            }
-        }
-        fetch('/updateFavorites', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(diffArr)
-        }).then((response) => response.json())
-        .then((data) => {
-            if (data.error == true) {
-                console.error(data.error)
-            }
-        }).catch((e) => {
-            console.log(e)
-            console.error('Unable to update favorites')
-        })
-    } else {
-        return false;
-    }
-});
-
 
 // ******************** Filter Select Populate (##A3) ********************
 
