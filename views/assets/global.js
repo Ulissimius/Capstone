@@ -156,3 +156,291 @@ function fetchCreateRecipe(recipeObj) { // ##A4F0
         alert("Recipe creation failed!")
     })
 }
+
+// ******************** Filter Select Populate (##A3) ********************
+
+const sortSel = document.querySelector('#sortList')
+const sortArr = ['Date Added', 'Alphabetical', 'Cuisine', 'Author']
+
+function fillOptions(arr, local) {
+    arr.forEach(elem => {
+        let newOp = document.createElement('option');
+        newOp.value = elem;
+        newOp.innerHTML = elem;
+
+        local.append(newOp);
+    });
+}
+
+sortArr.sort()
+
+if(sortSel) {
+    fillOptions(sortArr, sortSel)
+}
+
+
+// ******************** Filter Options JS (##A3) ********************
+//js for filtering the recipe cards
+
+var recipeArr = Array.from(document.querySelectorAll('.card'))
+const contBody = document.querySelector('#main-left')
+
+function applyFilters() {
+    contBody.innerHTML = ''
+    
+    var recipes = Array.from(recipeArr)
+    var sortMethod = document.querySelector('#sortList').value
+    var sortDirection = document.querySelector('#filter-direction')
+    var favoritesOnly = document.querySelector('#favorite').checked
+
+    switch (sortMethod) {
+        case 'Date Added':
+            dateSort(recipes, sortMethod)
+            break;
+        case 'Alphabetical':
+            alphabeticalSort(recipes, sortMethod)
+            break;
+        case 'Cuisine':
+            cuisineSort(recipes, sortMethod)
+            break;
+        case 'Author':
+            authorSort(recipes, sortMethod)
+            break;
+        default:
+            break;
+    }
+    
+    changeDirection(recipes, sortDirection)
+
+    if(favoritesOnly) {
+        favoriteSort(recipes)
+    }
+
+    recipes = buildFilterListAlpha(recipes, pathBuilder(recipes, sortMethod))
+    applySort(recipes)
+    
+}
+
+function directionBtnValue() {
+    let btnValue = document.querySelector('#filter-direction').value
+
+    if (btnValue == 'Filter ∨') {
+        document.querySelector('#filter-direction').value = 'Filter ∧'
+    } else {
+        document.querySelector('#filter-direction').value = 'Filter ∨'
+    }
+}
+
+function changeDirection(recipes) { // ##A3F1
+    let elemValue = document.querySelector('#filter-direction').value
+
+    if(elemValue == 'Filter ∨') {
+        recipes.sort(function(a, b) {
+            if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+                return 1
+            }
+    
+            if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+                return -1
+            }
+            return 0
+        });
+    } else {
+        recipes.sort(function(a, b) {
+            if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+                return 1
+            }
+    
+            if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+                return -1
+            }
+            return 0
+        });
+    }
+}
+
+function favoriteSort(recipes) {
+    let recipeCopy = Array.from(recipes)
+    let i = 0
+    recipeCopy.forEach(element => {
+        if (element.children[1].firstElementChild.children[1].firstElementChild.dataset.favorite != 'true') {
+            recipes.splice(i, 1)
+        } else {
+            i++
+        }
+    });
+}
+
+function alphabeticalSort(items) { // ##A3F2
+    items.sort(function(a, b) {
+        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return 1
+        }
+
+        if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return -1
+        }
+        return 0
+    });
+}
+
+function cuisineSort(items) { // ##A3F3
+    items.sort(function(a, b) {
+        if(a.children[1].children[1].children[1].children[3].innerText.toLowerCase() > b.children[1].children[1].children[1].children[3].innerText.toLowerCase()) {
+            return 1
+        }
+        
+        if(a.children[1].children[1].children[1].children[3].innerText.toLowerCase() < b.children[1].children[1].children[1].children[3].innerText.toLowerCase()) {
+            return -1
+        }
+        return 0
+    });
+}
+
+function authorSort(items) { // ##A3F4
+    items.sort(function(a, b) {
+        if(a.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return 1
+        }
+
+        if(a.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
+            return -1
+        }
+        return 0
+    });
+}
+
+function dateSort(items) { // ##A3F5
+    items.sort(function(a, b) {
+        if(a.dataset.date > b.dataset.date) {
+            return 1
+        }
+
+        if(a.dataset.date < b.dataset.date) {
+            return -1
+        }
+        return 0
+    });
+}
+
+function applySort (items) { // ##A3F7
+    items.forEach(item => {
+        contBody.appendChild(item);
+    });
+}
+
+function pathBuilder(pathArr, filter) { // ##A3F8
+    /* Returns an array of all relative reference paths for the current filter */
+    let newPathArr = []
+
+    switch (filter) {
+        case 'Date Added':
+            pathArr.forEach(path => {
+                const dateArr = path.dataset.date.toUpperCase().trim().split('-')
+                let month = ''
+                switch (dateArr[1]) {
+                    case '1':
+                        month = 'January'
+                        break;
+                    case '2':
+                        month = 'February'
+                        break;
+                    case '3':
+                        month = 'March'
+                        break;
+                    case '4':
+                        month = 'April'
+                        break;
+                    case '5':
+                        month = 'May'
+                        break;
+                    case '6':
+                        month = 'June'
+                        break;
+                    case '7':
+                        month = 'July'
+                        break;
+                    case '8':
+                        month = 'August'
+                        break;
+                    case '9':
+                        month = 'September'
+                        break;
+                    case '10':
+                        month = 'October'
+                        break;
+                    case '11':
+                        month = 'November'
+                        break;
+                    case '12':
+                        month = 'December'
+                        break;
+                    default:
+                        break;
+                }
+                let fulldate = ''
+                fulldate = fulldate.concat(month, ' ', dateArr[2], ', ', dateArr[0])
+                newPathArr.push(fulldate.trim())
+            });
+            break;
+        case 'Alphabetical':
+            pathArr.forEach(path => {
+                newPathArr.push(path.children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt())
+            });
+            break;
+        case 'Cuisine':
+            pathArr.forEach(path => {
+                newPathArr.push(path.children[1].children[1].children[1].children[3].innerText.toUpperCase().trim().charAt(9))
+            });
+            break;
+        case 'Author':
+            pathArr.forEach(path => {
+                newPathArr.push(path.children[1].children[1].firstElementChild.firstElementChild.innerText.toUpperCase().trim().charAt(8))
+            });
+            break;
+        default:
+            break;
+    }
+    return newPathArr
+}
+
+function buildFilterListAlpha(arr, path) { // ##A3F9
+    /* buildFilterList(arr [Filtered node array], path [pathBuilder() array])
+       Takes in a filtered array and wraps each result in html for page display based on similar letters.
+       path provides the reference location for the letter comparison.
+    */
+    let newItems = []
+
+    for (let i = 0; i < arr.length;) {
+        let curLetter = path[i]
+        let prevLetter = path[i]
+
+        let topDiv = document.createElement('div')
+        let innerDiv = document.createElement('div')
+        let lettH1 = document.createElement('h1')
+        let lettHr = document.createElement('hr')
+
+        topDiv.classList.add('filter-box')
+        innerDiv.classList.add('box-content','flex','fw-w')
+        lettH1.innerText = curLetter
+
+        topDiv.append(lettH1)
+        topDiv.append(lettHr)
+        topDiv.append(innerDiv)
+
+        while (curLetter == prevLetter) {
+            innerDiv.append(arr[i])
+
+            i++
+            if (i+1 <= arr.length) {
+                prevLetter = path[i]
+            } else {
+                prevLetter = 'END'
+            }
+        }//End while
+        newItems.push(topDiv)
+    }//End for
+    return newItems
+}//End buildFilterListAlpha
+
+applyFilters()

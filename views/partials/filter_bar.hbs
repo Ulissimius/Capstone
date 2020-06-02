@@ -1,8 +1,11 @@
 <div id="filter-container" class="flex">
     <div id="filter-sel-div" class="flex jc-cen">
         <p><b>Sort By:</b></p>
-        <select id="filter" onclick="changeFilter()"></select>
-        <input id="filter-direction" type="button" onclick="filterDirection()" value="Filter &and;">
+        <select id="sortList"></select>
+        <input id="filter-direction" type="button"  value="Filter &and;" onclick="directionBtnValue()">
+        <p><b>Favorites Only:</b></p>
+        <input type="checkbox" id="favorite">
+        <input id="applyBtn" type="button" value="Apply" onclick="applyFilters()">
     </div>
     <div id="filter-drop-div" class="flex jc-cen">
         <p><b>Filter Options</b></p>
