@@ -36,6 +36,7 @@ module.exports = app => {
                     const recipe = new Recipes({
                         name: data.title,
                         user: user.username,
+                        author_user: (!data.auth_user ? user.username : data.auth_user),
                         author: data.author,
                         url: urlObj,
                         description: data.description,
@@ -94,9 +95,9 @@ module.exports = app => {
                     }
 
                     Recipes.findById(data.id).then(recipe => {
-                        console.log(recipe)
                         recipe.name = data.title,
                         recipe.user = user.username,
+                        recipe.author_user = (!data.auth_user ? user.username : data.auth_user),
                         recipe.author = data.author,
                         recipe.url = urlObj,
                         recipe.description = data.description,
