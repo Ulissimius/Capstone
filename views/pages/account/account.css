@@ -1,13 +1,3 @@
-html, body {
-    margin: 0; 
-    height: 100%; 
-    overflow: hidden
-}
-#container {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-}
 .home-modal div{
     display: flex;
     justify-content: center;
@@ -18,28 +8,35 @@ html, body {
     color: bisque;
     text-shadow: 1px 1px 1px black;
 }
+
 .home-modal {
     display: flex;
-    width: 380px;
-    height: 400px;
+    width: 90vw;
+    max-width: 380px;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
     background: rgb(151, 118, 77);
     border-radius: 6px;
     box-shadow: 2px 2px 5px rgb(180, 149, 110);
+    margin: 10px;
     padding: 14px;
-    margin-top: 10px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+
 .home-modal button {
     width: 75%;
 }
+
 .home-modal-input {
     border: none;
     padding: 4px;
     margin: 8px 0;
     width: 75%;
 }
+
 .home-nav-btn {
     height: 30px;
     padding: 6px;
@@ -51,28 +48,8 @@ html, body {
     margin: 0 6px;
     min-width: 75px;
 }
-#email, #username, #password, #confirmPasword{
-    display: flex;
-}
-#buttonDiv{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-#deleteAcc{
-    height: 40px;
-    width: 100px;
-    margin-right: 64px;
-    background-color: red;
-    font-weight: 600;
-    border-color: black;
-    outline: none;
-}
-#update-user{
-    height: 40px;
-    width: 100px;
-    background-color: green;
-    font-weight: 600;
-    border-color: black;
-    outline: none;
+
+form {
+    width: 100%;
+    height: 100%;
 }

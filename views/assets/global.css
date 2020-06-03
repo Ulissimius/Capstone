@@ -15,7 +15,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-color: bisque;
-    overflow: none;
+    overflow: auto;
 }
 
 hr {
@@ -49,11 +49,27 @@ footer {
 }
 
 .exit {
-    height: 24px;
-    width: 24px;
+    height: 100%;
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.exit img {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    right: 0;
+    background: rgba(255,255,255,.75);
+}
+
+@media only screen and (max-width: 768px) {
+    .exit {
+        height: 25px;
+        position: fixed;
+        top: 5.1vh;
+        right: 5vw;
+    }
 }
 
 .svg-img-button {
@@ -62,6 +78,17 @@ footer {
 
 .rel {
     position: relative;
+}
+
+#content-head {
+    padding: 2.5px 0;
+}
+
+@media only screen and (max-width: 768px) {
+    #content-head h3{
+        font-size: 1.1rem;
+        text-align: center;
+    }
 }
 
 /* Tooltip container */
@@ -107,127 +134,399 @@ footer {
 }
 
 /* ********** Navbar CSS ********** */
-nav {
-    width: 100%;
-    min-height: 45px;
-    height: auto;
-    background: #ECD185;
-    border-bottom: 1px solid #707070;
+@media only screen and (min-width: 769px) {
+    nav {
+        width: 100%;
+        min-height: 45px;
+        height: auto;
+        background: #ECD185;
+        border-bottom: 1px solid #707070;
+    }
+
+    #hamburger {
+        display: none;
+    }
+
+    /* ***** Navbar Title ***** */
+    #title {
+        width: 15%;
+        justify-content: center;
+        align-items: center;
+        font: 1.5rem Segoe UI;
+        font-weight: bold;
+        letter-spacing: 0px;
+        color: #707070;
+    }
+
+    /* ***** Navbar Buttons ***** */
+    #navbtns {
+        flex: 1 1 auto;
+        width: 70%;
+        background: #E8C563;
+        border-right: 1px solid #707070;
+        font: 1rem Segoe UI;
+        font-weight: bold;
+    }
+
+    .navlink {
+        width: 12.5%;
+        justify-content: center;
+        align-items: center;
+        border-left: 1px solid #707070;
+        color: #707070;
+        letter-spacing: 0px;
+    }
+
+    .nav-last {
+        border-right: 1px solid #707070;
+    }
+
+    .navlink:link, .navlink:visited, .navlink:hover, .navlink:active {
+        text-decoration: none;
+    }
+
+    .navlink:hover {
+        cursor: pointer;
+        background: rgb(235, 191, 72);
+    }
+
+    .nav-spare, .nav-spare:hover {
+        border: none;
+        background: #E8C563;
+        cursor: default;
+    }
+
+    /* *** Navbar Home *** */
+
+    /* *** Navbar Recipe *** */
+
+    /* *** Navbar Account *** */
+
+    /* ***** Navbar Login ***** */
+    .userinfo {
+        display: flex;
+        width: 15%;
+        position: relative;
+        text-align: center;
+        align-items: center;
+        font: 1rem Segoe UI;
+        font-style: italic;
+        letter-spacing: 0px;
+        color: #707070;
+    }
+
+    .userinfo p {
+        flex-grow: 1;
+        margin-left: 5px;
+    }
+
+    .logout {
+        width: auto;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        font: .8rem Segoe UI;
+        padding: 2px;
+        margin-right: 5px;
+        letter-spacing: 0px;
+        color: #707070;
+    }
 }
 
-/* ***** Navbar Title ***** */
-#title {
-    width: 15%;
-    justify-content: center;
-    align-items: center;
-    font: 1.5rem Segoe UI;
-    font-weight: bold;
-    letter-spacing: 0px;
-    color: #707070;
-}
+/* ********** Navbar Mobile CSS ********** */
+@media only screen and (max-width: 768px) {
+    /* ********** Navbar CSS ********** */
+    nav {
+        width: 100%;
+        height: auto;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background: #ECD185;
+        border-bottom: 1px solid #707070;
+    }
 
-/* ***** Navbar Buttons ***** */
-#navbtns {
-    flex: 1 1 auto;
-    width: 70%;
-    background: #E8C563;
-    border-right: 1px solid #707070;
-    font: 1rem Segoe UI;
-    font-weight: bold;
-}
+    #hamburger {
+        display: flex;
+        justify-content: flex-end;
+        cursor: pointer;
+    }
+    
+    #hamburger img {
+        width: 150%;
+        height: auto;
+    }
+    
+    /* ***** Navbar Title ***** */
+    #title {
+        flex-direction: column;
+        width: 100%;
+        letter-spacing: 0px;
+        color: #707070;
+    }
+    
+    #mob-head {
+        width: 100%;
+        height: 50px;
+        padding: 2.5px 10px;
+    }
 
-.navlink {
-    width: 12.5%;
-    justify-content: center;
-    align-items: center;
-    border-left: 1px solid #707070;
-    color: #707070;
-    letter-spacing: 0px;
-}
+    #mob-title {
+        flex-grow: 1;
+        font: 2rem Segoe UI;
+        font-weight: bold;
+        justify-content: start;
+        align-items: center;
+    }
 
-.nav-last {
-    border-right: 1px solid #707070;
-}
+    /* ***** Navbar Buttons ***** */
+    #navbtns {
+        display: none;
+    }
 
-.navlink:link, .navlink:visited, .navlink:hover, .navlink:active {
-    text-decoration: none;
-}
+    .navlink {
+        width: 100%;
+        align-items: center;
+        font: 1.25rem Segoe UI;
+        font-weight: bold;
+        color: #707070;
+        letter-spacing: 0px;
+        border-bottom: 1px solid black;
+        padding: 5px 10px;
+    }
+    
+    .nav-hm {
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
 
-.navlink:hover {
-    cursor: pointer;
-    background: rgb(235, 191, 72);
-}
+    .nav-last {
+        border-bottom: none;
+    }
+    
+    .navlink:nth-child(odd) {
+        background: rgb(235, 191, 72);
+    }
 
-.nav-spare, .nav-spare:hover {
-    border: none;
-    background: #E8C563;
-    cursor: default;
-}
+    .navlink:link, .navlink:visited, .navlink:hover, .navlink:active {
+        text-decoration: none;
+    }
 
-/* *** Navbar Home *** */
+    .navlink:hover {
+        cursor: pointer;
+        background: rgb(235, 191, 72);
+    }
 
-/* *** Navbar Recipe *** */
+    .nav-spare, .nav-spare:hover {
+        border: none;
+        background: #E8C563;
+        cursor: default;
+    }
 
-/* *** Navbar Account *** */
+    /* *** Navbar Home *** */
 
-/* ***** Navbar Login ***** */
-.userinfo {
-    width: 15%;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    font: 1rem Segoe UI;
-    font-style: italic;
-    letter-spacing: 0px;
-    color: #707070;
-}
+    /* *** Navbar Recipe *** */
 
-.userinfo p {
-    width: 100%;
-    text-align: center;
-}
+    /* *** Navbar Account *** */
 
-.logout {
-    width: auto;
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    font: .8rem Segoe UI;
-    padding: 2px;
-    margin-right: 5px;
-    letter-spacing: 0px;
-    color: #707070;
+    /* ***** Navbar Login ***** */
+    .userinfo {
+        display: none;
+    }
+
+    .userinfo p {
+        width: 100%;
+        text-align: center;
+    }
+
+    .logout {
+        width: auto;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        font: .8rem Segoe UI;
+        padding: 2px;
+        margin-right: 5px;
+        letter-spacing: 0px;
+        color: #707070;
+    }
 }
 
 /* ***** Filter Bar ***** */
-#filter-container {
-    width: 100%;
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    padding: 5px 0;
-    background: #ECD185;
-    border-bottom: 1px solid #707070;
-    font: 1rem Segoe UI;
+@media only screen and (min-width: 768px) {
+    #filter-container {
+        width: 100%;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        padding: 5px 0;
+        background: #ECD185;
+        border-bottom: 1px solid #707070;
+        font: 1rem Segoe UI;
+        font-weight: bold;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0px;
+    }
+
+    #filter-sel-div {
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        width: 100%;
+        align-items: center;
+    }
+
+    #filter-collapse > div:nth-child(1) > p:nth-child(1), #sort-collapse > div:nth-child(1) > p:nth-child(1) {
+        padding-right: 5px;
+    }
+    
+    #sort-collapse > div:nth-child(1) {
+        margin: 0 10px;
+    }
+    
+    #sortList {
+        margin-right: 2px;
+    }
+    
+    #filter-direction {
+        padding: 0 2px;
+        font-size: .75rem;
+    }
+    
+    #filter-collapse > div:nth-child(1) {
+        margin: 0 10px;
+    }
+    
+    #filter-collapse > div:nth-child(1) input {
+        margin-right: 3px;
+    }
+    
+    #filter-collapse > div:nth-child(1) > div {
+        font-weight: normal;
+        font-size: .8rem;
+        margin-right: 5px;
+    }
+    
+    #filter-sel-div > div:nth-child(3) {
+        margin: 0 10px;
+    }
+
+    #filter-drop-div {
+        width: 70%;
+    }
+    
+    #applyBtn {
+        padding: 2px;
+    }
 }
 
-#filter-sel-div {
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    width: 15%;
-}
+/* ***** Filter Bar Mobile ***** */
+@media only screen and (max-width: 768px) {
+    #filter-container {
+        width: 100%;
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        background: #ECD185;
+        border-bottom: 1px solid #707070;
+        font: .9rem Segoe UI;
+        font-weight: bold;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 51px;
+    }
 
-#filter-sel-div p {
-    padding-right: 5px;
-}
+    #filter-sel-div {
+        height: -webkit-max-content;
+        height: -moz-max-content;
+        height: max-content;
+        width: 100%;
+    }
 
-#filter {
-    font: 1rem Segoe UI;
-}
+    #filter-collapse > div:nth-child(1) > p:nth-child(1), #sort-collapse > div:nth-child(1) > p:nth-child(1){
+        padding: 0 5px;
+    }
+    
+    #sort-collapse {
+        flex-grow: 1;
+        border-right: 1px solid black;
+    }
+    
+    #sort-collapse > div:nth-child(1) {
+        display: flex;
+        margin: 0 5px;
+    }
+    
+    #sort-collapse::before {
+        display: flex;
+        align-items: center;
+        content: 'Sort >';
+        font-size: .8rem;
+        font-weight: bold;
+        padding: 0 10px;
+        height: 100%;
+        background: rgb(233, 182, 41);
+    }
+    
+    #sortList {
+        margin-right: 2px;
+    }
+    
+    #filter-direction {
+        padding: 0 2px;
+        font-size: .75rem;
+    }
+    
+    #filter-collapse {
+        flex-grow: 0;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+    }
+    
+    #filter-collapse::before {
+        display: flex;
+        align-items: center;
+        content: '< Filter';
+        font-size: .8rem;
+        font-weight: bold;
+        padding: 0 10px;
+        height: 100%;
+        background: rgb(233, 182, 41);
+    }
+    
+    #filter-collapse > div:nth-child(1) {
+        display: none;
+        margin: 0 5px;
+    }
+    
+    #filter-collapse > div:nth-child(1) input {
+        margin-right: 3px;
+    }
+    
+    #filter-collapse > div:nth-child(1) > div {
+        font-weight: normal;
+        font-size: .75rem;
+        margin-right: 5px;
+    }
+    
+    #filter-sel-div > div:nth-child(3) {
+        margin: 0 5px
+    }
+    
+    #applyBtn {
+        padding: 2px 5px;
+        font-size: .9rem;
+    }
 
-#filter-drop-div {
-    width: 70%;
+    #filter-drop-div {
+        width: 100%;
+        display: none;
+    }
+    
+    .hide-before::before {
+        display: none! important;;
+    }
 }
 
 /* ********** Generic Flex Settings ********** */

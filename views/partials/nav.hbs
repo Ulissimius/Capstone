@@ -1,6 +1,34 @@
 <nav class="flex">
-    <div id="title" class="flex">
-        <p id="titletext">My Cookbook</p>
+    <div id="title" class="flex"> <!-- Change class to fl-col when mobile -->
+        <div id="mob-head" class="flex">
+            <div id="mob-title" class="flex">
+                <p id="titletext">My Cookbook</p>
+            </div>
+            <div id="hamburger">
+                <img src="/assets/images/menu-24px.svg" alt="menu_hamburger" onclick="openMenu()">
+            </div>
+        </div>
+        <div id="mobile_nav" class="fl-col hide">
+            <a class="navlink fl-fl nav-hm" href="/" draggable="false">
+                Home
+            </a>
+            {{#if user}}
+            <a class="navlink fl-fl nav-li" href="/list" draggable="false">
+                My Recipe List
+            </a>
+            {{/if}}
+            <a class="navlink fl-fl nav-acc" href="/social" draggable="false">
+                Discover
+            </a>
+            <a class="navlink fl-fl nav-disc" href="/account" draggable="false">
+                Account
+            </a>
+            {{#if user}}
+                <a class="navlink fl-fl nav-last" href="" draggable="false" onclick="logout()"> <!-- Log out button -->
+                    Logout
+                </a>
+            {{/if}}
+        </div>
     </div>
     <div id="navbtns" class="flex">
         <a class="navlink fl-fl nav-hm" href="/" draggable="false">
@@ -30,7 +58,7 @@
         </a>
         {{/unless}}
     </div>
-    <div class="userinfo flex">
+    <div class="userinfo">
         {{#if user}}
             <p id="logininfo">{{user.username}}</p>
             <input class="logout" type="button" value="Logout" onclick="logout()">
@@ -39,3 +67,23 @@
         {{/if}}
     </div>
 </nav>
+
+<script>
+    function openMenu() {
+        const menu = document.querySelector('#mobile_nav')
+        const filter = document.querySelector('#filter-container')
+        const navHeight = document.querySelector('nav')
+
+        menu.classList.toggle('hide')
+
+        if (!filter.style.top) {
+            filter.style.top = '51px'
+        }
+        console.log((navHeight.scrollHeight + 1) + 'px')
+        if (filter.style.top == '51px') {
+            filter.style.top = (navHeight.scrollHeight + 1) + 'px'
+        } else {
+            filter.style.top = '51px'
+        }
+    }
+</script>
