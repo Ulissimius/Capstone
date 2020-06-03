@@ -419,5 +419,3 @@ function buildFilterListAlpha(arr, path) { // ##A3F9
     }//End for
     return newItems
 }//End buildFilterListAlpha
-
-applyFilters()

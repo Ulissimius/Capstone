@@ -43,3 +43,5 @@ function copyRecipe(id, name) { // ##A2F5
 
     fetchCreateRecipe(cleanObj)
 }
+
+applyFilters()

@@ -386,6 +386,8 @@ fillOptions(cuisineArr, cuisineSel);
 
 favoriteOnLoad(Array.from(document.querySelectorAll('[data-favorite]')))
 
+applyFilters()
+
 window.addEventListener("beforeunload", function(e){ // ##A5F0
     /**
     * Only prevents the user from exiting if they interacted with the favorite button.
