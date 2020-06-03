@@ -1,14 +1,103 @@
-<div id="filter-container" class="flex">
+<div id="filter-container" class="flex jc-cen">
     <div id="filter-sel-div" class="flex jc-cen">
-        <p><b>Sort By:</b></p>
-        <select id="sortList"></select>
-        <input id="filter-direction" type="button"  value="Filter &and;" onclick="directionBtnValue()">
-        <p><b>Favorites Only:</b></p>
-        <input type="checkbox" id="favorite">
-        <input id="applyBtn" type="button" value="Apply" onclick="applyFilters()">
+        <div id="sort-collapse" class="hide-before flex ai-cen">
+            <div class="flex ai-cen">
+                <p>Sort By:</p>
+                <select id="sortList"></select>
+                <input id="filter-direction" type="button"  value="Asc &and;" onclick="directionBtnValue(this)">
+            </div>
+        </div>
+        <div id="filter-collapse" class="hide-before flex ai-cen">
+            <div class="flex ai-cen">
+                <p>Filters:</p>
+                <div class="flex ai-cen">
+                    <input type="checkbox" id="favorite">
+                    <p>Favorites</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex ai-cen">
+            <input id="applyBtn" type="button" value="Apply" onclick="applyFilters()">
+        </div>
     </div>
-    <div id="filter-drop-div" class="flex jc-cen">
+    <div id="filter-drop-div" class="hide flex jc-cen">
         <p><b>Filter Options</b></p>
     </div>
-    <div style="flex-grow:1"></div>
 </div>
+
+<script>
+    var select = document.querySelector('#sort-collapse')
+    var selectChild = document.querySelector('#sort-collapse > div')
+    var filter = document.querySelector('#filter-collapse')
+    var filterChild = document.querySelector('#filter-collapse > div')
+    var x = window.matchMedia("(max-width: 768px)")
+    var flag = true;
+    var resFlag = false;
+    
+    filter.classList.toggle('hide-before')
+
+    function switchOptions(x) {
+        if (x.matches) { // If media query matches
+            if (resFlag) {
+                if (flag) {
+                    filter.classList.remove('hide-before')
+                    select.classList.add('hide-before')
+                    filter.style.flexGrow = 0
+                    select.style.flexGrow = 1
+                    filterChild.style.display = 'none'
+                    selectChild.style.display = 'flex'
+                } else {
+                    filter.classList.add('hide-before')
+                    select.classList.remove('hide-before')
+                    filter.style.flexGrow = 1
+                    select.style.flexGrow = 0
+                    filterChild.style.display = 'flex'
+                    selectChild.style.display = 'none'
+                }
+                resFlag = false
+            }
+
+            select.addEventListener('click', () => {
+                if (!flag) {
+                    toggleOption()
+                }
+            })
+
+            filter.addEventListener('click', () => {
+                if (flag) {
+                    toggleOption()
+                }
+            })
+        } else {
+            resFlag = true;
+            filter.classList.add('hide-before')
+            select.classList.add('hide-before')
+            filter.style.flexGrow = 0
+            select.style.flexGrow = 0
+            filterChild.style.display = 'flex'
+            selectChild.style.display = 'flex'
+        }
+
+        function toggleOption() {
+            filter.classList.toggle('hide-before')
+            select.classList.toggle('hide-before')
+
+            if (flag) {
+                flag = false
+                filter.style.flexGrow = 1
+                select.style.flexGrow = 0
+                filterChild.style.display = 'flex'
+                selectChild.style.display = 'none'
+            } else {
+                flag = true
+                filter.style.flexGrow = 0
+                select.style.flexGrow = 1
+                filterChild.style.display = 'none'
+                selectChild.style.display = 'flex'
+            }
+        }
+    }
+
+    switchOptions(x) // Call listener function at run time
+    x.addListener(switchOptions) // Attach listener function on state changes
+</script>

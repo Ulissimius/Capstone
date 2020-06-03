@@ -383,11 +383,6 @@ function fetchEditRecipe(recipeObj, id) { // ##A4F3
 // All function calls happening on page load - happens last so variables can be fully declared
 
 fillOptions(cuisineArr, cuisineSel);
-if (filterSel) {
-    fillOptions(filterArr, filterSel)
-}
-
-changeFilter() // Sets the page to the default filter on load
 
 favoriteOnLoad(Array.from(document.querySelectorAll('[data-favorite]')))
 

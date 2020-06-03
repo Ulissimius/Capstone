@@ -80,6 +80,17 @@ footer {
     position: relative;
 }
 
+#content-head {
+    padding: 2.5px 0;
+}
+
+@media only screen and (max-width: 768px) {
+    #content-head h3{
+        font-size: 1.1rem;
+        text-align: center;
+    }
+}
+
 /* Tooltip container */
 .tooltip {
     position: relative;
@@ -352,6 +363,7 @@ footer {
         background: #ECD185;
         border-bottom: 1px solid #707070;
         font: 1rem Segoe UI;
+        font-weight: bold;
         position: -webkit-sticky;
         position: sticky;
         top: 0px;
@@ -361,19 +373,51 @@ footer {
         height: -webkit-max-content;
         height: -moz-max-content;
         height: max-content;
-        width: 15%;
+        width: 100%;
+        align-items: center;
     }
 
-    #filter-sel-div p {
+    #filter-collapse > div:nth-child(1) > p:nth-child(1), #sort-collapse > div:nth-child(1) > p:nth-child(1) {
         padding-right: 5px;
     }
-
-    #filter {
-        font: 1rem Segoe UI;
+    
+    #sort-collapse > div:nth-child(1) {
+        margin: 0 10px;
+    }
+    
+    #sortList {
+        margin-right: 2px;
+    }
+    
+    #filter-direction {
+        padding: 0 2px;
+        font-size: .75rem;
+    }
+    
+    #filter-collapse > div:nth-child(1) {
+        margin: 0 10px;
+    }
+    
+    #filter-collapse > div:nth-child(1) input {
+        margin-right: 3px;
+    }
+    
+    #filter-collapse > div:nth-child(1) > div {
+        font-weight: normal;
+        font-size: .8rem;
+        margin-right: 5px;
+    }
+    
+    #filter-sel-div > div:nth-child(3) {
+        margin: 0 10px;
     }
 
     #filter-drop-div {
         width: 70%;
+    }
+    
+    #applyBtn {
+        padding: 2px;
     }
 }
 
@@ -384,10 +428,10 @@ footer {
         height: -webkit-max-content;
         height: -moz-max-content;
         height: max-content;
-        padding: 5px 0;
         background: #ECD185;
         border-bottom: 1px solid #707070;
-        font: 1rem Segoe UI;
+        font: .9rem Segoe UI;
+        font-weight: bold;
         position: -webkit-sticky;
         position: sticky;
         top: 51px;
@@ -400,17 +444,88 @@ footer {
         width: 100%;
     }
 
-    #filter-sel-div p {
-        padding-right: 5px;
+    #filter-collapse > div:nth-child(1) > p:nth-child(1), #sort-collapse > div:nth-child(1) > p:nth-child(1){
+        padding: 0 5px;
     }
-
-    #filter {
-        font: 1rem Segoe UI;
+    
+    #sort-collapse {
+        flex-grow: 1;
+        border-right: 1px solid black;
+    }
+    
+    #sort-collapse > div:nth-child(1) {
+        display: flex;
+        margin: 0 5px;
+    }
+    
+    #sort-collapse::before {
+        display: flex;
+        align-items: center;
+        content: 'Sort >';
+        font-size: .8rem;
+        font-weight: bold;
+        padding: 0 10px;
+        height: 100%;
+        background: rgb(233, 182, 41);
+    }
+    
+    #sortList {
+        margin-right: 2px;
+    }
+    
+    #filter-direction {
+        padding: 0 2px;
+        font-size: .75rem;
+    }
+    
+    #filter-collapse {
+        flex-grow: 0;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+    }
+    
+    #filter-collapse::before {
+        display: flex;
+        align-items: center;
+        content: '< Filter';
+        font-size: .8rem;
+        font-weight: bold;
+        padding: 0 10px;
+        height: 100%;
+        background: rgb(233, 182, 41);
+    }
+    
+    #filter-collapse > div:nth-child(1) {
+        display: none;
+        margin: 0 5px;
+    }
+    
+    #filter-collapse > div:nth-child(1) input {
+        margin-right: 3px;
+    }
+    
+    #filter-collapse > div:nth-child(1) > div {
+        font-weight: normal;
+        font-size: .75rem;
+        margin-right: 5px;
+    }
+    
+    #filter-sel-div > div:nth-child(3) {
+        margin: 0 5px
+    }
+    
+    #applyBtn {
+        padding: 2px 5px;
+        font-size: .9rem;
     }
 
     #filter-drop-div {
         width: 100%;
         display: none;
+    }
+    
+    .hide-before::before {
+        display: none! important;;
     }
 }
 

@@ -190,7 +190,7 @@ function applyFilters() {
     
     var recipes = Array.from(recipeArr)
     var sortMethod = document.querySelector('#sortList').value
-    var sortDirection = document.querySelector('#filter-direction')
+    var sortDirection = document.querySelector('#filter-direction').value
     var favoritesOnly = document.querySelector('#favorite').checked
 
     switch (sortMethod) {
@@ -218,44 +218,21 @@ function applyFilters() {
 
     recipes = buildFilterListAlpha(recipes, pathBuilder(recipes, sortMethod))
     applySort(recipes)
-    
 }
 
-function directionBtnValue() {
-    let btnValue = document.querySelector('#filter-direction').value
-
-    if (btnValue == 'Filter ∨') {
-        document.querySelector('#filter-direction').value = 'Filter ∧'
+function directionBtnValue(elem) {
+    if (elem.value == 'Des ∨') {
+        elem.value = 'Asc ∧'
     } else {
-        document.querySelector('#filter-direction').value = 'Filter ∨'
+        elem.value = 'Des ∨'
     }
 }
 
-function changeDirection(recipes) { // ##A3F1
-    let elemValue = document.querySelector('#filter-direction').value
-
-    if(elemValue == 'Filter ∨') {
-        recipes.sort(function(a, b) {
-            if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-                return 1
-            }
-    
-            if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-                return -1
-            }
-            return 0
-        });
+function changeDirection(recipes, elemValue) { // ##A3F1
+    if(elemValue == 'Des ∨') {
+        recipes.reverse()
     } else {
-        recipes.sort(function(a, b) {
-            if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() > b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-                return 1
-            }
-    
-            if(a.children[1].firstElementChild.firstElementChild.innerText.toLowerCase() < b.children[1].firstElementChild.firstElementChild.innerText.toLowerCase()) {
-                return -1
-            }
-            return 0
-        });
+        recipes.sort()
     }
 }
 
