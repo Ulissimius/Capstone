@@ -57,18 +57,20 @@
                 resFlag = false
             }
 
-            select.addEventListener('click', () => {
+            select.onclick = function selectEvent() {
                 if (!flag) {
                     toggleOption()
                 }
-            })
+            }
 
-            filter.addEventListener('click', () => {
+            filter.onclick = function filterEvent() {
                 if (flag) {
                     toggleOption()
                 }
-            })
+            }
         } else {
+            filter.onclick = ''
+            select.onclick = ''
             resFlag = true;
             filter.classList.add('hide-before')
             select.classList.add('hide-before')
