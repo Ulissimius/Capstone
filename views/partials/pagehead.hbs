@@ -4,4 +4,16 @@
     <title>Cookbook App</title>
     <link rel="stylesheet" href="/assets/global.css">
     <link rel="stylesheet" href="{{assetUrl}}.css">
+    {{#if sheet1}}
+        <link rel ="stylesheet" href="{{sheet1}}.css">
+        {{#if sheet2}}
+            <link rel ="stylesheet" href="{{sheet2}}.css">
+            {{#if sheet3}}
+                <link rel ="stylesheet" href="{{sheet3}}.css">
+                {{#if sheet4}}
+                <link rel ="stylesheet" href="{{sheet4}}.css">
+                {{/if}}
+            {{/if}}
+        {{/if}}
+    {{/if}}
 </head>

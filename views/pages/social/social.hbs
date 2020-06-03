@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> pagehead sheet1='/pages/list/list' sheet2='/pages/list/list_mobile'}}
+
+<body>
+    <div id="wrapper" class="fl-col rel hide">
+        {{#if recipes}}
+            {{#each recipes}}
+                {{> view_recipe id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
+            {{/each}}
+        {{/if}}
+    </div>
+
+    {{> nav}}  
+
+    {{#if recipes}}
+        {{> filter_bar}}
+    {{/if}}
+    
+    <div id="container" class="fl-col">
+
+        {{#if recipes}}
+        <div id="content-head" class="fl-col ai-cen">
+            <h1>Discover Recipes</h1>
+            <h3>Below you can find a variety of recipes added by other users!</h3>
+        </div>
+        <hr>
+        <div id="main-body" class="flex">
+            <div id="main-left" class="flex fw-w">
+                {{#each recipes}}
+                    {{> recipe_card fav=favorite date=display_date username=author_user id=_id title=name auth=author cuis=cuisine ty='N/A' link=url.short_url prep=time.prep cook=time.cooking serving=servings}}
+                {{/each}}
+            </div>
+
+            <div id="main-right">
+                
+            </div>
+        </div>
+
+        {{else}}
+
+            <div class="fl-col new-user">
+                <h1>No recipes found.</h1>
+                <span></span>
+                <h2>This is strange?</h2>
+                <span></span>
+                <h2>Sorry, try again later!</h2>
+            </div>
+
+        {{/if}}
+    </div>
+
+    {{> footer}}
+</body>
+
+</html>
