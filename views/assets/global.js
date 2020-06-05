@@ -1,3 +1,11 @@
+function isEmptyObj(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
 function logout() {
     document.cookie = "authentication=; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
     window.location.replace("/")
@@ -9,17 +17,19 @@ function deleteNode(node) {
 
 function cleanUpText(text) {
     try {
-        if (text == {} || text == [] || text == null || text == '') return text = 'N/A';
+        if (typeof text === 'undefined' || isEmptyObj(text) || text.length === 0 || text === null || text === '') return text = 'N/A';
 
-        if (typeof text == 'array') {
+        let returnArr = []
+
+        if (Array.isArray(text)) {
             let newText = []
 
             text.forEach(e => {
-                if (typeof e == 'array' || typeof e == 'object') {
+                if (typeof e === 'object') {
                     cleanUpText(e)
-                    if (e == 'N/A') newText.push(e);
+                    if (e === 'N/A') newText.push(e);
                 } else {
-                    if (e == {} || e == [] || e == null || e == '') {
+                    if (typeof e === 'undefined' || isEmptyObj(e) || e.length === 0 || e === null || e === '') {
                         e = 'N/A'
                     } else {
                         e = e.trim()
@@ -29,14 +39,16 @@ function cleanUpText(text) {
                     newText.push(e)
                 }
             });
+
+            returnArr = newText
         } else if (typeof text == 'object') {
             let keys = Object.keys(text)
             Object.values(text).forEach((val, i) => {
-                if (typeof val == 'array' || typeof val == 'object') {
+                if (typeof val === 'object') {
                     cleanUpText(val)
-                    if (val == 'N/A') text[keys[i]] = val;
+                    if (val === 'N/A') text[keys[i]] = val;
                 } else {
-                    if (val == {} || val == [] || val == null || val == '') {
+                    if (typeof val === 'undefined' || isEmptyObj(val) || val.length === 0 || val === null || val === '') {
                         val = 'N/A'
                     } else {
                         val = val.trim()
@@ -52,14 +64,15 @@ function cleanUpText(text) {
             text = text.replace(/\xa0/g, ' ')
         }
 
-        if (typeof text == 'array') {
-            return newText
+        if (Array.isArray(text)) {
+            return returnArr
         } else {
             return text
         }
     } catch (error) {
         console.error(error)
         console.log(text)
+        console.log(newText)
     }
 }
 
@@ -129,6 +142,18 @@ function resetFields(view) { // ##A2F3
     if (formReset) {
         formReset.reset()
     }
+
+    images = { // Reset image to default if window was closed but not submitted
+        large: 'https://i.ibb.co/xJhWBQz/e1e674b44610.jpg',
+        medium: 'https://i.ibb.co/J5nVGPr/e1e674b44610.jpg',
+        thumb: 'https://i.ibb.co/3B12jHS/e1e674b44610.jpg' 
+    }
+
+    if (typeof recCont !== 'undefined') {
+        recCont.dataset.edit = ''
+        recCont.dataset.name = ''
+        document.querySelector('#nr-he').style.backgroundImage = 'url("' + images.large + '")'
+    }
 }
 
 function fetchCreateRecipe(recipeObj) { // ##A4F0
@@ -148,7 +173,7 @@ function fetchCreateRecipe(recipeObj) { // ##A4F0
                 alert("Recipe Copied Successfully!")
             }
         } else {
-            console.log(data.message)
+            console.error(data.error)
             alert("Recipe creation failed!")
         }
     }).catch((error) => {
@@ -419,3 +444,38 @@ function buildFilterListAlpha(arr, path) { // ##A3F9
     }//End for
     return newItems
 }//End buildFilterListAlpha
+
+var images = {
+    large: 'https://i.ibb.co/xJhWBQz/e1e674b44610.jpg',
+    medium: 'https://i.ibb.co/J5nVGPr/e1e674b44610.jpg',
+    thumb: 'https://i.ibb.co/3B12jHS/e1e674b44610.jpg' 
+}
+
+/** 
+ * Knocked out webscraper img support. It not works in all my test cases, but likely is not fool-proof.
+ * To do:
+ * Pass images to edit recipe view
+ * Make sure create/edit recipe work when uploading for the image.
+ * Currently setting in img (create, probably edit too) and submitting data causes an error. Try breaking up the fetchUploadImg() func to block sumbitting until it is finished.
+*/
+
+function fetchUploadImg(img) { // ##A4F0
+    fetch('/uploadImg', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({img})
+    }).then((response) => response.json()).then((data) => {
+        if (!data.error) {
+            images = {
+                large: data.data.data.image.url,
+                thumb: data.data.data.thumb.url
+            }
+        } else {
+            console.error(data.error)
+        }
+    }).catch((error) => {
+        console.error(error)
+    })
+}

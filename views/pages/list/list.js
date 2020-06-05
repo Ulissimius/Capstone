@@ -2,7 +2,6 @@
 // Example:
 // ******************** Recipe Card JS (##A0) ********************
 // This JS handles filling out the data for the recipe cards.
-
 /**
 * Search Index:
 * ##A0 - Test JS
@@ -65,6 +64,14 @@ const inputURL = document.querySelector('#in-url')
 const statusElem = document.querySelector('#status-update')
 var myStatus = () => {}
 var pointer = -1
+
+const newRecipeButton = document.querySelector('#post-recipe')
+
+var favoriteArr = [] // This is the array of favorite recipes collected on page load
+var updateFavArr = [] // This is the array that gets checked against on page exit/refresh
+var favDidRun = false;
+
+var img = ''
 
 cuisineArr.sort()
 
@@ -133,16 +140,19 @@ function editRecipe(id) { // ##A2F5
     */
 
     // recipe* variables reference recipe data from the targeted view_recipe
+    const recipeBgr = document.querySelector(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .nr-he.fl-col`).style.backgroundImage
     const recipeInfo = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-info`)
     const recipeIngredients = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-ingredients`)
     const recipeDirections = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-directions`)
     const recipeNotes = document.querySelectorAll(`.nr-container.fl-col.rel.wrapper-child[data-id="${id}"] .recipe-notes`)
     const nameValue = (document.querySelector(`.card[data-id="${id}"] .card-info-left.fl-col-fl p:nth-child(2)`).innerText).split(': ')
 
-    recCont.dataset.edit = id // data-edit is passed the unique ID of the target recipe
-    recCont.dataset.name = nameValue[1]
-
     openView('#nr-container') // create_recipe partial is reset and displayed
+
+    // Must happen after openView
+    recCont.dataset.name = nameValue[1]
+    recCont.dataset.edit = id // data-edit is passed the unique ID of the target recipe
+    document.querySelector('#nr-he').style.backgroundImage = recipeBgr
 
     const editInfo = document.querySelectorAll('#nr-container .recipe-info') // Reference all non-textarea fillable elements on create_recipe
     const taArr = document.querySelectorAll('#nr-container textarea') // Reference all textareas on create_recipe
@@ -185,13 +195,11 @@ function editRecipe(id) { // ##A2F5
     });
 }
 
-// Declarations
-const newRecipeButton = document.querySelector('#post-recipe')
-
 if (newRecipeButton) { // ##A2F6
     newRecipeButton.addEventListener('click', e => {
         e.preventDefault()
-    
+
+        var cleanObj = {}
         const title = document.querySelector('#name').value
         const author = document.querySelector('#author').value
         const url = document.querySelector('#url').value
@@ -203,14 +211,19 @@ if (newRecipeButton) { // ##A2F6
         const notes = document.querySelector("textarea[name='notes']").value
         const ingredients = document.querySelector("textarea[name='ingredients']").value
         const auth_user = recCont.dataset.name
-        const cleanObj = cleanUpText({title, auth_user, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes})
 
         if (title && author && directions && ingredients) {
             if (recCont.dataset.edit == '') {
                 console.log('Create Recipe')
+                cleanObj = cleanUpText({title, auth_user, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes, images})
                 fetchCreateRecipe(cleanObj)
             } else {
                 console.log('Edit Recipe')
+                if (document.getElementById('image-upload').files.length) {
+                    cleanObj = cleanUpText({title, auth_user, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes, images})
+                } else {
+                    cleanObj = cleanUpText({title, auth_user, author, url, prep_time, cook_time, servings, cuisine, ingredients, directions, notes})
+                }
                 fetchEditRecipe(cleanObj, recCont.dataset.edit)
             }
         } else {
@@ -230,9 +243,6 @@ function deleteRecipe(id) { // ##A2F7
     fetchRemoveRecipe(id)
 }
 
-var favoriteArr = [] // This is the array of favorite recipes collected on page load
-var updateFavArr = [] // This is the array that gets checked against on page exit/refresh
-var favDidRun = false;
 window.addEventListener('load', () => { // ##A1F4
     /**
     * On Load create a reference to the users existing favorites
@@ -249,8 +259,8 @@ window.addEventListener('load', () => { // ##A1F4
             updateFavArr = Array.from(newObj)
         }
     }).catch((e) => {
-        console.log(e)
-        console.error('Unable to fetch favorite data.')
+        console.error(e)
+        console.log('Unable to fetch favorite data.')
     })
 })
 
@@ -295,6 +305,30 @@ function favoriteRecipe(elem, id) { // ##A1F6
     }
 }
 
+document.getElementById('image-upload').onchange = function (evt) {
+    var tgt = evt.target || window.event.srcElement,
+        files = tgt.files;
+
+    // FileReader support
+    if (FileReader && files && files.length) {
+        var fr = new FileReader();
+        fr.onload = function () {
+            document.getElementById('nr-he').style.backgroundImage = `url(${fr.result})`;
+            let splitArr = fr.result.split('base64,')
+            img = splitArr[1]
+            fetchUploadImg(img)
+        }
+        fr.readAsDataURL(files[0]);
+    }
+
+    // Not supported
+    else {
+        // fallback -- perhaps submit the input to an iframe and temporarily store
+        // them on the server until the user's session ends.
+        alert('Unable to upload picture.\nThis browser does not support necessary functions.')
+    }
+}
+
 // ******************** Fetch Request JS (##A4) ********************
 // Contains all Fetch() requests performed on list.hbs
 
@@ -318,7 +352,7 @@ function fetchRemoveRecipe(id) { // ##A4F1
                 window.location.replace("/list")
             }
         } else {
-            console.log(data.message)
+            console.error(data.error)
             alert("Recipe removal failed!")
         }
     }).catch((error) => {
@@ -343,7 +377,7 @@ function fetchScraper(newURL) { // ##A4F2
             cleanResults = cleanUpText(data.results)
             fetchCreateRecipe(cleanResults)
         } else {
-            console.log(data.message)
+            console.error(data.error)
             stopStatus()
             alert(ERROR)
         }
@@ -369,7 +403,7 @@ function fetchEditRecipe(recipeObj, id) { // ##A4F3
             alert("Recipe edit successfully")
             window.location.replace("/list")
         } else {
-            console.log(data.message)
+            console.error(data.error)
             alert("Recipe edit failed!")
         }
     }).catch((error) => {
@@ -386,7 +420,9 @@ fillOptions(cuisineArr, cuisineSel);
 
 favoriteOnLoad(Array.from(document.querySelectorAll('[data-favorite]')))
 
-applyFilters()
+if (contBody) {
+    applyFilters()
+}
 
 window.addEventListener("beforeunload", function(e){ // ##A5F0
     /**
@@ -421,8 +457,8 @@ window.addEventListener("beforeunload", function(e){ // ##A5F0
                 console.error(data.error)
             }
         }).catch((e) => {
-            console.log(e)
-            console.error('Unable to update favorites')
+            console.error(e)
+            console.log('Unable to update favorites')
         })
     } else {
         return false;

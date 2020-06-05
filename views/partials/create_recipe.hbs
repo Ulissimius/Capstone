@@ -1,10 +1,13 @@
 {{!-- Add a drop down for cuisine --}}
 
-<div id="nr-container" class="nr-container fl-col rel wrapper-child hide" data-edit=''>
+<div id="nr-container" class="nr-container fl-col rel wrapper-child hide" data-edit='' data-name=''>
     {{> exit_button}}
     <form class="fl-col">
         <div id="nr-he" class="nr-he fl-col">
-            <div class="filler"></div>
+            <div id="nr-he-img" class="fl-col ai-cen">
+                <label for="image-upload">Upload an image for your recipe!</label>
+                <input type="file" name="recipe-image" id="image-upload" accept="image/png, image/jpeg">
+            </div>
             {{!-- Header area, Title, Picture(?), Maybe some other info --}}
             <div id="nr-he-info" class="nr-he-info">
                 {{!-- Title: Use input, swap to h1/2/3 after entering a title, swap back upon editing --}}

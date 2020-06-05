@@ -164,7 +164,10 @@ textarea {
         height: 200px;
         border-bottom: 2px solid black;
         justify-content: end;
-        background: url("https://picsum.photos/1076/200");
+        background-image: url("https://picsum.photos/1076/200");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
         color: white;
     }
 
@@ -254,6 +257,8 @@ textarea {
         height: 125px;
         border-right: 1px solid black;
         background-image: url("https://picsum.photos/127/127");
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .card-info {
