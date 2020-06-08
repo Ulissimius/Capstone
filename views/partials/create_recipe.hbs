@@ -1,29 +1,34 @@
 {{!-- Add a drop down for cuisine --}}
 
-<div id="nr-container" class="nr-container fl-col rel wrapper-child hide" data-edit=''>
+<div id="nr-container" class="nr-container fl-col rel wrapper-child hide" data-edit='' data-name=''>
     {{> exit_button}}
     <form class="fl-col">
         <div id="nr-he" class="nr-he fl-col">
-            <div class="filler"></div>
+            <div style="height: 100%;" class="flex jc-cen ai-cen">
+                <div id="nr-he-img" class="fl-col ai-cen jc-cen">
+                    <label for="image-upload">Upload an image for your recipe!</label>
+                    <input type="file" name="recipe-image" id="image-upload" accept="image/png, image/jpeg">
+                </div>
+            </div>
             {{!-- Header area, Title, Picture(?), Maybe some other info --}}
             <div id="nr-he-info" class="nr-he-info">
                 {{!-- Title: Use input, swap to h1/2/3 after entering a title, swap back upon editing --}}
                 <table>
                     <tr>
                         <td>
-                            <h3>Title:</h3>
+                            <label for="name"><h3>Title:</h3></label>
                         </td>
                         <td><input type="text" name="Title" id="name" class='recipe-info' value=''></td>
                     </tr>
                     <tr>
                         <td>
-                            <h3>Author:</h3>
+                            <label for="author"><h3>Author:</h3></label>
                         </td>
                         <td><input type="text" name="Author" id="author" class='recipe-info' value=""></td>
                     </tr>
                     <tr>
                         <td>
-                            <h3>URL:</h3>
+                            <label for="url"><h3>URL:</h3></label>
                         </td>
                         <td><input type="text" name="URL" id="url" class='recipe-info' value=""></td>
                     </tr>
@@ -34,28 +39,25 @@
         <div id="nr-in" class="nr-in fl-col">
             {{!-- List of ingredients --}}
             <div class="flex">
-                <h2>Ingredients</h2>
-                <span class="nr-in-sp"></span>
+                <div class="flex ai-cen cook-info">
+                    <h2>Ingredients</h2>
+                </div>
                 <div class="fl-col ai-cen sub-info">
                     <p>Prep Time</p>
                     <input type="text" name="prep_time" class='recipe-info' value="">
                 </div>
-                <span class="nr-in-sp"></span>
                 <div class="fl-col ai-cen sub-info">
                     <p>Cook Time</p>
                     <input type="text" name="cook_time" class='recipe-info' value="">
                 </div>
-                <span class="nr-in-sp"></span>
                 <div class="fl-col ai-cen sub-info">
                     <p>Servings</p>
                     <input type="number" name="servings" class='recipe-info' value="">
                 </div>
-                <span class="nr-in-sp"></span>
                 <div class="fl-col ai-cen sub-info">
                     <p>Cuisine</p>
                     <select class="cuisine recipe-info" name="cuisine"></select>
                 </div>
-                <span class="nr-in-sp"></span>
             </div>
             <hr>
             <div id="nr-in-ta" class="nr-in-ta">

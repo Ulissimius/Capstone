@@ -85,11 +85,15 @@ const RecipeSchema = new mongoose.Schema({
         trim: true
     }],
     image: {
-        file: {
-            data: Buffer,
-            contentType: String
+        large: {
+            type: String,
+            trim: true
         },
-        link: {
+        medium: {
+            type: String,
+            trim: true
+        },
+        thumb: {
             type: String,
             trim: true
         }

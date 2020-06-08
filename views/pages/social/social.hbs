@@ -6,7 +6,7 @@
     <div id="wrapper" class="fl-col rel hide">
         {{#if recipes}}
             {{#each recipes}}
-                {{> view_recipe id=_id title=name auth=author url=url.full_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
+                {{> view_recipe large=image.large id=_id title=name auth=author url=url.full_url urlView=url.short_url preptime=time.prep cooktime=time.cooking serving=servings cuis=cuisine ingArr=ingredients dirArr=directions note=notes}}
             {{/each}}
         {{/if}}
     </div>
@@ -28,7 +28,7 @@
         <div id="main-body" class="flex">
             <div id="main-left" class="flex fw-w">
                 {{#each recipes}}
-                    {{> recipe_card fav=favorite date=display_date username=author_user id=_id title=name auth=author cuis=cuisine ty='N/A' link=url.short_url prep=time.prep cook=time.cooking serving=servings}}
+                    {{> recipe_card thumb=image.thumb fav=favorite date=display_date username=author_user id=_id title=name auth=author cuis=cuisine ty='N/A' link=url.short_url prep=time.prep cook=time.cooking serving=servings}}
                 {{/each}}
             </div>
 

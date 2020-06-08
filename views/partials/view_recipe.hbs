@@ -1,12 +1,12 @@
 <div class="nr-container fl-col rel wrapper-child hide" data-id={{id}}>
     {{> exit_button}}
-    <div class="nr-he fl-col">
+    <div class="nr-he fl-col" style="background-image: url('{{large}}');">
         <div class="filler"></div>
         {{!-- Header area, Title, Picture(?), Maybe some other info --}}
         <div class="nr-he-info">
             <h3 class='recipe-info'>{{title}}</h3>
             <h4 class='recipe-info'>By: {{auth}}</h4>
-            <h4><a href="{{url}}" class='recipe-info' target="blank">{{url}}</a></h4>
+            <h4><a href="{{url}}" class='recipe-info' target="blank">{{urlView}}</a></h4>
         </div>
     </div>
 
@@ -14,28 +14,25 @@
     <div id="vr-in" class="nr-in fl-col">
         {{!-- List of ingredients --}}
         <div class="flex">
-            <h2>Ingredients</h2>
-            <span class="nr-in-sp"></span>
+            <div class="flex ai-cen cook-info">
+                <h2>Ingredients</h2>
+            </div>
             <div class="fl-col ai-cen sub-info">
                 <p>Prep Time</p>
                 <p class='recipe-info'>{{preptime}}</p>
             </div>
-            <span class="nr-in-sp"></span>
             <div class="fl-col ai-cen sub-info">
                 <p>Cook Time</p>
                 <p class='recipe-info'>{{cooktime}}</p>
             </div>
-            <span class="nr-in-sp"></span>
             <div class="fl-col ai-cen sub-info">
                 <p>Servings</p>
                 <p class='recipe-info'>{{serving}}</p>
             </div>
-            <span class="nr-in-sp"></span>
             <div class="fl-col ai-cen sub-info">
                 <p>Cuisine</p>
                 <p class='recipe-info'>{{cuis}}</p>
             </div>
-            <span class="nr-in-sp"></span>
         </div>
         <hr>
         <div class="vr-in-li"> {{!-- Maybe add a conditional: if < 6 items: load vertical list. else if > 10 items: load list in rows of 3. else: load in rows of 2--}}

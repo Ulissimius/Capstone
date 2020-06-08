@@ -20,13 +20,40 @@
 }
 
 .filler {
-    height: 100px;
+    height: 350px;
 }
 
 textarea {
     min-width: 100%;
     max-width: 100%;
     min-height: 90px;
+}
+
+.vr-di-li ol {
+    list-style: none;
+    counter-reset: my-awesome-counter;
+}
+
+.vr-di-li ol>li {
+    counter-increment: my-awesome-counter;
+    padding: 5px 0;
+    margin-top: 5px;
+}
+
+.vr-di-li ol>li::before {
+    content: counter(my-awesome-counter);
+    font-weight: bold;
+    font-family: "Lucida Console", Courier, monospace;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px rgba(0,0,0,.2);
+    color: rgb(172, 30, 30);
+    position: absolute;
+    left: 4px;
+}
+
+.nr-container a {
+    color: lightblue;
+    font-weight: normal;
 }
 
 /* ********** #R2 - New User View CSS ********** */
@@ -52,6 +79,11 @@ textarea {
     -moz-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
+}
+
+.nr-he-info tr td:nth-child(even) input:focus {
+    border-color: lightblue;
+    background-color: azure;
 }
 
 @media only screen and (min-width: 768px) {
@@ -153,7 +185,7 @@ textarea {
         border: 2px solid black;
         background: white;
         overflow: auto;
-        margin: 10vh 0;
+        margin: 10px 0;
     }
 
     .nr-container h2 {
@@ -161,10 +193,13 @@ textarea {
     }
 
     .nr-he {
-        height: 200px;
+        height: 350px;
         border-bottom: 2px solid black;
         justify-content: end;
-        background: url("https://picsum.photos/1076/200");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        text-shadow: 2px 2px 2px rgb(0,0,0);
         color: white;
     }
 
@@ -172,16 +207,48 @@ textarea {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        height: 100px;
+        height: auto;
         width: 100%;
-        padding: 0 10px;
         background: rgba(0, 0, 0, 0.35);
+    }
+    
+    .nr-he-info table {
+        border-spacing: 10px;
+    }
+    
+    .nr-he-info tr td:nth-child(even) {
+        width: 100%;
+    }
+    
+    .nr-he-info tr td:nth-child(even) input {
+        width: 100%;
+        padding: 4px;
+        border: 1px solid black;
+        border-radius: 6px;
+    }
+    
+    #nr-he-img {
+        width: auto;
+        height: auto;
+        background: rgba(0,0,0,.5);
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 10px;
+    }
+    
+    #nr-he-img label {
+        margin: 5px 0;
+    }
+    
+    #nr-he-img input {
+        margin: 5px 0;
     }
 
     .nr-he-info h4, .nr-he-info h3 {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        margin: 2.5px 5px;
     }
 
     .nr-in {
@@ -189,7 +256,13 @@ textarea {
     }
 
     .sub-info {
-        width: 85px;
+        width: 21%;
+        padding: 5px 0;
+        border-left: 1px solid black;
+    }
+    
+    .cook-info {
+        width: 16%;
     }
 
     .sub-info input {
@@ -253,7 +326,8 @@ textarea {
         width: 126px;
         height: 125px;
         border-right: 1px solid black;
-        background-image: url("https://picsum.photos/127/127");
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .card-info {
@@ -337,13 +411,7 @@ textarea {
     }
 
     .vr-di-li {
-        padding-top: 10px;
-        padding-left: 20px;
-        padding-bottom: 5px;
-    }
-
-    .vr-di-li li {
-        padding-bottom: 5px;
+        margin-left: 20px;
     }
 
     .vr-in-li {

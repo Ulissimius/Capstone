@@ -31,6 +31,9 @@ app.set('view engine', 'hbs')
 app.use(express.static(staticDir))
 
 // Tell the server that it should expect and automatically parse JSON
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json())
 
 // Tell the server that it should parse cookies into a JSON object as well for easy access
