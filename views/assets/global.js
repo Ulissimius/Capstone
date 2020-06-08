@@ -483,7 +483,6 @@ function fetchUploadImg(img) { // ##A4F0
 function  trimTitle() {
     var titleLen = document.querySelectorAll('.ctl h3:first-child')
     for (let i = 0; i < Object.keys(titleLen).length; i++) {
-        console.log(titleLen[i].innerText.length)
         if (titleLen[i].innerText.length > 100) {
             titleLen[i].innerText = titleLen[i].innerText.substring(0, 100) + '...'
         }
