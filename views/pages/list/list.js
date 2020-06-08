@@ -422,6 +422,7 @@ favoriteOnLoad(Array.from(document.querySelectorAll('[data-favorite]')))
 
 if (contBody) {
     applyFilters()
+    trimTitle()
 }
 
 window.addEventListener("beforeunload", function(e){ // ##A5F0
